@@ -169,6 +169,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:visibility="gone"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingRight="10dp"
@@ -183,7 +184,25 @@
                 android:textColor="#FFF"
                 android:textSize="16dp" />
 
+
+
         </androidx.cardview.widget.CardView>
+
+        <com.ncorti.slidetoact.SlideToActView
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/example_gray_on_green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            app:area_margin="4dp"
+            app:animation_duration="250"
+            app:outer_color="@color/instapink"
+            app:inner_color="@color/background"
+            app:text="Swipe To Disburse Amount.."
+            app:text_size="12sp"
+            app:slider_height="50dp"
+            app:slider_locked="false" />
 
     </LinearLayout>
 

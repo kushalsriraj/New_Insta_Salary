@@ -249,6 +249,7 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                         full_name = data.getString("fullName");
                         String care_of = data.getString("careOf");
                         care_of = care_of.replaceAll("S/O ","");
+                        care_of = care_of.replaceAll("S/O:","");
                         aadhar_number = data.getString("aadhaarNumber");
                         dob = data.getString("dob");
                         gender = data.getString("gender");

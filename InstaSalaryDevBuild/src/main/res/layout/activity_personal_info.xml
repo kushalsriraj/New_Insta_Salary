@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ."
                 android:singleLine="true"
                 android:textSize="14dp" />
@@ -80,7 +80,7 @@
                 android:ellipsize="end"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. "
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:singleLine="true"
                 android:textSize="14dp" />
 
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:singleLine="true"
                 android:textSize="14dp" />
 
@@ -186,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:inputType="textCapWords"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/montserrat"
                     android:singleLine="true"
@@ -221,6 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:inputType="textCapWords"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/montserrat"
                     android:singleLine="true"
@@ -308,7 +310,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:singleLine="true"
                 android:textSize="14dp" />
 
@@ -330,6 +332,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:inputType="textCapWords"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/montserrat"
                     android:singleLine="true"
@@ -365,6 +368,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:inputType="textCapWords"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/montserrat"
                     android:singleLine="true"

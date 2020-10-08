@@ -347,6 +347,8 @@ public class SignUpDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
+                Log.e("pandata", "onResponse: " + response );
+
                 try {
                     JSONObject dataobj = response.getJSONObject("data");
 
@@ -374,6 +376,7 @@ public class SignUpDetails extends AppCompatActivity {
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
                 params.put("Authorization", UserAccessToken);
+                Log.e("pandata", "getHeaders: " + params );
                 return params;
 
             }

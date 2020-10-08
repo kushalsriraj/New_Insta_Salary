@@ -23,6 +23,7 @@
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="phone_number" translatable="false">Phone Number</string>
     <string name="get_otp" translatable="false">Get OTP</string>
+    <string name="proceedForward">Our App Requires These permissions. \n\n Please Allow these permissions for the app to proceed forward..</string>
 
     <string-array name="state_array">
         <item>-- Select State --</item>

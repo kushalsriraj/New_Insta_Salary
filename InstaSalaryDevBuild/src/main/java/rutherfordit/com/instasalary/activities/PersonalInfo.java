@@ -1039,13 +1039,15 @@ public class PersonalInfo extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                int code = error.networkResponse.statusCode;
+                Log.e("Error Response", "onErrorResponse: " + error.getLocalizedMessage() );
+
+                /*int code = error.networkResponse.statusCode;
 
                 if (code == 422)
                 {
 
                     Toast.makeText(getApplicationContext(),"Please fill the fields properly..",Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
             }
         }){

@@ -58,7 +58,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789 "
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:textSize="14dp" />
 
@@ -77,7 +77,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:textSize="14dp" />
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:textSize="14dp" />
 
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:textSize="14dp" />
 
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:textSize="14dp" />
 

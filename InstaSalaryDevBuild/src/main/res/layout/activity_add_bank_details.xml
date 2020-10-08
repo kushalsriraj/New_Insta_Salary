@@ -18,7 +18,6 @@
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
             android:layout_margin="15dp"
             android:layout_centerInParent="true"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:crs_pl_style="skype_balls"
@@ -91,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:singleLine="true"
                 android:textSize="14dp" />
 
@@ -158,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
                 android:singleLine="true"
                 android:textSize="14dp" />
@@ -177,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
                 android:singleLine="true"
                 android:textSize="14dp" />
