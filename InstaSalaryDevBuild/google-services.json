@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "437536977200",
+    "firebase_url": "https://new-insta-salary-4b165.firebaseio.com",
+    "project_id": "new-insta-salary-4b165",
+    "storage_bucket": "new-insta-salary-4b165.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437536977200:android:44d498cd9d24b4b01998f5",
+        "android_client_info": {
+          "package_name": "rutherfordit.com.instasalary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437536977200-8q05fu9q6cqq9mp1ssuhmhpaqj63tue8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbLtM25SGVRo8IX8r-HlN4NNccbz3upjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437536977200-8q05fu9q6cqq9mp1ssuhmhpaqj63tue8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

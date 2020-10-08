@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ReadContacts">
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/error"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/cc"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#000"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/cc"
+            android:text="Contacts Permission Required. "/>
+
+        <TextView
+            android:onClick="gotopermcontacts"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/cc"
+            android:textColor="@color/instapink"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/grant_perm_contacts"
+            android:text="Please Click Here to Grant Permissions.."/>
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:visibility="visible"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/loader_contacts"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:crs_pl_style="skype_balls"
+                app:crs_pl_size="small"
+                app:crs_pl_fg_color="@color/instapink"
+                app:crs_pl_bg_color="#fff"/>
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Please Wait while we are setting up your dashboard.."
+                android:textColor="#000"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

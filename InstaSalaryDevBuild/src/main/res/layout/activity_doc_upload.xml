@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/background"
+    tools:context=".activities.DocUpload_Professional">
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/Submit_professional_proofs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#36000000">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/back_pinfo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/pinkbackarrow" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/instalogo" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Last 3 Months Bank Statement" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_bankstatement1"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_bankstatement1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/add" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_bankstatement1_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Bankstatement.pdf"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_bankstatement2"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_bankstatement2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_bankstatement2_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Bankstatement.pdf"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Last 3 Months Payslips" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_payslip1"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_payslip1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_payslip1_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Payslip 1"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_payslip2"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_payslip2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_payslip2_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Payslip 2"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_payslip3"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_payslip3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_payslip3_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Payslip 3"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        </ScrollView>
+
+    <TextView
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload ID card Images" />
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_idcard_front"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_id_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_id_front_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Id Front"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:background="@color/background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+                        android:visibility="gone"
+                        android:id="@+id/loader_idcard_back"
+                        android:layout_centerInParent="true"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:crs_pl_style="circular"
+                        app:crs_pl_size="very_small"
+                        app:crs_pl_fg_color="@color/instapink"
+                        app:crs_pl_bg_color="#fff"/>
+
+                    <ImageView
+                        android:id="@+id/prof_id_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add"
+                        android:padding="15dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/prof_id_back_text"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Id Back"
+                android:textSize="10dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

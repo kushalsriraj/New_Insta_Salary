@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.BackAdharImageUpload">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginBottom="30dp"
+                android:layout_above="@id/adhar_back_image_Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Capture Adhar Back Image"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:gravity="center"/>
+
+            <androidx.cardview.widget.CardView
+                android:elevation="20dp"
+                app:cardCornerRadius="20dp"
+                android:visibility="visible"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/adhar_back_image_Card">
+
+                <androidx.camera.view.PreviewView
+                    android:id="@+id/previewViewAdhar_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/preview_area"
+                    android:importantForAccessibility="no" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/adhar_back_image"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/adhar_back_image_Card"
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/capture_image_adhar_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/capturecam" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/circlecam" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/adhar_back_image_Card"
+                android:id="@+id/layout_bottom_adhar_backupload"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:id="@+id/layout_cancel_adhar_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cancel" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_correct_adhar_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/correct" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/AdharbackImagesubmit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="20dp"
+        android:background="#36000000">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="Submit.."
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/loader_adharuploadback"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+            android:layout_margin="15dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:crs_pl_style="skype_balls"
+            app:crs_pl_size="very_small"
+            app:crs_pl_fg_color="@color/instapink"
+            app:crs_pl_bg_color="#fff"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

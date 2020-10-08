@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F8F3F3F3"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/emptyloanfrag"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text="No Loans"
+        android:textColor="#000"
+        android:background="#fff"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recloans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp" />
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/loader_loans"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+            android:layout_margin="15dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:crs_pl_style="skype_balls"
+            app:crs_pl_size="very_small"
+            app:crs_pl_fg_color="@color/instapink"
+            app:crs_pl_bg_color="#fff"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+package rutherfordit.com.instasalary.fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+
+public class SettingsFragment extends Fragment {
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.layout_settings, null);
+
+        return v;
+    }
+
+}

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:gravity="center"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:id="@+id/dash_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Education Purpose"
+                android:textColor="#333333"
+                android:textSize="16dp" />
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="5dp"
+                android:elevation="15dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:id="@+id/application_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textColor="#AAAAAA"
+                    android:textSize="12dp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#000"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LAN : "
+                android:textColor="#333333"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/dash_lan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INSTA000123"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount : "
+                android:textColor="#333333"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/dash_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20,000"
+                android:textColor="#D45D85"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Of Disburse : "
+                android:textColor="#686767"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/dash_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24 Feb 2020"
+                android:textColor="#686767"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repayment Date : "
+                android:textColor="#686767"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/dash_repay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24 Feb 2020"
+                android:textColor="#686767"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="5dp"
+            android:elevation="15dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:background="@color/instapink"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/paynow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pay Now"
+                android:textColor="#FFF"
+                android:textSize="16dp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

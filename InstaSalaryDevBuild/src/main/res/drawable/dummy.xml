@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list android:opacity="transparent">
+            <item android:width="40dp" android:height="30dp" android:gravity="right" android:start="50dp">
+                <bitmap android:gravity="left" android:src="@drawable/droparrow" />
+            </item>
+        </layer-list>
+    </item>
+</selector>

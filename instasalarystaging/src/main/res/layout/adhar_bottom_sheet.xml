@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/creditbg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingTop="50dp"
+    android:paddingBottom="50dp"
+    android:layout_centerInParent="true"
+    android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:id="@+id/otp_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="Enter OTP Sent To Your Mobile"/>
+
+        <EditText
+            android:id="@+id/enteradharotp"
+            android:textColor="#000"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <Button
+            android:id="@+id/submitadharotp"
+            android:textStyle="bold"
+            android:text="SUBMIT OTP"
+            android:background="@color/instapink"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:text="Didnt Recieve OTP. "/>
+
+        <TextView
+            android:onClick="gotoadharupload"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/instapink"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:text="Click here to Upload Adhar Images.. "/>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

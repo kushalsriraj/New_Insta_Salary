@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/dash_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Education Purpose"
+            android:textColor="#333333"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/dash_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="24 Feb 2020"
+            android:textColor="#AAAAAA"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/dash_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="20,000"
+            android:textColor="#D45D85"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repayment Date :"
+                android:textColor="#AAAAAA"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/dash_repay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="24 Feb 2020"
+                android:textColor="#333333"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/application_status"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="#AAAAAA"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

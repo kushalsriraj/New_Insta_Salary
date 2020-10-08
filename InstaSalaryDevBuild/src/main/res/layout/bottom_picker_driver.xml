@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingTop="50dp"
+    android:paddingBottom="50dp"
+    android:layout_centerInParent="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/upload_pdf_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/instapink"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:text="Upload PDF"/>
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/pdficon"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1_driver"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="@color/instapink"/>
+
+        <LinearLayout
+            android:id="@+id/upload_from_camera_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/instapink"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:text="Upload From Camera"/>
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/camicon"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view2_driver"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="@color/instapink"/>
+
+        <LinearLayout
+            android:id="@+id/upload_from_gallery_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/instapink"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:text="Upload From Gallery"/>
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/galleryicon"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

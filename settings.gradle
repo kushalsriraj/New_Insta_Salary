@@ -1,0 +1,2 @@
+include ':InstaSalaryDevBuild', ':instasalarystaging'
+rootProject.name='New_Insta_Salary'

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ఇన్స్టాసాలరి</string>
+    <string name="get_otp" translatable="false">గెట్ OTP</string>
+    <string name="enter_phone_number">ఫోన్ నెంబర్ ఎంటర్ చేయండి</string>
+    <string name="phone_number" translatable="false">ఫోన్ నెంబర్</string>
+</resources>

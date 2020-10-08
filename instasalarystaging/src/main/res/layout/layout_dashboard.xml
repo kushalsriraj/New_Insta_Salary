@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F3F3F3"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="21dp"
+        android:text="Ongoing Loans"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/emptydash"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text="No Ongoing Loans"
+        android:textColor="#000"
+        android:background="#fff"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recdashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

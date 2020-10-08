@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Insta Salary</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">Done</string>
+
+    <string name="slide_1_title">Cash Crunch</string>
+    <string name="slide_1_sub_title">IN Emegencies ?</string>
+    <string name="slide_1_desc">Your advance salary is just a tap a way and repay us in 30 days</string>
+
+    <string name="slide_2_title">PLANNING FOR</string>
+    <string name="slide_2_sub_title">A HOLIDAY ?</string>
+    <string name="slide_2_desc">Your advance salary is just a tap a way and repay us in 30 days</string>
+
+    <string name="slide_3_title">WHY WAIT FOR</string>
+    <string name="slide_3_sub_title">SALARY ?</string>
+    <string name="slide_3_desc">Your advance salary is just a tap a way and repay us in 30 days</string>
+    <string name="preview_area">preview area</string>
+    <string name="todo">TODO</string>
+    <string name="message_no_storage_permission_snackbar">Location Permission Denied</string>
+    <string name="settings">Settings</string>
+
+    <string-array name="state_array">
+        <item>-- Select State --</item>
+        <item>AP</item>
+        <item>Telangana</item>
+        <item>Uttar Pradesh</item>
+    </string-array>
+
+    <string-array name="city_array">
+        <item>-- Select City --</item>
+        <item>Hyderabad</item>
+        <item>Secunderabad</item>
+        <item>Lb Nagar</item>
+        <item>Uppal</item>
+        <item>Nagole</item>
+        <item>Miyapur</item>
+        <item>Madhapur</item>
+        <item>Jublee Hills</item>
+        <item>Banjara Hills</item>
+    </string-array>
+
+    <string-array name="housetype">
+        <item>-- Select HouseType --</item>
+        <item>Rented</item>
+        <item>Own</item>
+        <item>Lease</item>
+    </string-array>
+
+    <string-array name="vendor">
+        <item>--Select Vendor--</item>
+        <item>Kushal</item>
+        <item>Gopi</item>
+        <item>pruthvee</item>
+        <item>anjireddy</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.CreditScoreSctivity">
+
+    <LinearLayout
+        android:background="#81FFC9DB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+
+            android:layout_width="match_parent"
+            android:layout_height="350dp">
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="58dp"
+                android:layout_height="40dp"
+                android:src="@drawable/instalogo"/>
+
+
+            <!--<com.github.lzyzsd.circleprogress.ArcProgress
+                android:layout_centerInParent="true"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                android:id="@+id/arc_progress1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:arc_stroke_width="22dp"
+                app:arc_bottom_text="Credit Score"
+                app:arc_text_size="50dp"
+                app:arc_text_color="#000000"
+                app:arc_finished_color="#D45D85"
+                app:arc_unfinished_color="#80707070"
+                app:arc_max="1000" />-->
+
+            <TextView
+                android:gravity="center"
+                android:visibility="visible"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Application is Under Process. \n\n Please Wait for the approval"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:textColor="#AAAAAA"
+            android:textSize="12dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disburse Amount"/>
+
+        <TextView
+            android:id="@+id/amount"
+            android:textSize="25dp"
+            android:textColor="#000"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/addbankdetails"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/instapink">
+
+        <TextView
+            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="Go To Home"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:onClick="gotomain"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/loginbottombutton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/instapink">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="Proceed"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
