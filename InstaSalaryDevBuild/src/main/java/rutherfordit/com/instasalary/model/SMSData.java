@@ -3,6 +3,8 @@ package rutherfordit.com.instasalary.model;
 public class SMSData {
 
     private String number;
+    private String body;
+    private String date;
 
     public String getNumber() {
         return number;
@@ -20,8 +22,6 @@ public class SMSData {
         this.body = body;
     }
 
-    private String body;
-
     public String getDate() {
         return date;
     }
@@ -29,7 +29,5 @@ public class SMSData {
     public void setDate(String date) {
         this.date = date;
     }
-
-    private String date;
 
 }

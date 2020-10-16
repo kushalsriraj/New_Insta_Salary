@@ -27,6 +27,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -42,20 +51,11 @@ import rutherfordit.com.instasalary.fragments.SettingsFragment;
 import rutherfordit.com.instasalary.fragments.SupportFragment;
 import rutherfordit.com.instasalary.fragments.TermsFragment;
 import rutherfordit.com.instasalary.interfaces.LoadDetailedData;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements LoadDetailedData {
 
     String id, user_id, proof_type, image;
-    TextView maintext, dashboardtext, loantext, faqtext;
+    TextView maintext, dashboardtext, loantext, faqtext,name_text;
     DrawerLayout drawer;
     Snackbar snackbar;
     NavigationView nav_view;
@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
         gotoabout = headerview.findViewById(R.id.gotoabout);
         logout = headerview.findViewById(R.id.logout);
         profile_image = headerview.findViewById(R.id.profile_image);
+        name_text = headerview.findViewById(R.id.name_text);
+        name_text.setText(sharedPreferences.getString("full_name",""));
 
         snackbar = Snackbar.make(drawer, "Press Again To Exit", Snackbar.LENGTH_SHORT);
 
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("loggedin","false");
+                editor.putString("loggedin", "false");
                 editor.apply();
 
                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
@@ -332,13 +334,10 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
 
                 try {
 
-                    if (response!=null)
-                    {
+                    if (response != null) {
                         data = response.getJSONObject("data");
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"getuserData is Empty",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "getuserData is Empty", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -374,23 +373,20 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"getUserData 422 Error..",Toast.LENGTH_SHORT).show();
-                }
-                else if (code == 500)
-                {
-                    Toast.makeText(getApplicationContext(),"getUserData Internal Server Error..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "getUserData 422 Error..", Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getApplicationContext(), "getUserData Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };
@@ -399,12 +395,11 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
 
     }
 
-    private void requestimage()
-    {
+    private void requestimage() {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("proof_type",1);
+            jsonObject.put("proof_type", 1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -414,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.d("myresp"," " + response);
+                Log.d("myresp", " " + response);
 
                 try {
                     JSONObject data = response.getJSONObject("data");
@@ -424,7 +419,9 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
                     proof_type = data.getString("proof_type");
                     image = data.getString("proof");
 
-                    Picasso.with(MainActivity.this).load(Urls.IMAGE_CONSTANT+image).into(profile_image);
+                   // Picasso.(MainActivity.this).load(Urls.IMAGE_CONSTANT + image).into(profile_image);
+
+                    Picasso.get().load(Urls.IMAGE_CONSTANT + image).into(profile_image);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -434,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String tag= "myresp";
+                String tag = "myresp";
                 Log.e(tag, "Error: " + error.getMessage());
             }
         }) {
@@ -452,8 +449,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
 
     }
 
-    private void mydashboard()
-    {
+    private void mydashboard() {
         maintext.setText("My Dashboard");
 
         slider.setImageResource(R.drawable.menu);
@@ -482,8 +478,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
         transaction.setCustomAnimations(R.anim.slide1, R.anim.slide2);
         transaction.replace(R.id.homescreenframe, someFragment);
 
-        if (tag.equals("details"))
-        {
+        if (tag.equals("details")) {
             transaction.setCustomAnimations(R.anim.slide2, R.anim.slide1);
             transaction.addToBackStack(null);
         }

@@ -12,6 +12,12 @@
 
     </style>
 
+    <!--<style name="Widget.PlacesAutoCompleteTextView.Styled"
+        parent="PACV.Widget.PlacesAutoCompleteTextView">
+        <item name="android:background">@drawable/my_edit_text_background</item>
+        <item name="android:textAppearance">@style/MyTextAppearance</item>
+    </style>-->
+
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowBackground">@color/background</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>

@@ -1,7 +1,6 @@
 package rutherfordit.com.instasalary.activities;
 
-public class ContactsModel
-{
+public class ContactsModel {
     private String ContactImage;
     private String ContactName;
     private String ContactNumber;

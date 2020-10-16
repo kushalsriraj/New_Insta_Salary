@@ -9,9 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <ImageView
@@ -22,37 +22,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center_horizontal"
             android:text="@string/slide_3_title"
+            android:textAlignment="center"
             android:textColor="#000"
             android:textSize="21dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/montserrat"
-            android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center_horizontal"
             android:text="@string/slide_3_sub_title"
+            android:textAlignment="center"
             android:textColor="#000"
             android:textSize="21dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/montserrat"
-            android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center_horizontal"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
             android:text="@string/slide_3_desc"
             android:textAlignment="center"
-            android:fontFamily="@font/montserrat"
             android:textColor="#777"
-            android:textStyle="normal"
             android:textSize="16dp"
-            android:gravity="center_horizontal" />
+            android:textStyle="normal" />
 
     </LinearLayout>
 

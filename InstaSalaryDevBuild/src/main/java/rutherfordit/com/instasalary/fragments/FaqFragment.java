@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.adapters.FaqAdapter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.adapters.FaqAdapter;
 
 public class FaqFragment extends Fragment {
 

@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginmainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:id="@+id/loginmainlayout"
     android:orientation="vertical"
     tools:context=".activities.TakeSelfieActivity">
 
@@ -16,15 +16,15 @@
         android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/instalogo"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="80dp"/>
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/instalogo" />
 
         <TextView
-            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:paddingLeft="5dp"
@@ -40,17 +40,17 @@
             android:weightSum="1">
 
             <RelativeLayout
-                android:layout_margin="10dp"
-                android:layout_weight="0.2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="0.2">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_preview"
-                    app:cardCornerRadius="150dp"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
-                    android:layout_centerInParent="true">
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="150dp">
 
                     <androidx.camera.view.PreviewView
                         android:id="@+id/previewView"
@@ -62,44 +62,43 @@
                 </androidx.cardview.widget.CardView>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:visibility="gone"
                     android:id="@+id/imageView"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="40dp"
-                    android:src="@drawable/person" />
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/person"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
 
-
             <RelativeLayout
-                android:layout_marginBottom="10dp"
-                android:layout_weight="0.8"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.8">
 
                 <RelativeLayout
-                    android:background="?android:attr/selectableItemBackground"
                     android:id="@+id/capture_image"
-                    android:layout_centerInParent="true"
                     android:layout_width="60dp"
-                    android:layout_height="60dp">
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:padding="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/capturecam"/>
+                        android:src="@drawable/capturecam" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/circlecam"/>
+                        android:src="@drawable/circlecam" />
 
                 </RelativeLayout>
 
@@ -112,10 +111,10 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginBottom="5dp"
+                    android:baselineAligned="false"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:baselineAligned="false">
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/layout_cancel"
@@ -155,23 +154,23 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:visibility="gone"
         android:id="@+id/loader_takeselfie"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:crs_pl_style="skype_balls"
-            app:crs_pl_size="very_small"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:crs_pl_bg_color="#fff"
             app:crs_pl_fg_color="@color/instapink"
-            app:crs_pl_bg_color="#fff"/>
+            app:crs_pl_size="very_small"
+            app:crs_pl_style="skype_balls" />
 
     </androidx.cardview.widget.CardView>
 

@@ -24,10 +24,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.crystal.crystalpreloaders.widgets.CrystalPreloader;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +41,7 @@ import rutherfordit.com.instasalary.extras.Urls;
 public class AddBankDetails extends AppCompatActivity {
 
     CardView loader_bankdetails;
-    TextInputEditText enterbankname,enterbankbranch,enteraccno,enterbankifsc,enterloanamount,enterloanrepay,enterloanpurpose;
+    TextInputEditText enterbankname, enterbankbranch, enteraccno, enterbankifsc, enterloanamount, enterloanrepay, enterloanpurpose;
     RelativeLayout bankdetailssubmit;
     ProgressDialog progressBar;
     String UserAccessToken;
@@ -59,8 +57,7 @@ public class AddBankDetails extends AppCompatActivity {
         init();
     }
 
-    private void init()
-    {
+    private void init() {
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
@@ -71,12 +68,12 @@ public class AddBankDetails extends AppCompatActivity {
         enterbankbranch = findViewById(R.id.enterbankbranch);
         enteraccno = findViewById(R.id.enteraccno);
         enterbankifsc = findViewById(R.id.enterbankifsc);
-        enterbankifsc.setFilters(new InputFilter[] {new InputFilter.LengthFilter(11),new InputFilter.AllCaps()});
-        bankdetailssubmit =findViewById(R.id.bankdetailssubmit);
+        enterbankifsc.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11), new InputFilter.AllCaps()});
+        bankdetailssubmit = findViewById(R.id.bankdetailssubmit);
         enterloanpurpose = findViewById(R.id.enterloanpurpose);
 
         enterloanamount = findViewById(R.id.enterloanamount);
-        enterloanrepay =findViewById(R.id.enterloanrepay);
+        enterloanrepay = findViewById(R.id.enterloanrepay);
         error_ifsc = findViewById(R.id.error_ifsc);
 
         enterloanpurpose.addTextChangedListener(new TextWatcher() {
@@ -85,8 +82,7 @@ public class AddBankDetails extends AppCompatActivity {
 
                 if (enterbankname.getText().toString().length() > 0 && enterbankbranch.getText().toString().length() > 0 &&
                         enteraccno.getText().toString().length() > 9 && enterbankifsc.getText().toString().length() == 11
-                        && enterloanpurpose.getText().toString().length() > 1)
-                {
+                        && enterloanpurpose.getText().toString().length() > 1) {
                     bankdetailssubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     click = true;
                 } else {
@@ -108,8 +104,7 @@ public class AddBankDetails extends AppCompatActivity {
 
                 if (enterbankname.getText().toString().length() > 0 && enterbankbranch.getText().toString().length() > 0 &&
                         enteraccno.getText().toString().length() > 9 && enterbankifsc.getText().toString().length() == 11
-                        && enterloanpurpose.getText().toString().length() > 1)
-                {
+                        && enterloanpurpose.getText().toString().length() > 1) {
                     bankdetailssubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     click = true;
                 } else {
@@ -182,19 +177,14 @@ public class AddBankDetails extends AppCompatActivity {
                         && enterloanpurpose.getText().toString().length() > 1) {
                     bankdetailssubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     click = true;
-                }
-                else if (enterbankifsc.getText().toString().length()==11)
-                {
-                    if( !matcher.matches())
-                    {
+                } else if (enterbankifsc.getText().toString().length() == 11) {
+                    if (!matcher.matches()) {
                         error_ifsc.setVisibility(View.VISIBLE);
                         error_ifsc.setText("Enter Correct IFSC code");
-                        Toast.makeText(getApplicationContext(),"Enter Correct IFSC code..",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Enter Correct IFSC code..", Toast.LENGTH_SHORT).show();
                         bankdetailssubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         click = false;
-                    }
-                    else
-                    {
+                    } else {
                         error_ifsc.setVisibility(View.GONE);
                         if (enterbankname.getText().toString().length() > 0 && enterbankbranch.getText().toString().length() > 0 &&
                                 enteraccno.getText().toString().length() > 9 && enterbankifsc.getText().toString().length() == 11 && matcher.matches()
@@ -203,8 +193,7 @@ public class AddBankDetails extends AppCompatActivity {
                             click = true;
                         }
                     }
-                }
-                else {
+                } else {
                     bankdetailssubmit.setBackgroundColor(Color.parseColor("#36000000"));
                     click = false;
                 }
@@ -221,16 +210,13 @@ public class AddBankDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (click)
-                {
+                if (click) {
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loader_bankdetails.setVisibility(View.VISIBLE);
                     bankdetailsrequest();
                     loandetailsrequest();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Fill All Details",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Fill All Details", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loader_bankdetails.setVisibility(View.GONE);
                 }
@@ -242,7 +228,7 @@ public class AddBankDetails extends AppCompatActivity {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("description",enterloanpurpose.getText().toString());
+            jsonObject.put("description", enterloanpurpose.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -252,20 +238,17 @@ public class AddBankDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("bank_response", "onResponse: " + response );
+                Log.e("bank_response", "onResponse: " + response);
 
-                if(response.has("data"))
-                {
+                if (response.has("data")) {
                     loader_bankdetails.setVisibility(View.GONE);
-                    Intent i = new Intent(getApplicationContext(),CreditScoreSctivity.class);
+                    Intent i = new Intent(getApplicationContext(), CreditScoreSctivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-                    Toast.makeText(getApplicationContext(),"Loan Created Successfully..",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                    Toast.makeText(getApplicationContext(), "Loan Created Successfully..", Toast.LENGTH_SHORT).show();
+                } else {
                     loader_bankdetails.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),"Not Saved",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Not Saved", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
@@ -277,25 +260,22 @@ public class AddBankDetails extends AppCompatActivity {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"Please Check the Details You Entered..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-                else if(code == 500)
-                {
-                    Toast.makeText(getApplicationContext(),"Internal Server Error..",Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 //  Log.e(":parama", "getHeaders: " + params );
                 return params;
             }
@@ -305,15 +285,14 @@ public class AddBankDetails extends AppCompatActivity {
 
     }
 
-    private void bankdetailsrequest()
-    {
+    private void bankdetailsrequest() {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("bank_name",enterbankname.getText().toString());
-            jsonObject.put("bank_branch",enterbankbranch.getText().toString());
-            jsonObject.put("ac_number",enteraccno.getText().toString());
-            jsonObject.put("bank_ifcs",enterbankifsc.getText().toString());
+            jsonObject.put("bank_name", enterbankname.getText().toString());
+            jsonObject.put("bank_branch", enterbankbranch.getText().toString());
+            jsonObject.put("ac_number", enteraccno.getText().toString());
+            jsonObject.put("bank_ifcs", enterbankifsc.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -322,17 +301,14 @@ public class AddBankDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("owner_response", "onResponse: " + response );
+                Log.e("owner_response", "onResponse: " + response);
 
-             //   loader_bankdetails.setVisibility(View.GONE);
+                //   loader_bankdetails.setVisibility(View.GONE);
 
-                if (response.has("data"))
-                {
-                    Toast.makeText(getApplicationContext(),"Saved Bank Details Succesfully..",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Data Doesnot Exist..",Toast.LENGTH_SHORT).show();
+                if (response.has("data")) {
+                    Toast.makeText(getApplicationContext(), "Saved Bank Details Succesfully..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Data Doesnot Exist..", Toast.LENGTH_SHORT).show();
                     loader_bankdetails.setVisibility(View.GONE);
                 }
             }
@@ -344,26 +320,23 @@ public class AddBankDetails extends AppCompatActivity {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"Please Check the Details You Entered..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-                else if(code == 500)
-                {
-                    Toast.makeText(getApplicationContext(),"Internal Server Error..",Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };

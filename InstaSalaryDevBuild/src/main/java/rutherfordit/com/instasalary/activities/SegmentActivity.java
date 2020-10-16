@@ -1,6 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,15 +20,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class SegmentActivity extends AppCompatActivity {
 
@@ -104,14 +104,11 @@ public class SegmentActivity extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                    if (value == 1)
-                    {
+                    if (value == 1) {
                         callintent("salaried");
                         editor.putString("segment_value", "salaried");
                         editor.apply();
-                    }
-                    else if(value == 2)
-                    {
+                    } else if (value == 2) {
                         callintent("owner");
                         editor.putString("segment_value", "owner");
                         editor.apply();
@@ -120,10 +117,9 @@ public class SegmentActivity extends AppCompatActivity {
                 }
             }
 
-            private void callintent(String type)
-            {
+            private void callintent(String type) {
                 loader_segment.setVisibility(View.VISIBLE);
-                segmentrequest(String.valueOf(value),type);
+                segmentrequest(String.valueOf(value), type);
             }
         });
 
@@ -139,7 +135,7 @@ public class SegmentActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("eerroorr", "segmentrequest: " + jsonObject );
+        Log.e("eerroorr", "segmentrequest: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.SEND_SEGMENT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -147,9 +143,9 @@ public class SegmentActivity extends AppCompatActivity {
 
 
                 try {
-                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), PersonalInfo.class);
-                   // i.putExtra("sendfromsignup",type);
+                    // i.putExtra("sendfromsignup",type);
                     loader_segment.setVisibility(View.GONE);
                     startActivity(i);
 
@@ -162,7 +158,7 @@ public class SegmentActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.e("eerroorr", "onErrorResponse: " + error.toString() );
+                Log.e("eerroorr", "onErrorResponse: " + error.toString());
                 loader_segment.setVisibility(View.GONE);
             }
         }) {

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-
 import rutherfordit.com.instasalary.R;
 
 public class AboutFragment extends Fragment {

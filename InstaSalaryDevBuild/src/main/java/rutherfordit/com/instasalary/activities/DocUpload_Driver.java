@@ -1,12 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.loader.content.CursorLoader;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 
 import com.crystal.crystalpreloaders.widgets.CrystalPreloader;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -50,43 +50,46 @@ import rutherfordit.com.instasalary.extras.Urls;
 
 public class DocUpload_Driver extends AppCompatActivity {
 
-    private int REQUEST_CODE_PERMISSIONS = 1000;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
-    CrystalPreloader loader_rc_back,loader_rc_front,loader_licence_front,loader_licence_back,loader_bankstatement1_driver,loader_bankstatement2_driver;
-    ImageView driver_bankstatement1,driver_bankstatement2,driver_licence_front,driver_licence_back,driver_rc_front,driver_rc_back;
-    TextView driver_bankstatement1_text,driver_bankstatement2_text,driver_licence_front_text,driver_licence_back_text,driver_rc_front_text,driver_rc_back_text;
+    CrystalPreloader loader_rc_back, loader_rc_front, loader_licence_front, loader_licence_back, loader_bankstatement1_driver, loader_bankstatement2_driver;
+    ImageView driver_bankstatement1, driver_bankstatement2, driver_licence_front, driver_licence_back, driver_rc_front, driver_rc_back;
+    TextView driver_bankstatement1_text, driver_bankstatement2_text, driver_licence_front_text, driver_licence_back_text, driver_rc_front_text, driver_rc_back_text;
     SharedPreferences sharedPreferences;
     String UserAccessToken;
-    View view,view1,view2;
+    View view, view1, view2;
     BottomSheetDialog bottomSheetDialog;
-    LinearLayout upload_pdf,upload_from_camera,upload_from_gallery;
+    LinearLayout upload_pdf, upload_from_camera, upload_from_gallery;
+    Uri imguri;
+    String mSelectedDocFile, Pdf_name;
+    String timestamp, filename;
+    boolean statement1, statement2, rcfront, rcback, licencefront, licenceback = false;
+    RelativeLayout Submit_driver_proofs;
+    private int REQUEST_CODE_PERMISSIONS = 1000;
     private String status = "";
     private int Request_employee_idcard_camera = 1;
     private int Request_employee_id_gallery = 2;
-    Uri imguri;
-    String mSelectedDocFile,Pdf_name;
-    String timestamp,filename;
-    boolean statement1,statement2,rcfront,rcback,licencefront,licenceback = false;
-    RelativeLayout Submit_driver_proofs;
+
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_upload__driver);
 
-        if(allPermissionsGranted())
-        {
+        if (allPermissionsGranted()) {
             init();
-        }
-        else
-        {
+        } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
     }
 
-    private void init()
-    {
+    private void init() {
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
@@ -223,27 +226,24 @@ public class DocUpload_Driver extends AppCompatActivity {
         Submit_driver_proofs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (statement1 && rcback && rcfront && licenceback && licencefront)
-                {
-                    Toast.makeText(getApplicationContext(),"Documents Uploaded..",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("MESSAGE","Success");
-                    setResult(1000,intent);
+                if (statement1 && rcback && rcfront && licenceback && licencefront) {
+                    Toast.makeText(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", "Success");
+                    setResult(1000, intent);
                     finish();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Upload All Mandatory Documents to Proceed..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
 
-    private boolean allPermissionsGranted(){
+    private boolean allPermissionsGranted() {
 
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -253,30 +253,17 @@ public class DocUpload_Driver extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if(allPermissionsGranted())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
                 init();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(DocUpload_Driver.this);
             }
         }
     }
 
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
@@ -288,28 +275,20 @@ public class DocUpload_Driver extends AppCompatActivity {
         return result;
     }
 
-    private void uploadFile(Uri imguri,int Requestcode)
-    {
+    private void uploadFile(Uri imguri, int Requestcode) {
 
         String code = "";
 
-        if (status.equals("licencefront"))
-        {
+        if (status.equals("licencefront")) {
             loader_licence_front.setVisibility(View.VISIBLE);
             code = "10";
-        }
-        else if (status.equals("licenceback"))
-        {
+        } else if (status.equals("licenceback")) {
             loader_licence_back.setVisibility(View.VISIBLE);
             code = "10";
-        }
-        else if (status.equals("rcfront"))
-        {
+        } else if (status.equals("rcfront")) {
             loader_rc_front.setVisibility(View.VISIBLE);
             code = "10";
-        }
-        else if (status.equals("rcback"))
-        {
+        } else if (status.equals("rcback")) {
             loader_rc_back.setVisibility(View.VISIBLE);
             code = "10";
         }
@@ -318,8 +297,7 @@ public class DocUpload_Driver extends AppCompatActivity {
 
         File file = new File(getRealPathFromURI(imguri));
 
-        try
-        {
+        try {
             builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -350,103 +328,83 @@ public class DocUpload_Driver extends AppCompatActivity {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
 
-                if (finalCode.equals("10"))
-                {
-                    if (status.equals("licencefront"))
-                    {
+                if (finalCode.equals("10")) {
+                    if (status.equals("licencefront")) {
                         licencefront = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                driver_licence_front.setPadding(20,20,20,20);
+                                driver_licence_front.setPadding(20, 20, 20, 20);
                                 driver_licence_front.setScaleType(ImageView.ScaleType.FIT_XY);
                                 driver_licence_front.setImageURI(imguri);
-                                driver_licence_front_text.setText(filename+".png");
+                                driver_licence_front_text.setText(filename + ".png");
                                 loader_licence_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Licence Front Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Licence Front Uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (statement1 && rcback && rcfront && licenceback && licencefront)
-                                {
+                                if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
                         });
-                    }
-                    else if (status.equals("licenceback"))
-                    {
+                    } else if (status.equals("licenceback")) {
                         licenceback = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                driver_licence_back.setPadding(20,20,20,20);
+                                driver_licence_back.setPadding(20, 20, 20, 20);
                                 driver_licence_back.setScaleType(ImageView.ScaleType.FIT_XY);
                                 driver_licence_back.setImageURI(imguri);
-                                driver_licence_back_text.setText(filename+".png");
+                                driver_licence_back_text.setText(filename + ".png");
                                 loader_licence_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Licence Back Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Licence Back Uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (statement1 && rcback && rcfront && licenceback && licencefront)
-                                {
+                                if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
                         });
-                    }
-                    else if (status.equals("rcfront"))
-                    {
+                    } else if (status.equals("rcfront")) {
                         rcfront = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                driver_rc_front.setPadding(20,20,20,20);
+                                driver_rc_front.setPadding(20, 20, 20, 20);
                                 driver_rc_front.setScaleType(ImageView.ScaleType.FIT_XY);
                                 driver_rc_front.setImageURI(imguri);
-                                driver_rc_front_text.setText(filename+".png");
+                                driver_rc_front_text.setText(filename + ".png");
                                 loader_rc_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Rc Front Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Rc Front Uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (statement1 && rcback && rcfront && licenceback && licencefront)
-                                {
+                                if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
                         });
-                    }
-                    else if (status.equals("rcback"))
-                    {
+                    } else if (status.equals("rcback")) {
                         rcback = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                driver_rc_back.setPadding(20,20,20,20);
+                                driver_rc_back.setPadding(20, 20, 20, 20);
                                 driver_rc_back.setScaleType(ImageView.ScaleType.FIT_XY);
                                 driver_rc_back.setImageURI(imguri);
-                                driver_rc_back_text.setText(filename+".png");
+                                driver_rc_back_text.setText(filename + ".png");
                                 loader_rc_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Rc Back Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Rc Back Uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (statement1 && rcback && rcfront && licenceback && licencefront)
-                                {
+                                if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
@@ -464,14 +422,11 @@ public class DocUpload_Driver extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Request_employee_idcard_camera)
-        {
-            switch (resultCode)
-            {
+        if (requestCode == Request_employee_idcard_camera) {
+            switch (resultCode) {
                 case RESULT_OK:
 
-                    if (data != null)
-                    {
+                    if (data != null) {
                         Bitmap bitmap = data.getParcelableExtra("data");
                         assert bitmap != null;
                         getImageUri(getApplicationContext(), bitmap);
@@ -482,19 +437,15 @@ public class DocUpload_Driver extends AppCompatActivity {
                 case RESULT_CANCELED:
                     break;
             }
-        }
-
-        else if (requestCode == Request_employee_id_gallery)
-        {
-            switch (resultCode)
-            {
+        } else if (requestCode == Request_employee_id_gallery) {
+            switch (resultCode) {
                 case RESULT_OK:
 
                     if (data != null) {
 
                         Uri selectedImage = data.getData();
                         assert selectedImage != null;
-                        File file= new File(Objects.requireNonNull(selectedImage.getPath()));
+                        File file = new File(Objects.requireNonNull(selectedImage.getPath()));
                         filename = file.getName();
                         uploadFile(selectedImage, Request_employee_id_gallery);
                     }
@@ -503,12 +454,8 @@ public class DocUpload_Driver extends AppCompatActivity {
                 case RESULT_CANCELED:
                     break;
             }
-        }
-
-        else if (requestCode == Constant.REQUEST_CODE_PICK_FILE)
-        {
-            if (resultCode == RESULT_OK)
-            {
+        } else if (requestCode == Constant.REQUEST_CODE_PICK_FILE) {
+            if (resultCode == RESULT_OK) {
 
                 assert data != null;
                 ArrayList<NormalFile> list = data.getParcelableArrayListExtra(Constant.RESULT_PICK_FILE);
@@ -521,27 +468,21 @@ public class DocUpload_Driver extends AppCompatActivity {
 
                 uploadpdf(status);
 
-            }
-            else if (resultCode == RESULT_CANCELED)
-            {
-                Toast.makeText(getApplicationContext(),"Cancelled..",Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "Cancelled..", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
-    private void uploadpdf(String status)
-    {
+    private void uploadpdf(String status) {
 
         String code = "";
 
-        if (status.equals("bank1"))
-        {
+        if (status.equals("bank1")) {
             loader_bankstatement1_driver.setVisibility(View.VISIBLE);
             code = "6";
-        }
-        else if (status.equals("bank2"))
-        {
+        } else if (status.equals("bank2")) {
             loader_bankstatement2_driver.setVisibility(View.VISIBLE);
             code = "6";
         }
@@ -552,13 +493,10 @@ public class DocUpload_Driver extends AppCompatActivity {
 
             File file = new File(mSelectedDocFile);
 
-            try
-            {
+            try {
                 final MediaType MEDIA_TYPE = MediaType.parse((mSelectedDocFile));
                 builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse(String.valueOf(MEDIA_TYPE)), file));
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -582,7 +520,7 @@ public class DocUpload_Driver extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
 
-                Log.e("httpresponse", "onFailure: " + e.getLocalizedMessage() );
+                Log.e("httpresponse", "onFailure: " + e.getLocalizedMessage());
             }
 
             @Override
@@ -592,57 +530,44 @@ public class DocUpload_Driver extends AppCompatActivity {
                 String body = response.body().string();
                 Log.e("httpresponse", "onResponse: " + body);
 
-                if (status.equals("bank1"))
-                {
+                if (status.equals("bank1")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             statement1 = true;
                             driver_bankstatement1_text.setText(Pdf_name);
                             driver_bankstatement1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement1_driver.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Statement 1 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
 
-                            if (statement1 && rcback && rcfront && licenceback && licencefront)
-                            {
+                            if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                            }
-                            else
-                            {
+                            } else {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                             }
                         }
                     });
-                }
-                else if (status.equals("bank2"))
-                {
+                } else if (status.equals("bank2")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             statement2 = true;
                             driver_bankstatement2_text.setText(Pdf_name);
                             driver_bankstatement2.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement2_driver.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Statement 2 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Statement 2 Uploaded", Toast.LENGTH_SHORT).show();
 
-                            if (statement1 && rcback && rcfront && licenceback && licencefront)
-                            {
+                            if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                            }
-                            else
-                            {
+                            } else {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                             }
                         }
                     });
-                }
-                else if (status.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),"Status is empty in pdf",Toast.LENGTH_SHORT).show();
+                } else if (status.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -651,17 +576,17 @@ public class DocUpload_Driver extends AppCompatActivity {
 
     public void getImageUri(Context inContext, Bitmap inImage) {
 
-        long tsLong = System.currentTimeMillis()/1000;
+        long tsLong = System.currentTimeMillis() / 1000;
         filename = Long.toString(tsLong);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, filename, null);
-        imguri =  Uri.parse(path);
+        imguri = Uri.parse(path);
     }
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
-        Toast.makeText(getApplicationContext(),"Action Denied..",Toast.LENGTH_SHORT).show();
+        // super.onBackPressed();
+        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 }

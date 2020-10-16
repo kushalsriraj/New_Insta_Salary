@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="12dp">
@@ -14,40 +14,40 @@
         android:padding="10dp">
 
         <RelativeLayout
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
-                android:gravity="center"
-                android:textStyle="bold"
-                android:singleLine="true"
                 android:id="@+id/dash_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:singleLine="true"
                 android:text="Education Purpose"
                 android:textColor="#333333"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="5dp"
-                android:elevation="15dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:elevation="15dp"
+                app:cardCornerRadius="5dp">
 
                 <TextView
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:layout_alignParentEnd="true"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="4dp"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"
                     android:id="@+id/application_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingLeft="7dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="4dp"
                     android:text="Status"
                     android:textColor="#AAAAAA"
                     android:textSize="12dp" />
@@ -55,15 +55,13 @@
             </androidx.cardview.widget.CardView>
 
 
-
-
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#000"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,9 +86,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -111,9 +109,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -134,10 +132,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -158,51 +156,50 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="5dp"
             android:elevation="15dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="5dp">
 
             <TextView
-                android:visibility="gone"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:background="@color/instapink"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:id="@+id/paynow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/instapink"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
                 android:text="Pay Now"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
-
+                android:textSize="16dp"
+                android:visibility="gone" />
 
 
         </androidx.cardview.widget.CardView>
 
         <com.ncorti.slidetoact.SlideToActView
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/example_gray_on_green"
+            android:id="@+id/swipe_to_disburse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
             android:elevation="6dp"
-            app:area_margin="4dp"
             app:animation_duration="250"
-            app:outer_color="@color/instapink"
+            app:area_margin="4dp"
             app:inner_color="@color/background"
-            app:text="Swipe To Disburse Amount.."
-            app:text_size="12sp"
+            app:outer_color="@color/instapink"
             app:slider_height="50dp"
-            app:slider_locked="false" />
+            app:slider_locked="false"
+            app:text="Swipe To Disburse Amount.."
+            app:text_size="12sp" />
 
     </LinearLayout>
 

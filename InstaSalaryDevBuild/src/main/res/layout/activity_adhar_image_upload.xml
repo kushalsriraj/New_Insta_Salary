@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".activities.AdharImageUpload">
 
     <LinearLayout
@@ -15,28 +15,28 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="20dp">
 
             <TextView
-                android:layout_marginBottom="30dp"
-                android:layout_above="@id/adhar_front_image_Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/adhar_front_image_Card"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
                 android:text="Capture Adhar Front Image"
                 android:textColor="#000"
-                android:textSize="18dp"
-                android:gravity="center"/>
+                android:textSize="18dp" />
 
             <androidx.cardview.widget.CardView
-                android:elevation="20dp"
-                app:cardCornerRadius="20dp"
-                android:visibility="visible"
-                android:layout_centerInParent="true"
+                android:id="@+id/adhar_front_image_Card"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/adhar_front_image_Card">
+                android:layout_centerInParent="true"
+                android:elevation="20dp"
+                android:visibility="visible"
+                app:cardCornerRadius="20dp">
 
                 <androidx.camera.view.PreviewView
                     android:id="@+id/previewViewAdhar_front"
@@ -46,26 +46,26 @@
                     android:importantForAccessibility="no" />
 
                 <ImageView
+                    android:id="@+id/adhar_front_image"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/adhar_front_image"/>
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
-                android:layout_centerInParent="true"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/adhar_front_image_Card"
-                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/capture_image_adhar_front"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_below="@+id/adhar_front_image_Card"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:padding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:padding="15dp"
                     android:src="@drawable/capturecam" />
 
                 <ImageView
@@ -76,16 +76,16 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/adhar_front_image_Card"
                 android:id="@+id/layout_bottom_adhar_frontupload"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_below="@+id/adhar_front_image_Card"
                 android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:baselineAligned="false"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="visible"
-                android:baselineAligned="false">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:id="@+id/layout_cancel_adhar_front"
@@ -123,13 +123,13 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:id="@+id/AdharFrontImagesubmit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="70dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:background="#36000000">
 
@@ -156,23 +156,23 @@
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
-        android:visibility="gone"
         android:id="@+id/loader_adharupload"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:crs_pl_style="skype_balls"
-            app:crs_pl_size="very_small"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:crs_pl_bg_color="#fff"
             app:crs_pl_fg_color="@color/instapink"
-            app:crs_pl_bg_color="#fff"/>
+            app:crs_pl_size="very_small"
+            app:crs_pl_style="skype_balls" />
 
     </androidx.cardview.widget.CardView>
 

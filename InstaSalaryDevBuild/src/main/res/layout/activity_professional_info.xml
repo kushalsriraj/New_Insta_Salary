@@ -48,6 +48,31 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="Select Place">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Search_Place"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textSize="14dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/company_Data_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:hint="Company Name">
 
@@ -84,20 +109,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:focusable="false"
-                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="Working Here Since (YYYY-MM-DD) ?">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:focusable="false"
-                    android:clickable="true"
                     android:id="@+id/enterexp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:ellipsize="end"
+                    android:focusable="false"
                     android:fontFamily="@font/montserrat"
                     android:inputType="phone"
                     android:maxLength="10"
@@ -123,6 +148,8 @@
                     android:textSize="14dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -215,43 +242,45 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
+                android:layout_marginTop="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/text_upload_professional"
-                    android:gravity="center"
-                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:gravity="center"
                     android:text="Upload Your Documents"
                     android:textColor="#000"
                     android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="visible" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/uploadsuccess_professional"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="15dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/correct" />
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/correct"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/bankstatement_professional"
-                android:visibility="visible"
                 android:layout_width="85dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/loginbuttonbackground"
                 android:text="Upload"
                 android:textColor="@color/colorAccent"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:visibility="visible" />
 
             <RelativeLayout
                 android:id="@+id/salariedprofsubmit"

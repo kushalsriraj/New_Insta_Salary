@@ -12,15 +12,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class MyProfileActivity extends AppCompatActivity {
 

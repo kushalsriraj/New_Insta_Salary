@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:background="@color/background"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:paddingTop="50dp"
-    android:paddingBottom="50dp"
+    android:layout_height="wrap_content"
     android:layout_centerInParent="true"
-    android:layout_height="wrap_content">
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    android:paddingBottom="50dp">
 
     <LinearLayout
-        android:layout_centerInParent="true"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,28 +22,28 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/instapink"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:text="Upload PDF"/>
+                android:gravity="center"
+                android:text="Upload PDF"
+                android:textColor="@color/instapink"
+                android:textSize="18dp" />
 
             <ImageView
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/pdficon"/>
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:src="@drawable/pdficon" />
 
         </LinearLayout>
 
         <View
             android:id="@+id/view1_driver"
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
-            android:background="@color/instapink"/>
+            android:layout_margin="20dp"
+            android:background="@color/instapink" />
 
         <LinearLayout
             android:id="@+id/upload_from_camera_driver"
@@ -53,28 +52,28 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/instapink"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:text="Upload From Camera"/>
+                android:gravity="center"
+                android:text="Upload From Camera"
+                android:textColor="@color/instapink"
+                android:textSize="18dp" />
 
             <ImageView
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/camicon"/>
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:src="@drawable/camicon" />
 
         </LinearLayout>
 
         <View
             android:id="@+id/view2_driver"
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
-            android:background="@color/instapink"/>
+            android:layout_margin="20dp"
+            android:background="@color/instapink" />
 
         <LinearLayout
             android:id="@+id/upload_from_gallery_driver"
@@ -83,19 +82,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/instapink"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:text="Upload From Gallery"/>
+                android:gravity="center"
+                android:text="Upload From Gallery"
+                android:textColor="@color/instapink"
+                android:textSize="18dp" />
 
             <ImageView
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/galleryicon"/>
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:src="@drawable/galleryicon" />
 
         </LinearLayout>
 

@@ -4,27 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.CreditScoreSctivity">
 
     <LinearLayout
-        android:background="#81FFC9DB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#81FFC9DB"
         android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
-
             android:layout_width="match_parent"
-            android:layout_height="350dp">
+
+            android:layout_height="350dp"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
                 android:layout_width="58dp"
                 android:layout_height="40dp"
-                android:src="@drawable/instalogo"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/instalogo" />
 
 
             <!--<com.github.lzyzsd.circleprogress.ArcProgress
@@ -43,58 +42,58 @@
                 app:arc_max="1000" />-->
 
             <TextView
-                android:gravity="center"
-                android:visibility="visible"
-                android:textColor="#000000"
-                android:textSize="18dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="55dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Application is Under Process. \n\n Please Wait for the approval"/>
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center"
+                android:text="Your Application is Under Process. \n\n Please Wait for the approval"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:visibility="visible" />
 
         </LinearLayout>
 
         <TextView
-            android:visibility="gone"
-            android:textColor="#AAAAAA"
-            android:textSize="12dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="55dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disburse Amount"/>
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="55dp"
+            android:text="Disburse Amount"
+            android:textColor="#AAAAAA"
+            android:textSize="12dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/amount"
-            android:textSize="25dp"
-            android:textColor="#000"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="25dp" />
 
     </LinearLayout>
 
     <RelativeLayout
-        android:visibility="visible"
-        android:layout_alignParentBottom="true"
         android:id="@+id/addbankdetails"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
         android:layout_marginRight="50dp"
-        android:background="@color/instapink">
+        android:layout_marginBottom="50dp"
+        android:background="@color/instapink"
+        android:visibility="visible">
 
         <TextView
-            android:layout_marginRight="50dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:text="Go To Home"
             android:textColor="#fff"
@@ -114,17 +113,17 @@
 
 
     <RelativeLayout
-        android:visibility="gone"
-        android:onClick="gotomain"
-        android:layout_alignParentBottom="true"
         android:id="@+id/loginbottombutton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginRight="50dp"
-        android:background="@color/instapink">
+        android:layout_marginBottom="30dp"
+        android:background="@color/instapink"
+        android:onClick="gotomain"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

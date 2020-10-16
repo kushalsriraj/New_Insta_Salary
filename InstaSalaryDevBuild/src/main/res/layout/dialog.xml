@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
-    app:cardElevation="20dp"
-    android:layout_height="wrap_content">
+    app:cardElevation="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,84 +17,84 @@
 
             <ImageView
                 android:id="@+id/cancel_dialog"
-                android:layout_margin="10dp"
-                android:layout_alignParentEnd="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/cancel"/>
+                android:layout_alignParentEnd="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/cancel" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/application_success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:src="@drawable/correct"/>
+                android:src="@drawable/correct" />
 
             <TextView
-                android:gravity="center"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Loan will be verified by our team. \n Please Wait for the response.."/>
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Your Loan will be verified by our team. \n Please Wait for the response.." />
 
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="visible"
             android:id="@+id/application_failure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <TextView
-            android:paddingLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter Purpose Of Loan"
-            android:textSize="15dp"
-            android:textColor="#000000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Enter Purpose Of Loan"
+                android:textColor="#000000"
+                android:textSize="15dp" />
 
-    <EditText
-        android:fontFamily="@font/montserrat"
-        android:paddingBottom="15dp"
-        android:textColor="#000"
-        android:hint="Enter Loan Purpose"
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/enter_purpose"
-        android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/enter_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Loan Purpose"
+                android:paddingBottom="15dp"
+                android:textColor="#000"
+                android:textSize="15dp" />
 
-        <Button
-            android:id="@+id/apply_for_loan"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:textSize="15dp"
-            android:layout_gravity="center"
-            android:background="@color/instapink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply Loan"
-            android:textColor="#FFF"
-            android:layout_marginTop="30dp"/>
+            <Button
+                android:id="@+id/apply_for_loan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@color/instapink"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Apply Loan"
+                android:textColor="#FFF"
+                android:textSize="15dp" />
 
         </LinearLayout>
 

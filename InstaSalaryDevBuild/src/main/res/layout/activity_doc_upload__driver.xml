@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@color/background"
     tools:context=".activities.DocUpload_Driver">
 
     <RelativeLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/Submit_driver_proofs"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:background="#36000000">
 
         <TextView
@@ -57,10 +57,10 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_marginBottom="65dp"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="65dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,12 +68,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Last 3 Months Bank Statement" />
+                android:layout_marginTop="20dp"
+                android:text="Upload Last 3 Months Bank Statement"
+                android:textColor="#000"
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,34 +81,34 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginRight="10dp"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        app:cardElevation="10dp"
                         android:layout_marginTop="20dp"
                         app:cardCornerRadius="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
-                            android:background="@color/background"
                             android:layout_width="50dp"
-                            android:layout_height="50dp">
+                            android:layout_height="50dp"
+                            android:background="@color/background">
 
                             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                android:visibility="gone"
                                 android:id="@+id/loader_bankstatement1_driver"
-                                android:layout_centerInParent="true"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:crs_pl_style="circular"
-                                app:crs_pl_size="very_small"
+                                android:layout_centerInParent="true"
+                                android:visibility="gone"
+                                app:crs_pl_bg_color="#fff"
                                 app:crs_pl_fg_color="@color/instapink"
-                                app:crs_pl_bg_color="#fff"/>
+                                app:crs_pl_size="very_small"
+                                app:crs_pl_style="circular" />
 
                             <ImageView
                                 android:id="@+id/driver_bankstatement1"
@@ -123,53 +123,53 @@
 
                     <TextView
                         android:id="@+id/driver_bankstatement1_text"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="Bankstatement.pdf"
-                        android:textSize="10dp"
-                        android:textColor="#000"/>
+                        android:textColor="#000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
-                    android:layout_marginRight="10dp"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:orientation="vertical">
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        app:cardElevation="10dp"
                         android:layout_marginTop="20dp"
                         app:cardCornerRadius="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
-                            android:background="@color/background"
                             android:layout_width="50dp"
-                            android:layout_height="50dp">
+                            android:layout_height="50dp"
+                            android:background="@color/background">
 
                             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                android:visibility="gone"
                                 android:id="@+id/loader_bankstatement2_driver"
-                                android:layout_centerInParent="true"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:crs_pl_style="circular"
-                                app:crs_pl_size="very_small"
+                                android:layout_centerInParent="true"
+                                android:visibility="gone"
+                                app:crs_pl_bg_color="#fff"
                                 app:crs_pl_fg_color="@color/instapink"
-                                app:crs_pl_bg_color="#fff"/>
+                                app:crs_pl_size="very_small"
+                                app:crs_pl_style="circular" />
 
                             <ImageView
                                 android:id="@+id/driver_bankstatement2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/add"
-                                android:padding="15dp"/>
+                                android:padding="15dp"
+                                android:src="@drawable/add" />
 
                         </RelativeLayout>
 
@@ -177,25 +177,25 @@
 
                     <TextView
                         android:id="@+id/driver_bankstatement2_text"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="Bankstatement.pdf"
-                        android:textSize="10dp"
-                        android:textColor="#000"/>
+                        android:textColor="#000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <TextView
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Driving Licence Images" />
+                android:layout_marginTop="30dp"
+                android:text="Upload Driving Licence Images"
+                android:textColor="#000"
+                android:textSize="18dp" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -208,41 +208,41 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_marginRight="10dp"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            app:cardElevation="10dp"
                             android:layout_marginTop="20dp"
                             app:cardCornerRadius="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            app:cardElevation="10dp">
 
                             <RelativeLayout
-                                android:background="@color/background"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp">
+                                android:layout_height="50dp"
+                                android:background="@color/background">
 
                                 <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                    android:visibility="gone"
                                     android:id="@+id/loader_licence_front"
-                                    android:layout_centerInParent="true"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    app:crs_pl_style="circular"
-                                    app:crs_pl_size="very_small"
+                                    android:layout_centerInParent="true"
+                                    android:visibility="gone"
+                                    app:crs_pl_bg_color="#fff"
                                     app:crs_pl_fg_color="@color/instapink"
-                                    app:crs_pl_bg_color="#fff"/>
+                                    app:crs_pl_size="very_small"
+                                    app:crs_pl_style="circular" />
 
                                 <ImageView
                                     android:id="@+id/driver_licence_front"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/add"
-                                    android:padding="15dp"/>
+                                    android:padding="15dp"
+                                    android:src="@drawable/add" />
 
                             </RelativeLayout>
 
@@ -250,52 +250,52 @@
 
                         <TextView
                             android:id="@+id/driver_licence_front_text"
-                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
-                            android:gravity="center"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
                             android:text="Licence Front"
-                            android:textSize="10dp"
-                            android:textColor="#000"/>
+                            android:textColor="#000"
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginRight="10dp"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            app:cardElevation="10dp"
                             android:layout_marginTop="20dp"
                             app:cardCornerRadius="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            app:cardElevation="10dp">
 
                             <RelativeLayout
-                                android:background="@color/background"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp">
+                                android:layout_height="50dp"
+                                android:background="@color/background">
 
                                 <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                    android:visibility="gone"
                                     android:id="@+id/loader_licence_back"
-                                    android:layout_centerInParent="true"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    app:crs_pl_style="circular"
-                                    app:crs_pl_size="very_small"
+                                    android:layout_centerInParent="true"
+                                    android:visibility="gone"
+                                    app:crs_pl_bg_color="#fff"
                                     app:crs_pl_fg_color="@color/instapink"
-                                    app:crs_pl_bg_color="#fff"/>
+                                    app:crs_pl_size="very_small"
+                                    app:crs_pl_style="circular" />
 
                                 <ImageView
                                     android:id="@+id/driver_licence_back"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/add"
-                                    android:padding="15dp"/>
+                                    android:padding="15dp"
+                                    android:src="@drawable/add" />
 
                             </RelativeLayout>
 
@@ -303,13 +303,13 @@
 
                         <TextView
                             android:id="@+id/driver_licence_back_text"
-                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
-                            android:gravity="center"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
                             android:text="Licence Bank Side"
-                            android:textSize="10dp"
-                            android:textColor="#000"/>
+                            android:textColor="#000"
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -318,55 +318,55 @@
             </ScrollView>
 
             <TextView
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload RC Images" />
+                android:layout_marginTop="30dp"
+                android:text="Upload RC Images"
+                android:textColor="#000"
+                android:textSize="18dp" />
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginRight="10dp"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        app:cardElevation="10dp"
                         android:layout_marginTop="20dp"
                         app:cardCornerRadius="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
-                            android:background="@color/background"
                             android:layout_width="50dp"
-                            android:layout_height="50dp">
+                            android:layout_height="50dp"
+                            android:background="@color/background">
 
                             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                android:visibility="gone"
                                 android:id="@+id/loader_rc_front"
-                                android:layout_centerInParent="true"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:crs_pl_style="circular"
-                                app:crs_pl_size="very_small"
+                                android:layout_centerInParent="true"
+                                android:visibility="gone"
+                                app:crs_pl_bg_color="#fff"
                                 app:crs_pl_fg_color="@color/instapink"
-                                app:crs_pl_bg_color="#fff"/>
+                                app:crs_pl_size="very_small"
+                                app:crs_pl_style="circular" />
 
                             <ImageView
                                 android:id="@+id/driver_rc_front"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/add"
-                                android:padding="15dp"/>
+                                android:padding="15dp"
+                                android:src="@drawable/add" />
 
                         </RelativeLayout>
 
@@ -374,52 +374,52 @@
 
                     <TextView
                         android:id="@+id/driver_rc_front_text"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="Rc Front"
-                        android:textSize="10dp"
-                        android:textColor="#000"/>
+                        android:textColor="#000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginRight="10dp"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        app:cardElevation="10dp"
                         android:layout_marginTop="20dp"
                         app:cardCornerRadius="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
-                            android:background="@color/background"
                             android:layout_width="50dp"
-                            android:layout_height="50dp">
+                            android:layout_height="50dp"
+                            android:background="@color/background">
 
                             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                                android:visibility="gone"
                                 android:id="@+id/loader_rc_back"
-                                android:layout_centerInParent="true"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:crs_pl_style="circular"
-                                app:crs_pl_size="very_small"
+                                android:layout_centerInParent="true"
+                                android:visibility="gone"
+                                app:crs_pl_bg_color="#fff"
                                 app:crs_pl_fg_color="@color/instapink"
-                                app:crs_pl_bg_color="#fff"/>
+                                app:crs_pl_size="very_small"
+                                app:crs_pl_style="circular" />
 
                             <ImageView
                                 android:id="@+id/driver_rc_back"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/add"
-                                android:padding="15dp"/>
+                                android:padding="15dp"
+                                android:src="@drawable/add" />
 
                         </RelativeLayout>
 
@@ -427,13 +427,13 @@
 
                     <TextView
                         android:id="@+id/driver_rc_back_text"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="Id Back"
-                        android:textSize="10dp"
-                        android:textColor="#000"/>
+                        android:textColor="#000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 

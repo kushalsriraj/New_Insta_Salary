@@ -30,6 +30,9 @@
         tools:ignore="MockLocation,ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -49,12 +52,14 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:overrideLibrary="androidx.camera.extensions"
         tools:targetApi="q">
-        <activity android:name=".activities.RequestPermissionsActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".activities.RequestPermissionsActivity"
+            android:screenOrientation="portrait" >
 
         </activity>
-        <activity android:name=".activities.BackAdharImageUpload"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.BackAdharImageUpload"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Fcn.MyService"
@@ -78,9 +83,6 @@
             android:name=".activities.IdCardUpload"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.BankStatementUpload"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.PanImageUpload"
             android:screenOrientation="portrait" />
         <activity
@@ -91,7 +93,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.GetAdharDetailsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ReadContacts"
             android:screenOrientation="portrait" />
@@ -121,7 +123,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ProfessionalInfo"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".activities.PersonalInfo"
             android:screenOrientation="portrait">
@@ -152,11 +156,18 @@
             android:name=".extras.GpsTracker"
             android:enabled="true"
             tools:ignore="Instantiatable" />
-        <service android:name=".Fcn.MyFirebaseIdService">
+        <service android:name=".Fcn.MyFirebaseIdService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver android:name="swarajsaaj.smscodereader.receivers.OtpReader">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
 
         <receiver android:name=".extras.OnBootBroadcastReceiver">
             <intent-filter>

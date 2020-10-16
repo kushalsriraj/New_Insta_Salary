@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8F3F3F3"
     android:orientation="vertical">
 
@@ -11,86 +11,86 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:text="Ongoing Loans"
+                android:textSize="12dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/apply_new_Loan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Apply New Loan"
+                        android:textColor="@color/instapink"
+                        android:textSize="12dp" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/emptydash"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#fff"
             android:gravity="center"
-            android:layout_marginLeft="30dp"
-            android:text="Ongoing Loans"
-            android:textSize="12dp" />
+            android:text="No Ongoing Loans"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:visibility="gone" />
 
-        <androidx.cardview.widget.CardView
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_alignParentEnd="true"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/apply_new_Loan"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:textSize="12dp"
-                    android:textColor="@color/instapink"
-                    android:layout_centerInParent="true"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Apply New Loan" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/emptydash"
-        android:visibility="gone"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:text="No Ongoing Loans"
-        android:textColor="#000"
-        android:background="#fff"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recdashboard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recdashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loader_dashboard"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:crs_pl_style="skype_balls"
-            app:crs_pl_size="very_small"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:crs_pl_bg_color="#fff"
             app:crs_pl_fg_color="@color/instapink"
-            app:crs_pl_bg_color="#fff"/>
+            app:crs_pl_size="very_small"
+            app:crs_pl_style="skype_balls" />
 
     </androidx.cardview.widget.CardView>
 

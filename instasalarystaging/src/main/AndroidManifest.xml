@@ -38,8 +38,6 @@
         tools:targetApi="q">
         <activity android:name=".activities.IdCardUpload"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.BankStatementUpload"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activities.PanImageUpload"
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.SegmentActivity"

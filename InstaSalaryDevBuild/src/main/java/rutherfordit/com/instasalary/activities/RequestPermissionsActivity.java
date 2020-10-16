@@ -1,9 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,9 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -27,7 +29,8 @@ import rutherfordit.com.instasalary.R;
 
 public class RequestPermissionsActivity extends AppCompatActivity {
 
-    SwitchButton cameraSwitch, contactsSwitch, smsSwitch,storageSwitch, locationSwitch;
+    CardView loader_perms;
+    SwitchButton cameraSwitch, contactsSwitch, smsSwitch, storageSwitch, locationSwitch;
     ImageView settings_camera, settings_contact, settings_sms, settings_storage, settings_location;
     boolean camera_granted = false;
     boolean contact_granted = false;
@@ -36,8 +39,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
     boolean location_granted = false;
     RelativeLayout proceed_permissions;
 
-    public void cameraPermission()
-    {
+    public void cameraPermission() {
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.CAMERA)
                 .withListener(new PermissionListener() {
@@ -46,8 +48,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Camera Permissions Granted..", Toast.LENGTH_SHORT).show();
                         cameraSwitch.setEnabled(false);
                         camera_granted = true;
-                        if (location_granted && sms_granted && contact_granted && storage_granted)
-                        {
+                        if (location_granted && sms_granted && contact_granted && storage_granted) {
                             proceed_permissions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -67,8 +68,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 }).check();
     }
 
-    public void contactPermission()
-    {
+    public void contactPermission() {
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.READ_CONTACTS)
                 .withListener(new PermissionListener() {
@@ -77,8 +77,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Contact Permissions Granted..", Toast.LENGTH_SHORT).show();
                         contactsSwitch.setEnabled(false);
                         contact_granted = true;
-                        if (camera_granted && location_granted && sms_granted && storage_granted)
-                        {
+                        if (camera_granted && location_granted && sms_granted && storage_granted) {
                             proceed_permissions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -99,8 +98,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 }).check();
     }
 
-    public void smsPermission()
-    {
+    public void smsPermission() {
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.READ_SMS)
                 .withListener(new PermissionListener() {
@@ -109,8 +107,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "SMS Permissions Granted..", Toast.LENGTH_SHORT).show();
                         smsSwitch.setEnabled(false);
                         sms_granted = true;
-                        if (camera_granted && location_granted && contact_granted && storage_granted)
-                        {
+                        if (camera_granted && location_granted && contact_granted && storage_granted) {
                             proceed_permissions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -130,8 +127,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 }).check();
     }
 
-    public void storagePermission()
-    {
+    public void storagePermission() {
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
@@ -140,8 +136,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Storage Permissions Granted..", Toast.LENGTH_SHORT).show();
                         storageSwitch.setEnabled(false);
                         storage_granted = true;
-                        if (camera_granted && location_granted && sms_granted && contact_granted)
-                        {
+                        if (camera_granted && location_granted && sms_granted && contact_granted) {
                             proceed_permissions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -161,8 +156,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 }).check();
     }
 
-    public void locationPermission()
-    {
+    public void locationPermission() {
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -171,8 +165,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Location Permissions Granted..", Toast.LENGTH_SHORT).show();
                         locationSwitch.setEnabled(false);
                         location_granted = true;
-                        if (camera_granted && sms_granted && contact_granted && storage_granted)
-                        {
+                        if (camera_granted && sms_granted && contact_granted && storage_granted) {
                             proceed_permissions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -207,7 +200,8 @@ public class RequestPermissionsActivity extends AppCompatActivity {
         cameraSwitch.toggle();
         cameraSwitch.setShadowEffect(true);
         cameraSwitch.setEnableEffect(true);
-
+        loader_perms = findViewById(R.id.loader_perms);
+        loader_perms.setVisibility(View.GONE);
         settings_camera = findViewById(R.id.settings_camera);
         settings_camera.setVisibility(View.GONE);
 
@@ -228,35 +222,35 @@ public class RequestPermissionsActivity extends AppCompatActivity {
         settings_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Please Grant Permission for Camera in Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Grant Permission for Camera in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Please Grant Permission for Contact in Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Grant Permission for Contact in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Please Grant Permission for SMS in Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Grant Permission for SMS in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_storage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Please Grant Permission for Storage in Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Grant Permission for Storage in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Please Grant Permission for Location in Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Grant Permission for Location in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
@@ -267,7 +261,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
 
-                    cameraPermission();
+                cameraPermission();
             }
         });
 
@@ -299,106 +293,114 @@ public class RequestPermissionsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
 
-                    locationPermission();
+                locationPermission();
             }
         });
+
+        proceed_permissions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loader_perms.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                if (location_granted && sms_granted && contact_granted && storage_granted&& camera_granted)
+                {
+                    Intent i = new Intent(getApplicationContext(),ReadContacts.class);
+                   // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    loader_perms.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                else {
+                  Toast.makeText(getApplicationContext(),"Please Grant All Permissions..",Toast.LENGTH_SHORT).show();
+                    loader_perms.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        });
+
     }
 
     private void checkForPermissions() {
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             cameraSwitch.setChecked(false);
             cameraSwitch.setEnabled(true);
             camera_granted = false;
-        }
-        else {
+        } else {
             cameraSwitch.setChecked(true);
             cameraSwitch.setEnabled(false);
             cameraSwitch.setVisibility(View.VISIBLE);
             settings_camera.setVisibility(View.GONE);
             camera_granted = true;
-            if (location_granted && sms_granted && contact_granted && storage_granted)
-            {
+            if (location_granted && sms_granted && contact_granted && storage_granted) {
                 proceed_permissions.setVisibility(View.VISIBLE);
             }
         }
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             contactsSwitch.setChecked(false);
             contactsSwitch.setEnabled(true);
             contact_granted = false;
-        }
-        else {
+        } else {
             contactsSwitch.setChecked(true);
             contactsSwitch.setEnabled(false);
             contactsSwitch.setVisibility(View.VISIBLE);
             settings_contact.setVisibility(View.GONE);
             contact_granted = true;
-            if (camera_granted && location_granted && sms_granted && storage_granted)
-            {
+            if (camera_granted && location_granted && sms_granted && storage_granted) {
                 proceed_permissions.setVisibility(View.VISIBLE);
             }
         }
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             smsSwitch.setChecked(false);
             smsSwitch.setEnabled(true);
             sms_granted = false;
-        }
-        else {
+        } else {
             smsSwitch.setChecked(true);
             smsSwitch.setEnabled(false);
             smsSwitch.setVisibility(View.VISIBLE);
             settings_sms.setVisibility(View.GONE);
             sms_granted = true;
-            if (camera_granted && location_granted && contact_granted && storage_granted)
-            {
+            if (camera_granted && location_granted && contact_granted && storage_granted) {
                 proceed_permissions.setVisibility(View.VISIBLE);
             }
         }
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             storageSwitch.setChecked(false);
             storageSwitch.setEnabled(true);
             storage_granted = false;
-        }
-        else {
+        } else {
             storageSwitch.setChecked(true);
             storageSwitch.setEnabled(false);
             storageSwitch.setVisibility(View.VISIBLE);
             settings_storage.setVisibility(View.GONE);
             storage_granted = true;
-            if (camera_granted && location_granted && sms_granted && contact_granted)
-            {
+            if (camera_granted && location_granted && sms_granted && contact_granted) {
                 proceed_permissions.setVisibility(View.VISIBLE);
             }
         }
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             locationSwitch.setChecked(false);
             locationSwitch.setEnabled(true);
             location_granted = false;
-        }
-        else {
+        } else {
             locationSwitch.setChecked(true);
             locationSwitch.setEnabled(false);
             locationSwitch.setVisibility(View.VISIBLE);
             settings_location.setVisibility(View.GONE);
             location_granted = true;
-            if (camera_granted && sms_granted && contact_granted && storage_granted)
-            {
+            if (camera_granted && sms_granted && contact_granted && storage_granted) {
                 proceed_permissions.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    private void openPermissions()
-    {
+    private void openPermissions() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", getPackageName(), null);
         intent.setData(uri);
@@ -409,8 +411,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 101)
-        {
+        if (requestCode == 101) {
             checkForPermissions();
         }
     }

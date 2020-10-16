@@ -2,7 +2,6 @@ package rutherfordit.com.instasalary.activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -37,12 +35,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
-import rutherfordit.com.instasalary.model.CityModel;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,23 +49,28 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+import rutherfordit.com.instasalary.model.CityModel;
+
 public class PersonalInfo extends AppCompatActivity {
 
-    private static final String TAG = "FCM" ;
-    private ArrayList<CityModel> cityModelArrayList;
-    private ArrayList<String> names;
+    private static final String TAG = "FCM";
     String FCM_TOken;
-    TextInputEditText enterstate, entercity, enterfullname, enterfathername, enterdob, enterdoorno, enterstreet, entercur_doorno, entercur_street, entercur_housetype, entercur_city, entercur_state,enteremail;
+    TextInputEditText enterstate, entercity, enterfullname, enterfathername, enterdob, enterdoorno, enterstreet, entercur_doorno, entercur_street, entercur_housetype, entercur_city, entercur_state, enteremail;
     Spinner statespinner, cityspinner, curr_statespinner, curr_cityspinner, curr_housetypespinner;
     RadioButton sameasadhar;
-    String currstate, currcity,currhousetype,currpincode,currstreet;
+    String currstate, currcity, currhousetype, currpincode, currstreet;
     RelativeLayout personalsubmit;
     String getvaluefromsegment;
     SharedPreferences sharedPreferences;
     String UserAccessToken;
-    TextInputEditText enterpincode,entercur_pincode;
+    TextInputEditText enterpincode, entercur_pincode;
     CardView loader_personal;
     boolean state_entered, city_entered = false;
+    private ArrayList<CityModel> cityModelArrayList;
+    private ArrayList<String> names;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -103,7 +100,7 @@ public class PersonalInfo extends AppCompatActivity {
                         FCM_TOken = token;
 
                         Log.d(TAG, token);
-                       // Toast.makeText(PersonalInfo.this, token, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(PersonalInfo.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -119,7 +116,7 @@ public class PersonalInfo extends AppCompatActivity {
 
         getvaluefromsegment = sharedPreferences.getString("segment_value", "");
 
-        Log.e("getvalue", "init: " + UserAccessToken );
+        Log.e("getvalue", "init: " + UserAccessToken);
 
         personalsubmit = findViewById(R.id.personalsubmit);
 
@@ -147,9 +144,9 @@ public class PersonalInfo extends AppCompatActivity {
         enterpincode = findViewById(R.id.enterpincode);
         entercur_pincode = findViewById(R.id.entercur_pincode);
 
-        enterfullname.setText(sharedPreferences.getString("full_name",""));
+        enterfullname.setText(sharedPreferences.getString("full_name", ""));
 
-        String dob = sharedPreferences.getString("dob","");
+        String dob = sharedPreferences.getString("dob", "");
 
         Date initDate = null;
         try {
@@ -162,16 +159,16 @@ public class PersonalInfo extends AppCompatActivity {
         }
 
 
-        String fathername = sharedPreferences.getString("care_of","");
-        fathername = fathername.replaceAll("S/O ","");
+        String fathername = sharedPreferences.getString("care_of", "");
+        fathername = fathername.replaceAll("S/O ", "");
 
         enterfathername.setText(fathername);
 
-        String street = sharedPreferences.getString("street","");
-        String subdist = sharedPreferences.getString("subdist","");
-        String vtc = sharedPreferences.getString("vtc","");
-        String ioc = sharedPreferences.getString("ioc","");
-        String po = sharedPreferences.getString("po","");
+        String street = sharedPreferences.getString("street", "");
+        String subdist = sharedPreferences.getString("subdist", "");
+        String vtc = sharedPreferences.getString("vtc", "");
+        String ioc = sharedPreferences.getString("ioc", "");
+        String po = sharedPreferences.getString("po", "");
 
         /*if(subdist.equals(""))
         {
@@ -182,15 +179,14 @@ public class PersonalInfo extends AppCompatActivity {
             enterstreet.setText(street + " " + subdist + " " + vtc + " " + ioc + " " + po);
         }*/
         enterstreet.setText(street + " " + subdist + " " + vtc + " " + ioc + " " + po);
-        enterdoorno.setText(sharedPreferences.getString("house",""));
-        enterstate.setText(sharedPreferences.getString("state",""));
-        entercity.setText(sharedPreferences.getString("vtc",""));
-        enterpincode.setText(sharedPreferences.getString("zip",""));
+        enterdoorno.setText(sharedPreferences.getString("house", ""));
+        enterstate.setText(sharedPreferences.getString("state", ""));
+        entercity.setText(sharedPreferences.getString("vtc", ""));
+        enterpincode.setText(sharedPreferences.getString("zip", ""));
 
-        if (enterpincode.getText().toString().length()==6)
-        {
+        if (enterpincode.getText().toString().length() == 6) {
 
-            String Url = "http://www.postalpincode.in/api/pincode/"+enterpincode.getText().toString();
+            String Url = "http://www.postalpincode.in/api/pincode/" + enterpincode.getText().toString();
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
                 @Override
@@ -199,10 +195,9 @@ public class PersonalInfo extends AppCompatActivity {
                     try {
                         JSONArray array = response.getJSONArray("PostOffice");
 
-                        Log.e("pincodedata", "onResponse: " + array );
+                        Log.e("pincodedata", "onResponse: " + array);
 
-                        for (int i = 0 ; i < array.length() ; i++)
-                        {
+                        for (int i = 0; i < array.length(); i++) {
 
                             JSONObject obj = array.getJSONObject(i);
 
@@ -218,7 +213,7 @@ public class PersonalInfo extends AppCompatActivity {
                             cityModelArrayList.add(cityModel);
 
                             String cty = obj.getString("Region");
-                            cty = cty.replaceAll("City","");
+                            cty = cty.replaceAll("City", "");
 
                             String st = obj.getString("State");
 
@@ -229,24 +224,18 @@ public class PersonalInfo extends AppCompatActivity {
                             cityspinner.setEnabled(false);
                             statespinner.setEnabled(false);
 
-                            if (enterdoorno.getText().toString().length()==0)
-                            {
+                            if (enterdoorno.getText().toString().length() == 0) {
                                 enterdoorno.setClickable(true);
                                 enterdoorno.setFocusable(true);
-                            }
-                            else
-                            {
+                            } else {
                                 enterdoorno.setClickable(false);
                                 enterdoorno.setFocusable(false);
                             }
 
-                            if(enterstreet.getText().toString().equals(""))
-                            {
+                            if (enterstreet.getText().toString().equals("")) {
                                 enterstreet.setClickable(true);
                                 enterstreet.setFocusable(true);
-                            }
-                            else
-                            {
+                            } else {
                                 enterstreet.setClickable(false);
                                 enterstreet.setFocusable(false);
                             }
@@ -284,10 +273,7 @@ public class PersonalInfo extends AppCompatActivity {
 
             MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 
-        }
-
-        else
-        {
+        } else {
             state_entered = false;
             city_entered = false;
             cityspinner.setEnabled(true);
@@ -349,13 +335,10 @@ public class PersonalInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!state_entered)
-                {
+                if (!state_entered) {
                     statespinner.performClick();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Denied..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -429,13 +412,10 @@ public class PersonalInfo extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if (!city_entered)
-                {
+                if (!city_entered) {
                     cityspinner.performClick();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Denied..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -476,9 +456,7 @@ public class PersonalInfo extends AppCompatActivity {
                     entercur_state.setText(enterstate.getText().toString());
                     entercur_city.setText(entercity.getText().toString());
 
-                }
-                else
-                {
+                } else {
                     sameasadhar.setChecked(false);
                     sameasadhar.setSelected(false);
                     entercur_doorno.setText("");
@@ -499,7 +477,7 @@ public class PersonalInfo extends AppCompatActivity {
                 if (enterfullname.getText().toString().length() > 0 && enterfathername.getText().toString().length() > 0 && enterdob.getText().toString().length() > 0
                         && enterdoorno.getText().toString().length() > 0 && enterstreet.getText().toString().length() > 0 && entercur_doorno.getText().toString().length() > 0
                         && entercur_street.getText().toString().length() > 0 && enteremail.getText().toString().length() > 0
-                        && enterpincode.getText().toString().length() > 0 && entercur_pincode.getText().toString().length() > 0 ) {
+                        && enterpincode.getText().toString().length() > 0 && entercur_pincode.getText().toString().length() > 0) {
                     personalsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     personalsubmit.setEnabled(true);
                 } else {
@@ -732,16 +710,14 @@ public class PersonalInfo extends AppCompatActivity {
 
                     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
                 }
-                else */if (enterfullname.getText().toString().length() > 0 && enterfathername.getText().toString().length() > 0 && enterdob.getText().toString().length() > 0
+                else */
+                if (enterfullname.getText().toString().length() > 0 && enterfathername.getText().toString().length() > 0 && enterdob.getText().toString().length() > 0
                         && enterdoorno.getText().toString().length() > 0 && enterstreet.getText().toString().length() > 0 && entercur_doorno.getText().toString().length() > 0
                         && entercur_street.getText().toString().length() > 0 && enteremail.getText().toString().length() > 0
-                        && enterpincode.getText().toString().length() > 0 && entercur_pincode.getText().toString().length() > 0)
-                {
+                        && enterpincode.getText().toString().length() > 0 && entercur_pincode.getText().toString().length() > 0) {
                     personalsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     personalsubmit.setEnabled(true);
-                }
-                else
-                {
+                } else {
                     personalsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                     personalsubmit.setEnabled(false);
                 }
@@ -798,11 +774,11 @@ public class PersonalInfo extends AppCompatActivity {
                                 String formattedMonth = "" + month;
                                 String formattedDayOfMonth = "" + dayOfMonth;
 
-                                if(month < 10){
+                                if (month < 10) {
 
                                     formattedMonth = "0" + month;
                                 }
-                                if(dayOfMonth < 10){
+                                if (dayOfMonth < 10) {
 
                                     formattedDayOfMonth = "0" + dayOfMonth;
                                 }
@@ -813,9 +789,7 @@ public class PersonalInfo extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     picker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.instapink));
                     picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.instapink));
-                }
-                else
-                {
+                } else {
                     picker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                     picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
                 }
@@ -827,20 +801,19 @@ public class PersonalInfo extends AppCompatActivity {
         personalsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (personalsubmit.isEnabled())
-                {
+                if (personalsubmit.isEnabled()) {
                     loader_personal.setVisibility(View.VISIBLE);
-                    cibilRequest();
+                  //  cibilRequest();
                     request();
                 }
             }
         });
     }
 
-    private String capitalize(String capString){
+    private String capitalize(String capString) {
         StringBuffer capBuffer = new StringBuffer();
         Matcher capMatcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString);
-        while (capMatcher.find()){
+        while (capMatcher.find()) {
             capMatcher.appendReplacement(capBuffer, capMatcher.group(1).toUpperCase() + capMatcher.group(2).toLowerCase());
         }
 
@@ -856,190 +829,117 @@ public class PersonalInfo extends AppCompatActivity {
 
         Log.e(TAG, "cibilRequest: " + enteredStateCode + newenteredStateCode);
 
-        if(newenteredStateCode.equals("Andhra Pradesh"))
-        {
+        if (newenteredStateCode.equals("Andhra Pradesh")) {
             Statecode = "AP";
-        }
-        else if(newenteredStateCode.equals("Arunachal Pradesh"))
-        {
+        } else if (newenteredStateCode.equals("Arunachal Pradesh")) {
             Statecode = "AR";
-        }
-        else if(newenteredStateCode.equals("Assam"))
-        {
+        } else if (newenteredStateCode.equals("Assam")) {
             Statecode = "AS";
-        }
-        else if(newenteredStateCode.equals("Bihar"))
-        {
+        } else if (newenteredStateCode.equals("Bihar")) {
             Statecode = "BR";
-        }
-        else if(newenteredStateCode.equals("Chattisgarh"))
-        {
+        } else if (newenteredStateCode.equals("Chattisgarh")) {
             Statecode = "CG";
-        }
-        else if(newenteredStateCode.equals("Chandigarh"))
-        {
+        } else if (newenteredStateCode.equals("Chandigarh")) {
             Statecode = "CG";
-        }
-        else if(newenteredStateCode.equals("Daman & Diu"))
-        {
+        } else if (newenteredStateCode.equals("Daman & Diu")) {
             Statecode = "DD";
-        }
-        else if(newenteredStateCode.equals("Delhi"))
-        {
+        } else if (newenteredStateCode.equals("Delhi")) {
             Statecode = "DL";
-        }
-        else if(newenteredStateCode.equals("Dadra & Nagar Haveli"))
-        {
+        } else if (newenteredStateCode.equals("Dadra & Nagar Haveli")) {
             Statecode = "DN";
-        }
-        else if(newenteredStateCode.equals("Goa"))
-        {
+        } else if (newenteredStateCode.equals("Goa")) {
             Statecode = "GA";
-        }
-        else if(newenteredStateCode.equals("Gujarat"))
-        {
+        } else if (newenteredStateCode.equals("Gujarat")) {
             Statecode = "GJ";
-        }
-        else if(newenteredStateCode.equals("Himachal Pradesh"))
-        {
+        } else if (newenteredStateCode.equals("Himachal Pradesh")) {
             Statecode = "HP";
-        }
-        else if(newenteredStateCode.equals("Haryana"))
-        {
+        } else if (newenteredStateCode.equals("Haryana")) {
             Statecode = "HR";
-        }
-        else if(newenteredStateCode.equals("Jharkhand"))
-        {
+        } else if (newenteredStateCode.equals("Jharkhand")) {
             Statecode = "JH";
-        }
-        else if(newenteredStateCode.equals("Jammu & Kashmir"))
-        {
+        } else if (newenteredStateCode.equals("Jammu & Kashmir")) {
             Statecode = "JK";
-        }
-        else if(newenteredStateCode.equals("Karnataka"))
-        {
+        } else if (newenteredStateCode.equals("Karnataka")) {
             Statecode = "KA";
-        }
-        else if(newenteredStateCode.equals("Kerala"))
-        {
+        } else if (newenteredStateCode.equals("Kerala")) {
             Statecode = "KL";
-        }
-        else if(newenteredStateCode.equals("Lakshadweep"))
-        {
+        } else if (newenteredStateCode.equals("Lakshadweep")) {
             Statecode = "LD";
-        }
-        else if(newenteredStateCode.equals("Maharashtra"))
-        {
+        } else if (newenteredStateCode.equals("Maharashtra")) {
             Statecode = "MH";
-        }
-        else if(newenteredStateCode.equals("Meghalaya"))
-        {
+        } else if (newenteredStateCode.equals("Meghalaya")) {
             Statecode = "ML";
-        }
-        else if(newenteredStateCode.equals("Manipur"))
-        {
+        } else if (newenteredStateCode.equals("Manipur")) {
             Statecode = "MN";
-        }
-        else if(newenteredStateCode.equals("Madhya Pradesh"))
-        {
+        } else if (newenteredStateCode.equals("Madhya Pradesh")) {
             Statecode = "MP";
-        }
-        else if(newenteredStateCode.equals("Mizoram"))
-        {
+        } else if (newenteredStateCode.equals("Mizoram")) {
             Statecode = "MZ";
-        }
-        else if(newenteredStateCode.equals("Nagaland"))
-        {
+        } else if (newenteredStateCode.equals("Nagaland")) {
             Statecode = "NL";
-        }
-        else if(newenteredStateCode.equals("Orissa"))
-        {
+        } else if (newenteredStateCode.equals("Orissa")) {
             Statecode = "OR";
-        }
-        else if(newenteredStateCode.equals("Punjab"))
-        {
+        } else if (newenteredStateCode.equals("Punjab")) {
             Statecode = "PB";
-        }
-        else if(newenteredStateCode.equals("Pondicherry"))
-        {
+        } else if (newenteredStateCode.equals("Pondicherry")) {
             Statecode = "PY";
-        }
-        else if(newenteredStateCode.equals("Puducherry"))
-        {
+        } else if (newenteredStateCode.equals("Puducherry")) {
             Statecode = "PY";
-        }
-        else if(newenteredStateCode.equals("Rajasthan"))
-        {
+        } else if (newenteredStateCode.equals("Rajasthan")) {
             Statecode = "RJ";
-        }
-        else if(newenteredStateCode.equals("Sikkim"))
-        {
+        } else if (newenteredStateCode.equals("Sikkim")) {
             Statecode = "SK";
-        }
-        else if(newenteredStateCode.equals("Telangana"))
-        {
+        } else if (newenteredStateCode.equals("Telangana")) {
             Statecode = "TG";
-        }
-        else if(newenteredStateCode.equals("Tamil Nadu"))
-        {
+        } else if (newenteredStateCode.equals("Tamil Nadu")) {
             Statecode = "TN";
-        }
-        else if(newenteredStateCode.equals("Tripura"))
-        {
+        } else if (newenteredStateCode.equals("Tripura")) {
             Statecode = "TR";
-        }
-        else if(newenteredStateCode.equals("Uttaranchal"))
-        {
+        } else if (newenteredStateCode.equals("Uttaranchal")) {
             Statecode = "UL";
-        }
-        else if(newenteredStateCode.equals("Uttarakhand"))
-        {
+        } else if (newenteredStateCode.equals("Uttarakhand")) {
             Statecode = "UL";
-        }
-        else if(newenteredStateCode.equals("Uttar Pradesh"))
-        {
+        } else if (newenteredStateCode.equals("Uttar Pradesh")) {
             Statecode = "UP";
-        }
-        else if(newenteredStateCode.equals("West Bengal"))
-        {
+        } else if (newenteredStateCode.equals("West Bengal")) {
             Statecode = "WB";
         }
 
-        String address = enterdoorno.getText().toString() + " " + enterstreet.getText().toString()+" "+ entercity.getText().toString()
-                +" " + enterstate.getText().toString();
+        String address = enterdoorno.getText().toString() + " " + enterstreet.getText().toString() + " " + entercity.getText().toString()
+                + " " + enterstate.getText().toString();
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("fullname",enterfullname.getText().toString());
-            jsonObject.put("dob",enterdob.getText().toString());
-            jsonObject.put("address",address);
-            jsonObject.put("stateCode",Statecode);
-            jsonObject.put("pincode",enterpincode.getText().toString());
-            jsonObject.put("mobile",sharedPreferences.getString("Phone",""));
-            jsonObject.put("aadhaarNumber",sharedPreferences.getString("aadhar_number",""));
-            jsonObject.put("panNumber",sharedPreferences.getString("Pan",""));
-            jsonObject.put("motherName","");
-            jsonObject.put("fatherName",enterfathername.getText().toString());
+            jsonObject.put("fullname", enterfullname.getText().toString());
+            jsonObject.put("dob", enterdob.getText().toString());
+            jsonObject.put("address", address);
+            jsonObject.put("stateCode", Statecode);
+            jsonObject.put("pincode", enterpincode.getText().toString());
+            jsonObject.put("mobile", sharedPreferences.getString("Phone", ""));
+            jsonObject.put("aadhaarNumber", sharedPreferences.getString("aadhar_number", ""));
+            jsonObject.put("panNumber", sharedPreferences.getString("Pan", ""));
+            jsonObject.put("motherName", "");
+            jsonObject.put("fatherName", enterfathername.getText().toString());
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.e("address", "cibil: " + jsonObject );
+        Log.e("address", "cibil: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.CIBIL_DATA, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                Toast.makeText(getApplicationContext(),"CIBIL REPORT GENERATED..",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "CIBIL REPORT GENERATED..", Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.e("Error Response", "onErrorResponse: " + error.getLocalizedMessage() );
+                Log.e("Error Response", "onErrorResponse: " + error.getLocalizedMessage());
 
                 /*int code = error.networkResponse.statusCode;
 
@@ -1050,13 +950,13 @@ public class PersonalInfo extends AppCompatActivity {
                 }*/
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };
@@ -1065,56 +965,49 @@ public class PersonalInfo extends AppCompatActivity {
 
     }
 
-    private void request()
-    {
+    private void request() {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name",enterfullname.getText().toString());
-            jsonObject.put("father_name",enterfathername.getText().toString());
-            jsonObject.put("dob",enterdob.getText().toString());
-            jsonObject.put("email",enteremail.getText().toString());
-            jsonObject.put("door_no",entercur_doorno.getText().toString());
-            jsonObject.put("street",entercur_street.getText().toString());
-            jsonObject.put("city",entercity.getText().toString());
-            jsonObject.put("state",enterstate.getText().toString());
-            jsonObject.put("house_type",currhousetype);
-            jsonObject.put("house_no",enterdoorno.getText().toString());
-            jsonObject.put("address_type","2");
-            jsonObject.put("pincode",enterpincode.getText().toString());
-            jsonObject.put("androidfcm_id",FCM_TOken);
+            jsonObject.put("name", enterfullname.getText().toString());
+            jsonObject.put("father_name", enterfathername.getText().toString());
+            jsonObject.put("dob", enterdob.getText().toString());
+            jsonObject.put("email", enteremail.getText().toString());
+            jsonObject.put("door_no", entercur_doorno.getText().toString());
+            jsonObject.put("street", entercur_street.getText().toString());
+            jsonObject.put("city", entercity.getText().toString());
+            jsonObject.put("state", enterstate.getText().toString());
+            jsonObject.put("house_type", currhousetype);
+            jsonObject.put("house_no", enterdoorno.getText().toString());
+            jsonObject.put("address_type", "2");
+            jsonObject.put("pincode", enterpincode.getText().toString());
+            jsonObject.put("androidfcm_id", FCM_TOken);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.e("address", "request: " + jsonObject );
+        Log.e("address", "request: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.SAVE_ADDRESS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
 
-                if (response!=null)
-                {
+                if (response != null) {
                     loader_personal.setVisibility(View.GONE);
 
-                    if (getvaluefromsegment.equals("salaried"))
-                    {
-                        Intent i = new Intent(getApplicationContext(),ProfessionalInfo.class);
+                    if (getvaluefromsegment.equals("salaried")) {
+                        Intent i = new Intent(getApplicationContext(), ProfessionalInfo.class);
+                        startActivity(i);
+                    } else if (getvaluefromsegment.equals("owner")) {
+                        Intent i = new Intent(getApplicationContext(), DriverProfessionalInfo.class);
                         startActivity(i);
                     }
-                    else if (getvaluefromsegment.equals("owner"))
-                    {
-                        Intent i = new Intent(getApplicationContext(),DriverProfessionalInfo.class);
-                        startActivity(i);
-                    }
-                }
-                else
-                {
+                } else {
                     loader_personal.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),"Response is null..",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Response is null..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -1124,20 +1017,19 @@ public class PersonalInfo extends AppCompatActivity {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
+                if (code == 422) {
 
-                    Toast.makeText(getApplicationContext(),"Please fill the fields properly..",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please fill the fields properly..", Toast.LENGTH_SHORT).show();
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };

@@ -2,24 +2,22 @@ package rutherfordit.com.instasalary.activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,9 +31,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +40,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.IntroSliderActivity;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class ReadContacts extends AppCompatActivity {
 
@@ -56,36 +56,36 @@ public class ReadContacts extends AppCompatActivity {
     List<ContactsModel> contactsModel;
     CardView loader_contacts;
     RelativeLayout rl_layout;
+    Handler handler;
 
-    @Override
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
+
+    /*@Override
     protected void onRestart() {
 
-        try
-        {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED)
-            {
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
-            else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED )
-            {
+            } else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
-            else
-            {
+            } else {
                 if (isNetworkAvailable())
                 {
                     init();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please Connect To Internet..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onRestart();
-    }
+    }*/
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -99,33 +99,27 @@ public class ReadContacts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_contacts);
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        }
-        else if (ContextCompat.checkSelfPermission(ReadContacts.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-        {
+         if (isNetworkAvailable()) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(ReadContacts.this, Manifest.permission.READ_CONTACTS))
-            {
-                if (isNetworkAvailable())
-                {
-                    init();
+             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+             {
+                // init();
+                 handler = new Handler();
+                 handler.postDelayed(new Runnable() {
+                     @Override
+                     public void run() {
+
+                         init();
+                     }
+                 }, 2000);
+             }
+
+
+
+                //
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please Connect To Internet..",Toast.LENGTH_SHORT).show();
-                }
-            }
-            else
-            {
-                ActivityCompat.requestPermissions(ReadContacts.this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
-        }
-        else
-        {
-            init();
-        }
 
     }
 
@@ -145,25 +139,20 @@ public class ReadContacts extends AppCompatActivity {
 
     }
 
-    private void loadcontacts()
-    {
+    private void loadcontacts() {
 
         ContentResolver cr = getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
-        if ((cur != null ? cur.getCount() : 0) > 0)
-        {
-            while (cur != null && cur.moveToNext())
-            {
+        if ((cur != null ? cur.getCount() : 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
                 String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
                 String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
-                if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0)
-                {
+                if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
                     Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
 
-                    while (pCur.moveToNext())
-                    {
+                    while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
                         ContactsModel data = new ContactsModel();
@@ -176,23 +165,20 @@ public class ReadContacts extends AppCompatActivity {
                         Log.i(TAG, "Name: " + name);
                         Log.i(TAG, "Phone Number: " + phoneNo);
                     }
-                   // createExcelSheet();
+                    // createExcelSheet();
                     // createCSV();
 
                     pCur.close();
                 }
             }
-        }
-        else
-        {
+        } else {
             loader_contacts.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(),"..",Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(),TakeSelfieActivity.class);
+            Toast.makeText(getApplicationContext(), "..", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), TakeSelfieActivity.class);
             startActivity(i);
         }
 
-        if(cur!=null)
-        {
+        if (cur != null) {
             cur.close();
         }
 
@@ -240,12 +226,11 @@ public class ReadContacts extends AppCompatActivity {
 
     }
 
-    private void makejson(List<ContactsModel> userList)
-    {
+    private void makejson(List<ContactsModel> userList) {
 
         jsonArray = new JSONArray();
 
-        for(int i = 0 ; i < userList.size() ; i++){
+        for (int i = 0; i < userList.size(); i++) {
 
             JSONObject jsonObject = new JSONObject();
 
@@ -255,11 +240,10 @@ public class ReadContacts extends AppCompatActivity {
 
             try {
 
-                jsonObject.put("contact_name",name);
-                jsonObject.put("contact_number",number);
+                jsonObject.put("contact_name", name);
+                jsonObject.put("contact_number", number);
 
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -267,19 +251,18 @@ public class ReadContacts extends AppCompatActivity {
 
         }
 
-        Log.d(TAG, "getContactsArray: " + jsonArray );
+        Log.d(TAG, "getContactsArray: " + jsonArray);
 
         request(jsonArray);
 
     }
 
-    private void request(JSONArray jsonArray)
-    {
+    private void request(JSONArray jsonArray) {
 
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("contact",jsonArray);
+            jsonObject.put("contact", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -291,12 +274,11 @@ public class ReadContacts extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e(TAG, "onResponse: " + response );
+                Log.e(TAG, "onResponse: " + response);
 
-                if (response!=null)
-                {
-                    Toast.makeText(getApplicationContext(),"Success..",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(),TakeSelfieActivity.class);
+                if (response != null) {
+                    Toast.makeText(getApplicationContext(), "Success..", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), TakeSelfieActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                     loader_contacts.setVisibility(View.GONE);
@@ -310,13 +292,13 @@ public class ReadContacts extends AppCompatActivity {
                 Log.d(TAG, "onErrorResponse: " + error.getMessage());
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };
@@ -325,32 +307,19 @@ public class ReadContacts extends AppCompatActivity {
 
     }
 
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
-    {
-        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS)
-        {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 init();
-            }
-            else
-            {
-                /*loader_contacts.setVisibility(View.GONE);
-                rl_layout.setVisibility(View.VISIBLE);*/
+            } else {
+                *//*loader_contacts.setVisibility(View.GONE);
+                rl_layout.setVisibility(View.VISIBLE);*//*
                 Toast.makeText(getApplicationContext(), "Please Grant Location Permission...", Toast.LENGTH_LONG).show();
                 openPermissionSettings(ReadContacts.this);
             }
         }
-    }
+    }*/
 
     public void gotopermcontacts(View view) {
 

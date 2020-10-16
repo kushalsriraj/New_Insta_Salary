@@ -43,11 +43,11 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:padding="10dp"
                 android:id="@+id/loan_status"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
                 android:text="Status"
                 android:textColor="#AAAAAA"
                 android:textSize="14dp" />
@@ -55,13 +55,13 @@
         </LinearLayout>
 
         <ImageView
-            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/rightarrow" />
+            android:src="@drawable/rightarrow"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

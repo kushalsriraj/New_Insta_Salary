@@ -13,10 +13,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_gravity="center"
             android:id="@+id/imageView"
             android:layout_width="114dp"
             android:layout_height="80dp"
+            android:layout_gravity="center"
             android:layout_marginTop="64dp"
             android:src="@drawable/instalogo" />
 
@@ -50,10 +50,10 @@
                 android:hint="@string/phone_number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:digits="1234567890"
                     android:id="@+id/enterphoneno_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="1234567890"
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat"
                     android:inputType="phone"
@@ -230,25 +230,24 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loader_login"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:crs_pl_style="skype_balls"
-            app:crs_pl_size="very_small"
+
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:crs_pl_bg_color="#fff"
             app:crs_pl_fg_color="@color/instapink"
-            app:crs_pl_bg_color="#fff"/>
+            app:crs_pl_size="very_small"
+            app:crs_pl_style="skype_balls" />
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

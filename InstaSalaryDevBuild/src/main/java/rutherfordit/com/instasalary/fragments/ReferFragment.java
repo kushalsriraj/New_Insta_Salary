@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 public class ReferFragment extends Fragment {
 

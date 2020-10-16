@@ -1,1 +1,19 @@
-[{"outputType":{"type":"APK"},"apkData":{"type":"MAIN","splits":[],"versionCode":1,"versionName":"1.0","enabled":true,"outputFile":"instasalarystaging-release.apk","fullName":"release","baseName":"release"},"path":"instasalarystaging-release.apk","properties":{}}]
+[
+  {
+    "outputType": {
+      "type": "APK"
+    },
+    "apkData": {
+      "type": "MAIN",
+      "splits": [],
+      "versionCode": 1,
+      "versionName": "1.0",
+      "enabled": true,
+      "outputFile": "instasalarystaging-release.apk",
+      "fullName": "release",
+      "baseName": "release"
+    },
+    "path": "instasalarystaging-release.apk",
+    "properties": {}
+  }
+]

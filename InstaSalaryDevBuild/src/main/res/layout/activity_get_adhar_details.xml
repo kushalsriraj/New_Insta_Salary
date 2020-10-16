@@ -11,121 +11,121 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/backarrow_adhar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:src="@drawable/pinkbackarrow" />
-
-        <ImageView
-            android:layout_width="114dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/instalogo" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Aadhar Number"
-                android:textColor="#000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/backarrow_adhar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/pinkbackarrow" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <ImageView
+                android:layout_width="114dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/instalogo" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:hint="Ex : 123453344555">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/enteradharNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:inputType="phone"
-                    android:maxLength="12"
-                    android:singleLine="true" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:visibility="gone"
-                android:onClick="gotoadharupload"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/instapink"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13dp"
-                android:text="OR Click here to Upload Adhar Image.. "/>
-
-            <RelativeLayout
-                android:id="@+id/AdharsubmitButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="70dp"
-                android:background="#36000000">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center"
-                    android:text="Submit"
-                    android:textColor="#fff"
-                    android:textSize="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="Enter Aadhar Number"
+                    android:textColor="#000"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:padding="10dp"
-                    android:src="@drawable/next" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:hint="Ex : 123453344555">
 
-            </RelativeLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/enteradharNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:inputType="phone"
+                        android:maxLength="12"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:onClick="gotoadharupload"
+                    android:text="OR Click here to Upload Adhar Image.. "
+                    android:textColor="@color/instapink"
+                    android:textSize="13dp"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/AdharsubmitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="70dp"
+                    android:background="#36000000">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="center"
+                        android:text="Submit"
+                        android:textColor="#fff"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:padding="10dp"
+                        android:src="@drawable/next" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
 
     </ScrollView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loader_adharnumber"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:crs_pl_style="skype_balls"
-            app:crs_pl_size="very_small"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            app:crs_pl_bg_color="#fff"
             app:crs_pl_fg_color="@color/instapink"
-            app:crs_pl_bg_color="#fff"/>
+            app:crs_pl_size="very_small"
+            app:crs_pl_style="skype_balls" />
 
     </androidx.cardview.widget.CardView>
 

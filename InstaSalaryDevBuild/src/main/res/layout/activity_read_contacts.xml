@@ -9,52 +9,52 @@
 
     <RelativeLayout
         android:id="@+id/rl_layout"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/error"
-            android:layout_centerInParent="true"
             android:layout_above="@+id/cc"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
             android:layout_centerInParent="true"
-            android:textColor="#000"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/cc"
-            android:text="Contacts Permission Required. "/>
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/error" />
 
         <TextView
-            android:onClick="gotopermcontacts"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/cc"
-            android:textColor="@color/instapink"
-            android:textSize="18dp"
+            android:id="@+id/cc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:gravity="center"
+            android:text="Contacts Permission Required. "
+            android:textColor="#000"
+            android:textSize="15dp" />
+
+        <TextView
             android:id="@+id/grant_perm_contacts"
-            android:text="Please Click Here to Grant Permissions.."/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cc"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="gotopermcontacts"
+            android:text="Please Click Here to Grant Permissions.."
+            android:textColor="@color/instapink"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
-        android:visibility="visible"
-        android:layout_marginLeft="40dp"
         android:id="@+id/loader_contacts"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,24 +62,24 @@
             android:orientation="vertical">
 
             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:crs_pl_style="skype_balls"
-                app:crs_pl_size="small"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                app:crs_pl_bg_color="#fff"
                 app:crs_pl_fg_color="@color/instapink"
-                app:crs_pl_bg_color="#fff"/>
+                app:crs_pl_size="small"
+                app:crs_pl_style="skype_balls" />
 
             <TextView
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:gravity="center"
                 android:text="Please Wait while we are setting up your dashboard.."
                 android:textColor="#000"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
 
         </LinearLayout>
 

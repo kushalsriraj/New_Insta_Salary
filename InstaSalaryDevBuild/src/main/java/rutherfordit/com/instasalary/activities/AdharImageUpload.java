@@ -1,7 +1,6 @@
 package rutherfordit.com.instasalary.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +17,8 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,7 +27,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
@@ -51,10 +45,6 @@ import androidx.loader.content.CursorLoader;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -71,15 +61,18 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class AdharImageUpload extends AppCompatActivity {
 
-    RelativeLayout AdharFrontImagesubmit;
-    RelativeLayout upload_adhar_front,upload_adhar_back;
-    ViewFlipper view_flipper;
-    ImageView front_image,back_image;
     private static final int Request_Adhar_front_image = 1;
     private static final int Request_Adhar_back_image = 2;
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    RelativeLayout AdharFrontImagesubmit;
+    RelativeLayout upload_adhar_front, upload_adhar_back;
+    ViewFlipper view_flipper;
+    ImageView front_image, back_image;
     Uri imguri;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
@@ -88,11 +81,7 @@ public class AdharImageUpload extends AppCompatActivity {
     boolean frontuploaded = false;
     boolean backuploaded = false;
     String Adharno;
-    LinearLayout layout_textback,layout_textfront;
-    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
-    private int REQUEST_CODE_PERMISSIONS = 1000;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
-    private Executor executor = Executors.newSingleThreadExecutor();
+    LinearLayout layout_textback, layout_textfront;
     PreviewView previewViewAdhar_front;
     RelativeLayout capture_image_adhar_front;
     LinearLayout layout_bottom_adhar_frontupload;
@@ -100,37 +89,12 @@ public class AdharImageUpload extends AppCompatActivity {
     RelativeLayout layout_correct_adhar_front;
     ImageView adhar_front_image;
     CardView loader_adharupload;
-
     TextView bottom_text;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+    private int REQUEST_CODE_PERMISSIONS = 1000;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adhar_image_upload);
-
-        if(allPermissionsGranted())
-        {
-            init();
-        }
-        else
-        {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-        }
-    }
-
-    private boolean allPermissionsGranted()
-    {
-
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static void openPermissionSettings(Activity activity)
-    {
+    public static void openPermissionSettings(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -138,16 +102,34 @@ public class AdharImageUpload extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_adhar_image_upload);
+
+        if (allPermissionsGranted()) {
+            init();
+        } else {
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+        }
+    }
+
+    private boolean allPermissionsGranted() {
+
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if(allPermissionsGranted())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
                 init();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(AdharImageUpload.this);
             }
@@ -199,14 +181,12 @@ public class AdharImageUpload extends AppCompatActivity {
         });
 
 
-
         AdharFrontImagesubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (frontuploaded)
-                {
-                    Intent i = new Intent(getApplicationContext(),BackAdharImageUpload.class);
+                if (frontuploaded) {
+                    Intent i = new Intent(getApplicationContext(), BackAdharImageUpload.class);
                     startActivity(i);
                 }
             }
@@ -214,8 +194,7 @@ public class AdharImageUpload extends AppCompatActivity {
 
     }
 
-    private void startCamera()
-    {
+    private void startCamera() {
 
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
@@ -227,15 +206,14 @@ public class AdharImageUpload extends AppCompatActivity {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                     bindPreview(cameraProvider);
 
-                } catch (ExecutionException | InterruptedException e) { }
+                } catch (ExecutionException | InterruptedException e) {
+                }
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
 
-
-    private void bindPreview(ProcessCameraProvider cameraProvider)
-    {
+    private void bindPreview(ProcessCameraProvider cameraProvider) {
 
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
@@ -243,8 +221,7 @@ public class AdharImageUpload extends AppCompatActivity {
         ImageCapture.Builder builder = new ImageCapture.Builder();
         HdrImageCaptureExtender hdrImageCaptureExtender = HdrImageCaptureExtender.create(builder);
 
-        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector))
-        {
+        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector)) {
             hdrImageCaptureExtender.enableExtension(cameraSelector);
         }
 
@@ -253,7 +230,7 @@ public class AdharImageUpload extends AppCompatActivity {
                 .build();
 
         preview.setSurfaceProvider(previewViewAdhar_front.createSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis, imageCapture);
 
         capture_image_adhar_front.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,10 +241,10 @@ public class AdharImageUpload extends AppCompatActivity {
                 v.startAnimation(buttonClick);
 
                 SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-                File file = new File(getBatchDirectoryName() , mDateFormat.format(new Date())+ ".jpg");
+                File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date()) + ".jpg");
                 ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
 
-                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -285,20 +262,21 @@ public class AdharImageUpload extends AppCompatActivity {
                             }
                         });
                     }
+
                     @Override
                     public void onError(@NonNull ImageCaptureException error) {
-                        Log.e("loddd", "onError: " + error.getLocalizedMessage() );
+                        Log.e("loddd", "onError: " + error.getLocalizedMessage());
                     }
                 });
             }
         });
     }
 
-    public void getImageUri( Bitmap inImage) {
+    public void getImageUri(Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), inImage, "", null);
-        imguri =  Uri.parse(path);
+        imguri = Uri.parse(path);
     }
 
     public String getBatchDirectoryName() {
@@ -306,13 +284,13 @@ public class AdharImageUpload extends AppCompatActivity {
         String app_folder_path = "";
         app_folder_path = Environment.getExternalStorageDirectory().toString() + "/imagess/Adhar";
         File dir = new File(app_folder_path);
-        if (!dir.exists() && !dir.mkdirs()) {  }
+        if (!dir.exists() && !dir.mkdirs()) {
+        }
 
         return app_folder_path;
     }
 
-    private void uploadFile(Uri captured_image)
-    {
+    private void uploadFile(Uri captured_image) {
 
         String prooftype = "3";
 
@@ -320,11 +298,9 @@ public class AdharImageUpload extends AppCompatActivity {
 
         File file = new File(getRealPathFromURI(captured_image));
 
-        try
-        {
+        try {
             builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -348,7 +324,7 @@ public class AdharImageUpload extends AppCompatActivity {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 e.printStackTrace();
-                Log.e("loddd", "onFailure: " + e.getLocalizedMessage() );
+                Log.e("loddd", "onFailure: " + e.getLocalizedMessage());
             }
 
             @Override
@@ -360,13 +336,10 @@ public class AdharImageUpload extends AppCompatActivity {
 
                         frontuploaded = true;
 
-                        if (frontuploaded)
-                        {
+                        if (frontuploaded) {
                             loader_adharupload.setVisibility(View.GONE);
                             AdharFrontImagesubmit.setBackgroundColor(Color.parseColor("#D81B60"));
-                        }
-                        else
-                        {
+                        } else {
                             loader_adharupload.setVisibility(View.GONE);
                             AdharFrontImagesubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         }
@@ -374,14 +347,13 @@ public class AdharImageUpload extends AppCompatActivity {
                 });
 
                 String jsonData = response.body().string();
-                Log.e("lodddddd", "onResponse: " + jsonData );
+                Log.e("lodddddd", "onResponse: " + jsonData);
 
             }
         });
     }
 
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();

@@ -1,12 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.loader.content.CursorLoader;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 
 import com.crystal.crystalpreloaders.widgets.CrystalPreloader;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -50,55 +50,58 @@ import rutherfordit.com.instasalary.extras.Urls;
 
 public class DocUpload_Professional extends AppCompatActivity {
 
-    CrystalPreloader loader_idcard_back,loader_idcard_front,loader_payslip1,loader_payslip2,loader_payslip3,loader_bankstatement1,loader_bankstatement2;
-    ImageView prof_id_front,prof_id_back,prof_payslip1,prof_payslip2,prof_payslip3,prof_bankstatement1,prof_bankstatement2;
-    TextView prof_bankstatement1_text,prof_bankstatement2_text,prof_payslip1_text,prof_payslip2_text,prof_payslip3_text,prof_id_front_text,prof_id_back_text;
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    CrystalPreloader loader_idcard_back, loader_idcard_front, loader_payslip1, loader_payslip2, loader_payslip3, loader_bankstatement1, loader_bankstatement2;
+    ImageView prof_id_front, prof_id_back, prof_payslip1, prof_payslip2, prof_payslip3, prof_bankstatement1, prof_bankstatement2;
+    TextView prof_bankstatement1_text, prof_bankstatement2_text, prof_payslip1_text, prof_payslip2_text, prof_payslip3_text, prof_id_front_text, prof_id_back_text;
     BottomSheetDialog bottomSheetDialog;
     View view;
-    LinearLayout upload_pdf,upload_from_camera,upload_from_gallery;
-    String timestamp,filename;
+    LinearLayout upload_pdf, upload_from_camera, upload_from_gallery;
+    String timestamp, filename;
     Uri imguri;
     SharedPreferences sharedPreferences;
     String UserAccessToken;
-    boolean idfront,idback,payslip1,payslip2,payslip3,bankstatement1 = false;
+    boolean idfront, idback, payslip1, payslip2, payslip3, bankstatement1 = false;
     String status = "";
-    View view1,view2;
-    String mSelectedDocFile,Pdf_name;
+    View view1, view2;
+    String mSelectedDocFile, Pdf_name;
+    RelativeLayout Submit_professional_proofs;
     private int REQUEST_CODE_PERMISSIONS = 1000;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     private int Request_employee_idcard_camera = 1;
     private int Request_employee_id_gallery = 2;
-    RelativeLayout Submit_professional_proofs;
+
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_upload);
 
-        if(allPermissionsGranted())
-        {
+        if (allPermissionsGranted()) {
             init();
-        }
-        else
-        {
+        } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
 
     }
 
-    private boolean allPermissionsGranted(){
+    private boolean allPermissionsGranted() {
 
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
     }
 
-    private void init()
-    {
+    private void init() {
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
@@ -252,17 +255,14 @@ public class DocUpload_Professional extends AppCompatActivity {
         Submit_professional_proofs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bankstatement1 && payslip1 && idfront)
-                {
-                    Toast.makeText(getApplicationContext(),"Documents Uploaded..",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("MESSAGE","Success");
-                    setResult(1000,intent);
+                if (bankstatement1 && payslip1 && idfront) {
+                    Toast.makeText(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", "Success");
+                    setResult(1000, intent);
                     finish();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Upload All Mandatory Documents to Proceed..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -273,14 +273,11 @@ public class DocUpload_Professional extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Request_employee_idcard_camera)
-        {
-            switch (resultCode)
-            {
+        if (requestCode == Request_employee_idcard_camera) {
+            switch (resultCode) {
                 case RESULT_OK:
 
-                    if (data != null)
-                    {
+                    if (data != null) {
                         Bitmap bitmap = data.getParcelableExtra("data");
                         assert bitmap != null;
                         getImageUri(getApplicationContext(), bitmap);
@@ -291,28 +288,21 @@ public class DocUpload_Professional extends AppCompatActivity {
                 case RESULT_CANCELED:
                     break;
             }
-        }
-
-        else if (requestCode == Request_employee_id_gallery)
-        {
-            switch (resultCode)
-            {
+        } else if (requestCode == Request_employee_id_gallery) {
+            switch (resultCode) {
                 case RESULT_OK:
 
                     if (data != null) {
 
                         Uri selectedImage = data.getData();
                         assert selectedImage != null;
-                        File file= new File(Objects.requireNonNull(selectedImage.getPath()));
+                        File file = new File(Objects.requireNonNull(selectedImage.getPath()));
                         filename = file.getName();
 
-                        if (status.equals("idfront"))
-                        {
-                            prof_id_front_text.setText(filename+".png");
-                        }
-                        else if (status.equals("idback"))
-                        {
-                            prof_id_back_text.setText(filename+".png");
+                        if (status.equals("idfront")) {
+                            prof_id_front_text.setText(filename + ".png");
+                        } else if (status.equals("idback")) {
+                            prof_id_back_text.setText(filename + ".png");
                         }
 
                         uploadFile(selectedImage, Request_employee_id_gallery);
@@ -322,12 +312,8 @@ public class DocUpload_Professional extends AppCompatActivity {
                 case RESULT_CANCELED:
                     break;
             }
-        }
-
-        else if (requestCode == Constant.REQUEST_CODE_PICK_FILE)
-        {
-            if (resultCode == RESULT_OK)
-            {
+        } else if (requestCode == Constant.REQUEST_CODE_PICK_FILE) {
+            if (resultCode == RESULT_OK) {
 
                 assert data != null;
                 ArrayList<NormalFile> list = data.getParcelableArrayListExtra(Constant.RESULT_PICK_FILE);
@@ -345,28 +331,20 @@ public class DocUpload_Professional extends AppCompatActivity {
 
     }
 
-    private void uploadpdf(String status)
-    {
+    private void uploadpdf(String status) {
 
         String code = "";
 
-        if (status.equals("pay1"))
-        {
+        if (status.equals("pay1")) {
             loader_payslip1.setVisibility(View.VISIBLE);
             code = "5";
-        }
-        else if (status.equals("pay2"))
-        {
+        } else if (status.equals("pay2")) {
             loader_payslip2.setVisibility(View.VISIBLE);
             code = "5";
-        }
-        else if (status.equals("pay3"))
-        {
+        } else if (status.equals("pay3")) {
             loader_payslip3.setVisibility(View.VISIBLE);
             code = "5";
-        }
-        else if (status.equals("bank1"))
-        {
+        } else if (status.equals("bank1")) {
             loader_bankstatement1.setVisibility(View.VISIBLE);
             code = "6";
         }
@@ -377,13 +355,10 @@ public class DocUpload_Professional extends AppCompatActivity {
 
             File file = new File(mSelectedDocFile);
 
-            try
-            {
+            try {
                 final MediaType MEDIA_TYPE = MediaType.parse((mSelectedDocFile));
                 builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse(String.valueOf(MEDIA_TYPE)), file));
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -407,7 +382,7 @@ public class DocUpload_Professional extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
 
-                Log.e("httpresponse", "onFailure: " + e.getLocalizedMessage() );
+                Log.e("httpresponse", "onFailure: " + e.getLocalizedMessage());
             }
 
             @Override
@@ -417,87 +392,68 @@ public class DocUpload_Professional extends AppCompatActivity {
                 String body = response.body().string();
                 Log.e("httpresponse", "onResponse: " + body);
 
-                if (status.equals("pay1"))
-                {
+                if (status.equals("pay1")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             payslip1 = true;
                             prof_payslip1_text.setText(Pdf_name);
                             prof_payslip1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip1.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Payslip 1 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Payslip 1 Uploaded", Toast.LENGTH_SHORT).show();
 
-                            if (payslip1 && bankstatement1 && idfront)
-                            {
+                            if (payslip1 && bankstatement1 && idfront) {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                            }
-                            else
-                            {
+                            } else {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                             }
                         }
                     });
-                }
-                else if (status.equals("pay2"))
-                {
+                } else if (status.equals("pay2")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             payslip2 = true;
                             prof_payslip2_text.setText(Pdf_name);
                             prof_payslip2.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip2.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Payslip 2 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Payslip 2 Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else if (status.equals("pay3"))
-                {
+                } else if (status.equals("pay3")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             payslip3 = true;
                             prof_payslip3_text.setText(Pdf_name);
                             prof_payslip3.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip3.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Payslip 3 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Payslip 3 Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else if (status.equals("bank1"))
-                {
+                } else if (status.equals("bank1")) {
                     runOnUiThread(new Runnable() {
                         @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             bankstatement1 = true;
                             prof_bankstatement1_text.setText(Pdf_name);
                             prof_bankstatement1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement1.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),"Bank Statement 1 Uploaded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Bank Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
 
-                            if (payslip1 && bankstatement1 && idfront)
-                            {
+                            if (payslip1 && bankstatement1 && idfront) {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                            }
-                            else
-                            {
+                            } else {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                             }
                         }
                     });
-                }
-                else if (status.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),"Status is empty in pdf",Toast.LENGTH_SHORT).show();
+                } else if (status.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -506,16 +462,15 @@ public class DocUpload_Professional extends AppCompatActivity {
 
     public void getImageUri(Context inContext, Bitmap inImage) {
 
-        long tsLong = System.currentTimeMillis()/1000;
+        long tsLong = System.currentTimeMillis() / 1000;
         filename = Long.toString(tsLong);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, filename, null);
-        imguri =  Uri.parse(path);
+        imguri = Uri.parse(path);
     }
 
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
@@ -527,43 +482,32 @@ public class DocUpload_Professional extends AppCompatActivity {
         return result;
     }
 
-    private void uploadFile(Uri imguri,int Requestcode)
-    {
+    private void uploadFile(Uri imguri, int Requestcode) {
 
         String code = "";
 
-         if (status.equals("idfront"))
-        {
+        if (status.equals("idfront")) {
             loader_idcard_front.setVisibility(View.VISIBLE);
             code = "12";
-        }
-        else if (status.equals("idback"))
-        {
+        } else if (status.equals("idback")) {
             loader_idcard_back.setVisibility(View.VISIBLE);
             code = "12";
+        } else if (status.equals("pay1")) {
+            loader_payslip1.setVisibility(View.VISIBLE);
+            code = "5";
+        } else if (status.equals("pay2")) {
+            loader_payslip2.setVisibility(View.VISIBLE);
+            code = "5";
+        } else if (status.equals("pay3")) {
+            loader_payslip3.setVisibility(View.VISIBLE);
+            code = "5";
         }
-        else if (status.equals("pay1"))
-         {
-             loader_payslip1.setVisibility(View.VISIBLE);
-             code = "5";
-         }
-         else if (status.equals("pay2"))
-         {
-             loader_payslip2.setVisibility(View.VISIBLE);
-             code = "5";
-         }
-         else if (status.equals("pay3"))
-         {
-             loader_payslip3.setVisibility(View.VISIBLE);
-             code = "5";
-         }
 
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         File file = new File(getRealPathFromURI(imguri));
 
-        try
-        {
+        try {
             builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -594,110 +538,89 @@ public class DocUpload_Professional extends AppCompatActivity {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
 
-                if (finalCode.equals("12"))
-                {
-                    if (status.equals("idfront"))
-                    {
+                if (finalCode.equals("12")) {
+                    if (status.equals("idfront")) {
                         idfront = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                prof_id_front.setPadding(20,20,20,20);
+                                prof_id_front.setPadding(20, 20, 20, 20);
                                 prof_id_front.setScaleType(ImageView.ScaleType.FIT_XY);
                                 prof_id_front.setImageURI(imguri);
-                                prof_id_front_text.setText(filename+".png");
+                                prof_id_front_text.setText(filename + ".png");
                                 loader_idcard_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Id Front Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Id Front Uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (payslip1 && bankstatement1 && idfront)
-                                {
+                                if (payslip1 && bankstatement1 && idfront) {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
                         });
-                    }
-
-                    else if (status.equals("idback"))
-                    {
+                    } else if (status.equals("idback")) {
                         idback = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                prof_id_back.setPadding(20,20,20,20);
+                                prof_id_back.setPadding(20, 20, 20, 20);
                                 prof_id_back.setScaleType(ImageView.ScaleType.FIT_XY);
                                 prof_id_back.setImageURI(imguri);
-                                prof_id_back_text.setText(filename+".png");
+                                prof_id_back_text.setText(filename + ".png");
                                 loader_idcard_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Id Back Uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Id Back Uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
-                }
-
-                else if (finalCode.equals("5"))
-                {
-                    if (status.equals("pay1"))
-                    {
+                } else if (finalCode.equals("5")) {
+                    if (status.equals("pay1")) {
                         payslip1 = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                prof_payslip1.setPadding(20,20,20,20);
+                                prof_payslip1.setPadding(20, 20, 20, 20);
                                 prof_payslip1.setScaleType(ImageView.ScaleType.FIT_XY);
                                 prof_payslip1.setImageURI(imguri);
-                                prof_payslip1_text.setText(filename+".png");
+                                prof_payslip1_text.setText(filename + ".png");
                                 loader_payslip1.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Payslip 1 uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Payslip 1 uploaded", Toast.LENGTH_SHORT).show();
 
-                                if (payslip1 && bankstatement1 && idfront)
-                                {
+                                if (payslip1 && bankstatement1 && idfront) {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
-                                }
-                                else
-                                {
+                                } else {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#36000000"));
                                 }
                             }
                         });
-                    }
-
-                    else if (status.equals("pay2"))
-                    {
+                    } else if (status.equals("pay2")) {
                         payslip2 = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                prof_payslip2.setPadding(20,20,20,20);
+                                prof_payslip2.setPadding(20, 20, 20, 20);
                                 prof_payslip2.setScaleType(ImageView.ScaleType.FIT_XY);
                                 prof_payslip2.setImageURI(imguri);
-                                prof_payslip2_text.setText(filename+".png");
+                                prof_payslip2_text.setText(filename + ".png");
                                 loader_payslip2.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Payslip 2 uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Payslip 2 uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }
-
-                    else if (status.equals("pay3"))
-                    {
+                    } else if (status.equals("pay3")) {
                         payslip3 = true;
 
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                prof_payslip3.setPadding(20,20,20,20);
+                                prof_payslip3.setPadding(20, 20, 20, 20);
                                 prof_payslip3.setScaleType(ImageView.ScaleType.FIT_XY);
                                 prof_payslip3.setImageURI(imguri);
-                                prof_payslip3_text.setText(filename+".png");
+                                prof_payslip3_text.setText(filename + ".png");
                                 loader_payslip3.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),"Payslip 3 uploaded",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Payslip 3 uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -711,32 +634,20 @@ public class DocUpload_Professional extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if(allPermissionsGranted())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
                 init();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(DocUpload_Professional.this);
             }
         }
     }
 
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
-        Toast.makeText(getApplicationContext(),"Action Denied..",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 
 }

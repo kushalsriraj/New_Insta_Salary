@@ -11,7 +11,7 @@ public class OnBootBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent i = new Intent("com.demo.FirebaseMessagingReceiveService");
-        i.setClass(context,  MyService.class);
+        i.setClass(context, MyService.class);
         context.startService(i);
     }
 

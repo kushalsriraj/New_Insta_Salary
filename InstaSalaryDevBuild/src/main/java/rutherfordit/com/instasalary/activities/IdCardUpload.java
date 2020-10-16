@@ -21,10 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
 
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -35,18 +31,27 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class IdCardUpload extends AppCompatActivity {
+    private static final int Request_idCard = 1;
     RelativeLayout Idsubmit;
     Button upload_idCard;
     ImageView id_image;
-    private static final int Request_idCard = 1;
     Uri imguri;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
     String UserAccessToken;
     String code = "";
     boolean idcardupload = false;
+
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,7 @@ public class IdCardUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Idsubmit.isEnabled()){
+                if (Idsubmit.isEnabled()) {
                     Idsubmit.setEnabled(false);
                     Intent i = new Intent(getApplicationContext(), ProfessionalInfo.class);
                     startActivity(i);
@@ -99,12 +104,11 @@ public class IdCardUpload extends AppCompatActivity {
             switch (resultCode) {
                 case RESULT_OK:
 
-                    if (data != null)
-                    {
+                    if (data != null) {
                         Bitmap bitmap = data.getParcelableExtra("data");
                         assert bitmap != null;
-                        getImageUri(getApplicationContext(),bitmap);
-                        uploadFile(imguri,Request_idCard);
+                        getImageUri(getApplicationContext(), bitmap);
+                        uploadFile(imguri, Request_idCard);
                         id_image.setImageURI(imguri);
                         progressDialog.cancel();
                     }
@@ -121,11 +125,9 @@ public class IdCardUpload extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void uploadFile(Uri imguri, int Requestcode)
-    {
+    private void uploadFile(Uri imguri, int Requestcode) {
 
-        if (Requestcode == Request_idCard)
-        {
+        if (Requestcode == Request_idCard) {
             code = "12";
         }
 
@@ -166,15 +168,11 @@ public class IdCardUpload extends AppCompatActivity {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
 
-                if (code.equals("12"))
-                {
+                if (code.equals("12")) {
 
-                    if (idcardupload)
-                    {
+                    if (idcardupload) {
                         Idsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
-                    }
-                    else
-                    {
+                    } else {
                         progressDialog.cancel();
                         String jsonData = response.body().string();
                         upload_idCard.setBackgroundColor(Color.GREEN);
@@ -192,19 +190,10 @@ public class IdCardUpload extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        imguri =  Uri.parse(path);
+        imguri = Uri.parse(path);
     }
 
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();

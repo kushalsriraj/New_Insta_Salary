@@ -2,7 +2,7 @@ package rutherfordit.com.instasalary.extras;
 
 public class Urls {
 
-    public static final String IMAGE_CONSTANT= "https://instasalaryfitdev.s3.ap-south-1.amazonaws.com";
+    public static final String IMAGE_CONSTANT = "https://instasalaryfitdev.s3.ap-south-1.amazonaws.com";
 
     public static final String SIGNUP_REQUEST = "http://api.instasalary.in/api/signup";
     public static final String SEND_OTP_URL = "http://api.instasalary.in/api/sendotp";
@@ -22,9 +22,9 @@ public class Urls {
 
     public static final String CREDIT_SCORE = "http://api.instasalary.in/api/user/credit_score";
     public static final String LOANS_LIST = "http://api.instasalary.in/api/user/loansList";
-    public static final String LOAN_DETAIL= "http://api.instasalary.in/api/user/loanDetail";
+    public static final String LOAN_DETAIL = "http://api.instasalary.in/api/user/loanDetail";
     public static final String CREATE_LOAN = "http://api.instasalary.in/api/loancreate";
-    public static final String ADD_BANK_DETAILS= "http://api.instasalary.in/api/user/bank";
+    public static final String ADD_BANK_DETAILS = "http://api.instasalary.in/api/user/bank";
 
     public static final String Client_Secret_key = "IjMWx3oSLw2EQUx0uoMPijimS2SjDuevSwkXwtaY";
 
@@ -39,6 +39,8 @@ public class Urls {
 
     public static final String LOCATION_DATA = "http://api.instasalary.in/api/user/location";
     public static final String CIBIL_DATA = "http://api.instasalary.in/api/cibil";
+    public static final String USER_DISBURSED = "http://api.instasalary.in/api/userdisbured";
+
 
 
 }

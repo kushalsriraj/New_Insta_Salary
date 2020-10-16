@@ -2,6 +2,15 @@ package rutherfordit.com.instasalary.model;
 
 public class LoansModel {
 
+    String id;
+    String user_id;
+    String amount;
+    String repayable_date;
+    String desc;
+    String intrest;
+    String joined_on;
+    String application_status;
+
     public String getId() {
         return id;
     }
@@ -58,14 +67,6 @@ public class LoansModel {
         this.joined_on = joined_on;
     }
 
-    String id;
-    String user_id;
-    String amount;
-    String repayable_date;
-    String desc;
-    String intrest;
-    String joined_on;
-
     public String getApplication_status() {
         return application_status;
     }
@@ -73,7 +74,5 @@ public class LoansModel {
     public void setApplication_status(String application_status) {
         this.application_status = application_status;
     }
-
-    String application_status;
 
 }

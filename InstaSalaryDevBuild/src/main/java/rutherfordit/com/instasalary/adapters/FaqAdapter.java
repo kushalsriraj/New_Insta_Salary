@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import rutherfordit.com.instasalary.R;
-
 import java.util.ArrayList;
+
+import rutherfordit.com.instasalary.R;
 
 public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.MyViewHolder> {
 

@@ -2,7 +2,6 @@ package rutherfordit.com.instasalary.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
@@ -42,11 +40,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.loader.content.CursorLoader;
 
-import com.crystal.crystalpreloaders.widgets.CrystalPreloader;
 import com.google.common.util.concurrent.ListenableFuture;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,14 +58,17 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.Urls;
 
 public class TakeSelfieActivity extends AppCompatActivity {
 
-    CardView loader_takeselfie,card_preview;
     private static final String TAG = "selfie_activity";
     private static final int REQUEST_IMAGE_CAPTURE = 100;
-    LinearLayout uploadLayout,cameraLayout;
-    RelativeLayout cancelLayout,correctLayout;
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    CardView loader_takeselfie, card_preview;
+    LinearLayout uploadLayout, cameraLayout;
+    RelativeLayout cancelLayout, correctLayout;
     ImageView imageView;
     RelativeLayout capture_image;
     SharedPreferences sharedPreferences;
@@ -80,8 +77,14 @@ public class TakeSelfieActivity extends AppCompatActivity {
     PreviewView mPreviewView;
     private Executor executor = Executors.newSingleThreadExecutor();
     private int REQUEST_CODE_PERMISSIONS = 1001;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+
+    public static void openPermissionSettings(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @SuppressLint("CheckResult")
     @Override
@@ -89,20 +92,16 @@ public class TakeSelfieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_selfie);
 
-        if(allPermissionsGranted())
-        {
+        if (allPermissionsGranted()) {
             init();
-        }
-        else
-        {
+        } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
 
     }
 
-    private void startCamera()
-    {
+    private void startCamera() {
 
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
@@ -114,14 +113,14 @@ public class TakeSelfieActivity extends AppCompatActivity {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                     bindPreview(cameraProvider);
 
-                } catch (ExecutionException | InterruptedException e) { }
+                } catch (ExecutionException | InterruptedException e) {
+                }
             }
         }, ContextCompat.getMainExecutor(this));
 
     }
 
-    private void bindPreview(ProcessCameraProvider cameraProvider)
-    {
+    private void bindPreview(ProcessCameraProvider cameraProvider) {
 
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build();
@@ -129,8 +128,7 @@ public class TakeSelfieActivity extends AppCompatActivity {
         ImageCapture.Builder builder = new ImageCapture.Builder();
         HdrImageCaptureExtender hdrImageCaptureExtender = HdrImageCaptureExtender.create(builder);
 
-        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector))
-        {
+        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector)) {
             hdrImageCaptureExtender.enableExtension(cameraSelector);
         }
 
@@ -142,7 +140,7 @@ public class TakeSelfieActivity extends AppCompatActivity {
 
 
         //   preview.setSurfaceProvider(executor, (Preview.SurfaceProvider) mPreviewView);
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis, imageCapture);
 
         capture_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,17 +151,17 @@ public class TakeSelfieActivity extends AppCompatActivity {
                 v.startAnimation(buttonClick);
 
                 SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-                File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date())+ ".png");
+                File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date()) + ".png");
                 ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
 
-                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
 
-                                Log.e(TAG, "run: " + mPreviewView.getBitmap() );
+                                Log.e(TAG, "run: " + mPreviewView.getBitmap());
 
                                 getImageUri(mPreviewView.getBitmap());
                                 imageView.setImageURI(imguri);
@@ -177,6 +175,7 @@ public class TakeSelfieActivity extends AppCompatActivity {
                             }
                         });
                     }
+
                     @Override
                     public void onError(@NonNull ImageCaptureException error) {
                         error.printStackTrace();
@@ -193,15 +192,16 @@ public class TakeSelfieActivity extends AppCompatActivity {
         String app_folder_path = "";
         app_folder_path = Environment.getExternalStorageDirectory().toString() + "/imagess";
         File dir = new File(app_folder_path);
-        if (!dir.exists() && !dir.mkdirs()) {  }
+        if (!dir.exists() && !dir.mkdirs()) {
+        }
 
         return app_folder_path;
     }
 
-    private boolean allPermissionsGranted(){
+    private boolean allPermissionsGranted() {
 
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -215,9 +215,9 @@ public class TakeSelfieActivity extends AppCompatActivity {
         loader_takeselfie = findViewById(R.id.loader_takeselfie);
         loader_takeselfie.setVisibility(View.GONE);
         card_preview = findViewById(R.id.card_preview);
-        uploadLayout=findViewById(R.id.layout_bottom);
-        cancelLayout=findViewById(R.id.layout_cancel);
-        correctLayout=findViewById(R.id.layout_correct);
+        uploadLayout = findViewById(R.id.layout_bottom);
+        cancelLayout = findViewById(R.id.layout_cancel);
+        correctLayout = findViewById(R.id.layout_correct);
         capture_image = findViewById(R.id.capture_image);
 
         imageView.setVisibility(View.GONE);
@@ -230,30 +230,6 @@ public class TakeSelfieActivity extends AppCompatActivity {
 
         startCamera();
         onClicks();
-    }
-
-    private void onClicks() {
-
-        correctLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loader_takeselfie.setVisibility(View.VISIBLE);
-                uploadFile(imguri);
-            }
-        });
-
-        cancelLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loader_takeselfie.setVisibility(View.VISIBLE);
-                card_preview.setVisibility(View.VISIBLE);
-                mPreviewView.setVisibility(View.VISIBLE);
-                imageView.setVisibility(View.GONE);
-                capture_image.setVisibility(View.VISIBLE);
-                uploadLayout.setVisibility(View.GONE);
-                loader_takeselfie.setVisibility(View.GONE);
-            }
-        });
     }
 
     /*@Override
@@ -284,17 +260,38 @@ public class TakeSelfieActivity extends AppCompatActivity {
         }
     }*/
 
-    private void uploadFile(Uri captured_image)
-    {
+    private void onClicks() {
+
+        correctLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader_takeselfie.setVisibility(View.VISIBLE);
+                uploadFile(imguri);
+            }
+        });
+
+        cancelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader_takeselfie.setVisibility(View.VISIBLE);
+                card_preview.setVisibility(View.VISIBLE);
+                mPreviewView.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.GONE);
+                capture_image.setVisibility(View.VISIBLE);
+                uploadLayout.setVisibility(View.GONE);
+                loader_takeselfie.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void uploadFile(Uri captured_image) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         File file = new File(getRealPathFromURI(captured_image));
 
-        try
-        {
+        try {
             builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -318,7 +315,7 @@ public class TakeSelfieActivity extends AppCompatActivity {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 e.printStackTrace();
-                Log.e(TAG, "onFailure: " + e.getLocalizedMessage() );
+                Log.e(TAG, "onFailure: " + e.getLocalizedMessage());
             }
 
             @Override
@@ -332,18 +329,17 @@ public class TakeSelfieActivity extends AppCompatActivity {
                 });
 
                 String jsonData = response.body().string();
-                Intent i = new Intent(getApplicationContext(),ReadSMS.class);
+                Intent i = new Intent(getApplicationContext(), ReadSMS.class);
                 startActivity(i);
 
-                Log.e(TAG, "onResponse: " + jsonData );
+                Log.e(TAG, "onResponse: " + jsonData);
 
             }
         });
 
     }
 
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
@@ -355,35 +351,23 @@ public class TakeSelfieActivity extends AppCompatActivity {
         return result;
     }
 
-    public void getImageUri( Bitmap inImage) {
+    public void getImageUri(Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), inImage, "", null);
-        imguri =  Uri.parse(path);
-    }
-
-    public static void openPermissionSettings(Activity activity)
-    {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
+        imguri = Uri.parse(path);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if(allPermissionsGranted())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
                 init();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-               // openPermissionSettings(TakeSelfieActivity.this);
+                // openPermissionSettings(TakeSelfieActivity.this);
             }
         }
     }

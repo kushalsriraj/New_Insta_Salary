@@ -1,22 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.Preview;
-import androidx.camera.extensions.HdrImageCaptureExtender;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.loader.content.CursorLoader;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +22,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.Preview;
+import androidx.camera.extensions.HdrImageCaptureExtender;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.loader.content.CursorLoader;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -63,6 +63,7 @@ import rutherfordit.com.instasalary.extras.Urls;
 
 public class BackAdharImageUpload extends AppCompatActivity {
 
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     PreviewView previewViewAdhar_back;
     RelativeLayout capture_image_adhar_back;
     LinearLayout layout_bottom_adhar_backupload;
@@ -72,42 +73,14 @@ public class BackAdharImageUpload extends AppCompatActivity {
     CardView loader_adharuploadback;
     RelativeLayout AdharbackImagesubmit;
     boolean backuploaded = false;
-    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
-    private int REQUEST_CODE_PERMISSIONS = 1000;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
-    private Executor executor = Executors.newSingleThreadExecutor();
     SharedPreferences sharedPreferences;
     String UserAccessToken;
     Uri imguri;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+    private int REQUEST_CODE_PERMISSIONS = 1000;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_back_adhar_image_upload);
-
-        if(allPermissionsGranted())
-        {
-            init();
-        }
-        else
-        {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-        }
-    }
-
-    private boolean allPermissionsGranted()
-    {
-
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static void openPermissionSettings(Activity activity)
-    {
+    public static void openPermissionSettings(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -115,24 +88,41 @@ public class BackAdharImageUpload extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_back_adhar_image_upload);
+
+        if (allPermissionsGranted()) {
+            init();
+        } else {
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+        }
+    }
+
+    private boolean allPermissionsGranted() {
+
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if(allPermissionsGranted())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
                 init();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(BackAdharImageUpload.this);
             }
         }
     }
 
-    private void init()
-    {
+    private void init() {
 
         loader_adharuploadback = findViewById(R.id.loader_adharuploadback);
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
@@ -175,9 +165,8 @@ public class BackAdharImageUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (backuploaded)
-                {
-                    Intent i = new Intent(getApplicationContext(),SignUpDetails.class);
+                if (backuploaded) {
+                    Intent i = new Intent(getApplicationContext(), SignUpDetails.class);
                     startActivity(i);
                 }
             }
@@ -185,8 +174,7 @@ public class BackAdharImageUpload extends AppCompatActivity {
 
     }
 
-    private void startCamera()
-    {
+    private void startCamera() {
 
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
@@ -198,13 +186,13 @@ public class BackAdharImageUpload extends AppCompatActivity {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                     bindPreviewbackcam(cameraProvider);
 
-                } catch (ExecutionException | InterruptedException e) { }
+                } catch (ExecutionException | InterruptedException e) {
+                }
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
-    private void bindPreviewbackcam(ProcessCameraProvider cameraProvider)
-    {
+    private void bindPreviewbackcam(ProcessCameraProvider cameraProvider) {
 
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
@@ -212,8 +200,7 @@ public class BackAdharImageUpload extends AppCompatActivity {
         ImageCapture.Builder builder = new ImageCapture.Builder();
         HdrImageCaptureExtender hdrImageCaptureExtender = HdrImageCaptureExtender.create(builder);
 
-        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector))
-        {
+        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector)) {
             hdrImageCaptureExtender.enableExtension(cameraSelector);
         }
 
@@ -222,7 +209,7 @@ public class BackAdharImageUpload extends AppCompatActivity {
                 .build();
 
         preview.setSurfaceProvider(previewViewAdhar_back.createSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis, imageCapture);
 
         capture_image_adhar_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,10 +220,10 @@ public class BackAdharImageUpload extends AppCompatActivity {
                 v.startAnimation(buttonClick);
 
                 SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-                File file = new File(getBatchDirectoryName() , mDateFormat.format(new Date())+ ".jpg");
+                File file = new File(getBatchDirectoryName(), mDateFormat.format(new Date()) + ".jpg");
                 ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
 
-                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -254,17 +241,17 @@ public class BackAdharImageUpload extends AppCompatActivity {
                             }
                         });
                     }
+
                     @Override
                     public void onError(@NonNull ImageCaptureException error) {
-                        Log.e("loddd", "onError: " + error.getLocalizedMessage() );
+                        Log.e("loddd", "onError: " + error.getLocalizedMessage());
                     }
                 });
             }
         });
     }
 
-    private void uploadFile(Uri captured_image)
-    {
+    private void uploadFile(Uri captured_image) {
 
         String prooftype = "4";
 
@@ -272,11 +259,9 @@ public class BackAdharImageUpload extends AppCompatActivity {
 
         File file = new File(getRealPathFromURI(captured_image));
 
-        try
-        {
+        try {
             builder.addFormDataPart("proof[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -300,7 +285,7 @@ public class BackAdharImageUpload extends AppCompatActivity {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 e.printStackTrace();
-                Log.e("loddd", "onFailure: " + e.getLocalizedMessage() );
+                Log.e("loddd", "onFailure: " + e.getLocalizedMessage());
             }
 
             @Override
@@ -312,13 +297,10 @@ public class BackAdharImageUpload extends AppCompatActivity {
 
                         backuploaded = true;
 
-                        if (backuploaded)
-                        {
+                        if (backuploaded) {
                             loader_adharuploadback.setVisibility(View.GONE);
                             AdharbackImagesubmit.setBackgroundColor(Color.parseColor("#D81B60"));
-                        }
-                        else
-                        {
+                        } else {
                             loader_adharuploadback.setVisibility(View.GONE);
                             AdharbackImagesubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         }
@@ -327,14 +309,13 @@ public class BackAdharImageUpload extends AppCompatActivity {
                 });
 
                 String jsonData = response.body().string();
-                Log.e("lodddddd", "onResponse: " + jsonData );
+                Log.e("lodddddd", "onResponse: " + jsonData);
 
             }
         });
     }
 
-    private String getRealPathFromURI(Uri captured_image)
-    {
+    private String getRealPathFromURI(Uri captured_image) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, captured_image, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
@@ -346,11 +327,11 @@ public class BackAdharImageUpload extends AppCompatActivity {
         return result;
     }
 
-    public void getImageUri( Bitmap inImage) {
+    public void getImageUri(Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), inImage, "", null);
-        imguri =  Uri.parse(path);
+        imguri = Uri.parse(path);
     }
 
     public String getBatchDirectoryName() {
@@ -358,7 +339,8 @@ public class BackAdharImageUpload extends AppCompatActivity {
         String app_folder_path = "";
         app_folder_path = Environment.getExternalStorageDirectory().toString() + "/imagess/Adhar";
         File dir = new File(app_folder_path);
-        if (!dir.exists() && !dir.mkdirs()) {  }
+        if (!dir.exists() && !dir.mkdirs()) {
+        }
 
         return app_folder_path;
     }

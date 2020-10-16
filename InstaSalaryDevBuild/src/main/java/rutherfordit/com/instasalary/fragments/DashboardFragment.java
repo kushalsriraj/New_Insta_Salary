@@ -1,13 +1,10 @@
 package rutherfordit.com.instasalary.fragments;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,15 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import rutherfordit.com.instasalary.activities.AddBankDetails;
-import rutherfordit.com.instasalary.activities.CreditScoreSctivity;
-import rutherfordit.com.instasalary.activities.MainActivity;
-import rutherfordit.com.instasalary.adapters.DashBoardAdapter;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
-import rutherfordit.com.instasalary.model.LoansModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,22 +38,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.activities.MainActivity;
+import rutherfordit.com.instasalary.adapters.DashBoardAdapter;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+import rutherfordit.com.instasalary.model.LoansModel;
 
 public class DashboardFragment extends Fragment {
 
     View v;
     RecyclerView recdashboard;
     List<LoansModel> models;
-    private String UserAccessToken;
     TextView emptydash;
     RelativeLayout apply_new_Loan;
     EditText enter_purpose;
     ImageView cancel_dialog;
     Button apply_for_loan;
-    LinearLayout application_success,application_failure;
+    LinearLayout application_success, application_failure;
     DashBoardAdapter dashBoardAdapter;
     CardView loader_dashboard;
+    private String UserAccessToken;
 
     /*@Override
     public void onResume() {
@@ -90,7 +84,7 @@ public class DashboardFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
 
-        Log.e("mytoken", "init: " + UserAccessToken );
+        Log.e("mytoken", "init: " + UserAccessToken);
 
         models = new ArrayList<>();
 
@@ -111,8 +105,7 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    private void showdialog()
-    {
+    private void showdialog() {
 
         final Dialog dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -139,13 +132,10 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (application_success.getVisibility() == View.VISIBLE)
-                {
+                if (application_success.getVisibility() == View.VISIBLE) {
                     dialog.cancel();
                     request();
-                }
-                else if(application_success.getVisibility() == View.GONE)
-                {
+                } else if (application_success.getVisibility() == View.GONE) {
                     dialog.cancel();
                 }
             }
@@ -154,12 +144,11 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    private void applyloan()
-    {
+    private void applyloan() {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("description",enter_purpose.getText().toString());
+            jsonObject.put("description", enter_purpose.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -169,17 +158,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("bank_response", "onResponse: " + response );
+                Log.e("bank_response", "onResponse: " + response);
 
-                if(response.has("data"))
-                {
-                    Toast.makeText(getContext(),"Loan Applied..",Toast.LENGTH_SHORT).show();
+                if (response.has("data")) {
+                    Toast.makeText(getContext(), "Loan Applied..", Toast.LENGTH_SHORT).show();
                     application_success.setVisibility(View.VISIBLE);
                     application_failure.setVisibility(View.GONE);
-                }
-                else
-                {
-                    Toast.makeText(getContext(),"Not Saved",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Not Saved", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -190,23 +176,20 @@ public class DashboardFragment extends Fragment {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getContext(),"Please Check the Details You Entered..",Toast.LENGTH_SHORT).show();
-                }
-                else if(code == 500)
-                {
-                    Toast.makeText(getContext(),"Internal Server Error..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };
@@ -226,22 +209,19 @@ public class DashboardFragment extends Fragment {
                 try {
                     JSONArray jsonArray = response.getJSONArray("data");
 
-                    if (jsonArray.length() > 0)
-                    {
+                    if (jsonArray.length() > 0) {
 
                         emptydash.setVisibility(View.GONE);
 
-                        for (int i = 0 ; i < jsonArray.length() ; i++ )
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject object = jsonArray.getJSONObject(i);
 
                             String status = object.getString("application_status");
 
-                            if (status.equals("0") || status.equals("1"))
-                            {
+                            if (status.equals("0") || status.equals("1")) {
 
-                                Log.e("stauts", "onResponse: " + status );
+                                Log.e("stauts", "onResponse: " + status);
 
                                 LoansModel data = new LoansModel();
 
@@ -256,9 +236,7 @@ public class DashboardFragment extends Fragment {
 
                                 models.add(data);
                                 loader_dashboard.setVisibility(View.GONE);
-                            }
-                            else
-                            {
+                            } else {
                                 emptydash.setVisibility(View.GONE);
                                 loader_dashboard.setVisibility(View.GONE);
                             }
@@ -268,10 +246,7 @@ public class DashboardFragment extends Fragment {
                         dashBoardAdapter = new DashBoardAdapter(getContext(), models, (MainActivity) getActivity());
                         recdashboard.setAdapter(dashBoardAdapter);
                         dashBoardAdapter.notifyDataSetChanged();
-                    }
-
-                    else if (jsonArray.length() == 0)
-                    {
+                    } else if (jsonArray.length() == 0) {
                         emptydash.setVisibility(View.VISIBLE);
                         loader_dashboard.setVisibility(View.GONE);
                     }
@@ -290,13 +265,13 @@ public class DashboardFragment extends Fragment {
                 loader_dashboard.setVisibility(View.VISIBLE);
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };

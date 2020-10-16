@@ -1,6 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,9 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.textfield.TextInputEditText;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,32 +36,35 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+
 public class SignUpDetails extends AppCompatActivity {
 
-    RelativeLayout  pansubmit;
+    RelativeLayout pansubmit;
     TextInputEditText enterpan;
     ImageView backarrowsignupdetails;
     SharedPreferences sharedPreferences;
-    String  Panno, UserAccessToken;
+    String Panno, UserAccessToken;
     boolean click = false;
     String Adharno;
-    private int GoToPanUpload = 1;
     Button upload_pan;
     ImageView uploadsuccess_pan;
     TextView upload_pan_text;
     String message;
     boolean gotpan = false;
     CardView loader_pannumber;
+    private int GoToPanUpload = 1;
 
     @Override
     public void onBackPressed() {
         //  super.onBackPressed();
-        Toast.makeText(getApplicationContext(),"Action Denied..",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
     }
 
@@ -87,8 +86,7 @@ public class SignUpDetails extends AppCompatActivity {
             message = data.getStringExtra("MESSAGE");
 
             assert message != null;
-            if (message.equals("Success"))
-            {
+            if (message.equals("Success")) {
                 gotpan = true;
                 uploadsuccess_pan.setVisibility(View.VISIBLE);
                 upload_pan_text.setText("Upload Successfull ");
@@ -98,8 +96,7 @@ public class SignUpDetails extends AppCompatActivity {
 
                 // Matcher matcher = pattern.matcher(sequence);
 
-                if (!TextUtils.isEmpty(enterpan.getText().toString()) && enterpan.getText().toString().trim().length() == 10 && gotpan)
-                {
+                if (!TextUtils.isEmpty(enterpan.getText().toString()) && enterpan.getText().toString().trim().length() == 10 && gotpan) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -117,9 +114,7 @@ public class SignUpDetails extends AppCompatActivity {
                     });
                 }
 
-            }
-            else
-            {
+            } else {
                 gotpan = false;
             }
 
@@ -140,12 +135,12 @@ public class SignUpDetails extends AppCompatActivity {
         loader_pannumber = findViewById(R.id.loader_pannumber);
         loader_pannumber.setVisibility(View.GONE);
 
-        enterpan.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10),new InputFilter.AllCaps()});
+        enterpan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10), new InputFilter.AllCaps()});
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
 
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
-        Adharno = sharedPreferences.getString("aadhar_number","");
+        Adharno = sharedPreferences.getString("aadhar_number", "");
 
         backarrowsignupdetails = findViewById(R.id.backarrowsignupdetails);
 
@@ -184,8 +179,7 @@ public class SignUpDetails extends AppCompatActivity {
 
                 Matcher matcher = pattern.matcher(s);
 
-                if (!TextUtils.isEmpty(enterpan.getText().toString()) && enterpan.getText().toString().trim().length() == 10 && matcher.matches() && gotpan)
-                {
+                if (!TextUtils.isEmpty(enterpan.getText().toString()) && enterpan.getText().toString().trim().length() == 10 && matcher.matches() && gotpan) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -226,10 +220,9 @@ public class SignUpDetails extends AppCompatActivity {
                     validatepan();
 
 
-                } else if (click){
+                } else if (click) {
                     Toast.makeText(getApplicationContext(), "Please Upload PAN image", Toast.LENGTH_LONG).show();
-                }
-                else if (gotpan){
+                } else if (gotpan) {
                     Toast.makeText(getApplicationContext(), "Please Enter PAN Number", Toast.LENGTH_LONG).show();
                 }
             }
@@ -237,8 +230,7 @@ public class SignUpDetails extends AppCompatActivity {
 
     }
 
-    private void validatepan()
-    {
+    private void validatepan() {
 
         final JSONObject jsonObject = new JSONObject();
 
@@ -250,7 +242,7 @@ public class SignUpDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.e("tag", "EnterPersonalDetails: " + jsonObject );
+        Log.e("tag", "EnterPersonalDetails: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.PAN_VALIDATION, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -259,7 +251,7 @@ public class SignUpDetails extends AppCompatActivity {
                 try {
                     sendpandata();
                     EnterPersonalDetails();
-                    Toast.makeText(getApplicationContext(),response.getString("success"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response.getString("success"), Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -271,13 +263,10 @@ public class SignUpDetails extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 loader_pannumber.setVisibility(View.GONE);
                 int code = error.networkResponse.statusCode;
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"Enter correct pan number",Toast.LENGTH_SHORT).show();
-                }
-                else if (code == 500)
-                {
-                    Toast.makeText(getApplicationContext(),"Api Error..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "Enter correct pan number", Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getApplicationContext(), "Api Error..", Toast.LENGTH_SHORT).show();
                 }
             }
         }) {
@@ -296,8 +285,7 @@ public class SignUpDetails extends AppCompatActivity {
 
     }
 
-    private void sendpandata()
-    {
+    private void sendpandata() {
 
         final JSONObject jsonObject = new JSONObject();
 
@@ -305,26 +293,26 @@ public class SignUpDetails extends AppCompatActivity {
 
             String statecode = "";
 
-            String fathername = sharedPreferences.getString("care_of","");
-            fathername = fathername.replaceAll("S/O ","");
+            String fathername = sharedPreferences.getString("care_of", "");
+            fathername = fathername.replaceAll("S/O ", "");
 
-            String mobile = sharedPreferences.getString("Phone","");
-            String pincode = sharedPreferences.getString("zip","");
+            String mobile = sharedPreferences.getString("Phone", "");
+            String pincode = sharedPreferences.getString("zip", "");
             // String statecode = sharedPreferences.getString("care_of","");
-            String dob = sharedPreferences.getString("dob","");
+            String dob = sharedPreferences.getString("dob", "");
 
-            String street = sharedPreferences.getString("street","");
-            String subdist = sharedPreferences.getString("subdist","");
-            String vtc = sharedPreferences.getString("vtc","");
-            String ioc = sharedPreferences.getString("ioc","");
-            String po = sharedPreferences.getString("po","");
-            String house = sharedPreferences.getString("house","");
-            String state = sharedPreferences.getString("state","");
-            String dist = sharedPreferences.getString("dist","");
+            String street = sharedPreferences.getString("street", "");
+            String subdist = sharedPreferences.getString("subdist", "");
+            String vtc = sharedPreferences.getString("vtc", "");
+            String ioc = sharedPreferences.getString("ioc", "");
+            String po = sharedPreferences.getString("po", "");
+            String house = sharedPreferences.getString("house", "");
+            String state = sharedPreferences.getString("state", "");
+            String dist = sharedPreferences.getString("dist", "");
 
             String address = house + street + vtc + ioc + po + subdist + dist + state;
 
-            jsonObject.put("name", sharedPreferences.getString("full_name",""));
+            jsonObject.put("name", sharedPreferences.getString("full_name", ""));
             jsonObject.put("pan_number", enterpan.getText().toString());
 
             /*jsonObject.put("inquiryPurpose","PERSONAL_LOAN" );
@@ -341,13 +329,13 @@ public class SignUpDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.e("tag", "EnterPersonalDetails: " + jsonObject );
+        Log.e("tag", "EnterPersonalDetails: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.SEND_PAN_DATA, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("pandata", "onResponse: " + response );
+                Log.e("pandata", "onResponse: " + response);
 
                 try {
                     JSONObject dataobj = response.getJSONObject("data");
@@ -376,7 +364,7 @@ public class SignUpDetails extends AppCompatActivity {
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
                 params.put("Authorization", UserAccessToken);
-                Log.e("pandata", "getHeaders: " + params );
+                Log.e("pandata", "getHeaders: " + params);
                 return params;
 
             }
@@ -399,7 +387,7 @@ public class SignUpDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.e("tag", "EnterPersonalDetails: " + jsonObject );
+        Log.e("tag", "EnterPersonalDetails: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.PERSONAL_DETAILS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -415,7 +403,7 @@ public class SignUpDetails extends AppCompatActivity {
                         loader_pannumber.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getApplicationContext(),SegmentActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SegmentActivity.class);
                         startActivity(intent);
                         loader_pannumber.setVisibility(View.GONE);
                     }
@@ -431,13 +419,10 @@ public class SignUpDetails extends AppCompatActivity {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"Error code 422.",Toast.LENGTH_SHORT).show();
-                }
-                else if (code == 500)
-                {
-                    Toast.makeText(getApplicationContext(),"Internal Server Error..",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "Error code 422.", Toast.LENGTH_SHORT).show();
+                } else if (code == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
                 loader_pannumber.setVisibility(View.GONE);
@@ -460,7 +445,7 @@ public class SignUpDetails extends AppCompatActivity {
 
     public void gotoPanupload() {
 
-        Intent intent=new Intent(getApplicationContext(), PanImageUpload.class);
+        Intent intent = new Intent(getApplicationContext(), PanImageUpload.class);
         startActivityForResult(intent, GoToPanUpload);
 
     }

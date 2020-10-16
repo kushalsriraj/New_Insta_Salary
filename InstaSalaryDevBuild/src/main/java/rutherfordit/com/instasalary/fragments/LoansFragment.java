@@ -1,6 +1,5 @@
 package rutherfordit.com.instasalary.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,11 +18,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.adapters.LoansAdapter;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
-import rutherfordit.com.instasalary.model.LoansModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,14 +28,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.adapters.LoansAdapter;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+import rutherfordit.com.instasalary.model.LoansModel;
+
 public class LoansFragment extends Fragment {
 
-    private String UserAccessToken;
-    private RecyclerView recloans;
     View v;
     List<LoansModel> model;
     TextView emptyloanfrag;
     CardView loader_loans;
+    private String UserAccessToken;
+    private RecyclerView recloans;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,13 +81,11 @@ public class LoansFragment extends Fragment {
                 try {
                     JSONArray jsonArray = response.getJSONArray("data");
 
-                    if (jsonArray.length() > 0)
-                    {
+                    if (jsonArray.length() > 0) {
 
                         emptyloanfrag.setVisibility(View.GONE);
 
-                        for (int i = 0 ; i < jsonArray.length() ; i++ )
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject object = jsonArray.getJSONObject(i);
 
@@ -106,12 +104,9 @@ public class LoansFragment extends Fragment {
                             loader_loans.setVisibility(View.GONE);
                         }
 
-                        LoansAdapter loansAdapter = new LoansAdapter(getContext(),model);
+                        LoansAdapter loansAdapter = new LoansAdapter(getContext(), model);
                         recloans.setAdapter(loansAdapter);
-                    }
-
-                    else if (jsonArray.length() == 0)
-                    {
+                    } else if (jsonArray.length() == 0) {
                         emptyloanfrag.setVisibility(View.VISIBLE);
                         loader_loans.setVisibility(View.GONE);
                     }
@@ -129,13 +124,13 @@ public class LoansFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loader_loans.setVisibility(View.GONE);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };

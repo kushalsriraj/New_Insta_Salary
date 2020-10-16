@@ -2,6 +2,8 @@ package rutherfordit.com.instasalary.model;
 
 public class CityModel {
 
+    String Name, Circle, District, Division, State, Country;
+
     public String getName() {
         return Name;
     }
@@ -49,7 +51,5 @@ public class CityModel {
     public void setCountry(String country) {
         Country = country;
     }
-
-    String Name,Circle,District,Division,State,Country;
 
 }

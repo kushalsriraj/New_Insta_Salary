@@ -2,7 +2,7 @@ package rutherfordit.com.instasalary.model;
 
 public class VendorModel {
 
-    private String id,name,address,phone,joinedon;
+    private String id, name, address, phone, joinedon;
 
     public String getId() {
         return id;

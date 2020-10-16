@@ -1,11 +1,9 @@
 package rutherfordit.com.instasalary.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,39 +12,42 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.crystal.crystalpreloaders.widgets.CrystalPreloader;
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.Circle;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import rutherfordit.com.instasalary.R;
-import rutherfordit.com.instasalary.extras.MySingleton;
-import rutherfordit.com.instasalary.extras.Urls;
+import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
+import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity {
+import rutherfordit.com.instasalary.R;
+import rutherfordit.com.instasalary.extras.MySingleton;
+import rutherfordit.com.instasalary.extras.Urls;
+import swarajsaaj.smscodereader.interfaces.OTPListener;
+import swarajsaaj.smscodereader.receivers.OtpReader;
+
+public class LoginActivity extends AppCompatActivity implements OTPListener {
 
     CardView progressBar;
+    SmsVerifyCatcher smsVerifyCatcher;
     LinearLayout llfirst, llsecond;
     TextInputEditText enterphoneno_login;
     RelativeLayout loginmainlayout;
@@ -55,15 +56,16 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     String mypreference = "mySharedPreference";
     TextView mynumbertext;
+    boolean click = false;
     private RelativeLayout loginbottombutton;
-    private EditText et1;
-    private EditText et2;
-    private EditText et3;
-    private EditText et4;
+    EditText et1;
+    EditText et2;
+    EditText et3;
+    EditText et4;
     private TextView changenumberlogin;
     private Snackbar snackbar;
-    boolean click = false;
     // int click = 0;
+    String dgt1,dgt2,dgt3,dgt4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        OtpReader.bind(this,"QP-600010");
+
 
         progressBar = findViewById(R.id.loader_login);
         progressBar.setVisibility(View.GONE);
@@ -110,13 +115,55 @@ public class LoginActivity extends AppCompatActivity {
 
         snackbar = Snackbar.make(loginmainlayout, "Press Again To Exit", Snackbar.LENGTH_SHORT);
 
+        smsVerifyCatcher = new SmsVerifyCatcher(LoginActivity.this, new OnSmsCatchListener<String>() {
+            @Override
+            public void onSmsCatch(String message) {
+                String code = parseCode(message);//Parse verification code
+                Log.d("Agilanbu OTP", code);
+                Toast.makeText(getApplicationContext(), "Agilanbu OTP: " + code, Toast.LENGTH_LONG).show();
+               // et_otp.setText(code);//set code in edit text
+            }
+        });
+
+        smsVerifyCatcher.setFilter("QP-600010");
+
         ontouch();
+    }
+
+    private String parseCode(String message) {
+
+        Pattern p = Pattern.compile("\\b\\d{4}\\b");
+        Matcher m = p.matcher(message);
+        String code = "";
+        while (m.find()) {
+            code = m.group(0);
+        }
+        return code;
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     public void onResume() {
         //init();
         super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        smsVerifyCatcher.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        smsVerifyCatcher.onStop();
     }
 
     @Override
@@ -227,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (et4.getText().toString().length() == 1 && et3.getText().toString().length() ==  1 && et2.getText().toString().length() ==  1 && et1.getText().toString().length() ==  1)     //size as per your requirement
+                if (et4.getText().toString().length() == 1 && et3.getText().toString().length() == 1 && et2.getText().toString().length() == 1 && et1.getText().toString().length() == 1)     //size as per your requirement
                 {
                     enteredotp = et1.getText().toString() + et2.getText().toString() + et3.getText().toString() + et4.getText().toString();
 
@@ -272,9 +319,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    if (et3.getText().toString().length()==0)
-                    {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    if (et3.getText().toString().length() == 0) {
                         et2.requestFocus();
                     }
                 }
@@ -285,9 +331,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    if (et2.getText().toString().length()==0)
-                    {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    if (et2.getText().toString().length() == 0) {
                         et1.requestFocus();
                     }
                 }
@@ -298,9 +343,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    if (et4.getText().toString().length()==0)
-                    {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    if (et4.getText().toString().length() == 0) {
                         et3.requestFocus();
                     }
                 }
@@ -416,8 +460,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void generateToken()
-    {
+    private void generateToken() {
         JSONObject jsonObject = new JSONObject();
 
         String number = enterphoneno_login.getText().toString();
@@ -450,11 +493,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (!accesstoken.isEmpty()) {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("AccessToken", accesstoken);
-                        editor.putString("Phone",substring_phoneno);
-                        editor.putString("loggedin","true");
+                        editor.putString("Phone", substring_phoneno);
+                        editor.putString("loggedin", "true");
                         editor.apply();
 
-                        sendlocation(accesstoken,"login");
+                        sendlocation(accesstoken, "login");
 
                     } else {
                         Toast.makeText(getApplicationContext(), "Access Token Not Generated", Toast.LENGTH_SHORT).show();
@@ -486,47 +529,42 @@ public class LoginActivity extends AppCompatActivity {
         MySingleton.getInstance(LoginActivity.this).addToRequestQueue(jsonObjectRequest);
     }
 
-    private void sendlocation(String accesstoken, String from)
-    {
+    private void sendlocation(String accesstoken, String from) {
 
-        String lat = sharedpreferences.getString("lat","");
-        String longi = sharedpreferences.getString("longi","");
+        String lat = sharedpreferences.getString("lat", "");
+        String longi = sharedpreferences.getString("longi", "");
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("longitude",longi);
-            jsonObject.put("latitude",lat);
+            jsonObject.put("longitude", longi);
+            jsonObject.put("latitude", lat);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.e("latlong", "sendlocation: " + jsonObject );
+        Log.e("latlong", "sendlocation: " + jsonObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Urls.LOCATION_DATA, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("latlong", "onResponse: " + response );
+                Log.e("latlong", "onResponse: " + response);
 
-                if (response.has("message"))
-                {
+                if (response.has("message")) {
                     try {
 
-                        if (from.equals("login"))
-                        {
-                            Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                        if (from.equals("login")) {
+                            Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             et1.setText("");
                             et2.setText("");
                             et3.setText("");
                             et4.setText("");
-                        }
-                        else if (from.equals("signup"))
-                        {
-                            Intent i = new Intent(getApplicationContext(), ReadContacts.class);
+                        } else if (from.equals("signup")) {
+                            Intent i = new Intent(getApplicationContext(), RequestPermissionsActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             et1.setText("");
@@ -549,20 +587,19 @@ public class LoginActivity extends AppCompatActivity {
 
                 int code = error.networkResponse.statusCode;
 
-                if (code == 422)
-                {
-                    Toast.makeText(getApplicationContext(),"422 error code",Toast.LENGTH_SHORT).show();
+                if (code == 422) {
+                    Toast.makeText(getApplicationContext(), "422 error code", Toast.LENGTH_SHORT).show();
                 }
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization","Bearer "+accesstoken);
-                Log.e("latlong", "getHeaders: " + params );
+                params.put("Authorization", "Bearer " + accesstoken);
+                Log.e("latlong", "getHeaders: " + params);
                 return params;
             }
         };
@@ -603,12 +640,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("AccessToken", accesstoken);
-                        editor.putString("Phone",substring_phoneno);
-                        editor.putString("loggedin","false");
+                        editor.putString("Phone", substring_phoneno);
+                        editor.putString("loggedin", "false");
                         editor.apply();
 
-                        sendlocation(accesstoken,"signup");
-
+                        sendlocation(accesstoken, "signup");
 
 
                     } else {
@@ -640,4 +676,29 @@ public class LoginActivity extends AppCompatActivity {
         MySingleton.getInstance(LoginActivity.this).addToRequestQueue(jsonObjectRequest);
     }
 
+    @Override
+    public void otpReceived(String messageText) {
+
+        String number  = messageText.replaceAll("[^0-9]", "");
+
+        Toast.makeText(getApplicationContext(),"" + number.charAt(0),Toast.LENGTH_SHORT).show();
+
+        dgt1 = String.valueOf(number.charAt(0));
+        dgt2 = String.valueOf(number.charAt(1));
+        dgt3 = String.valueOf(number.charAt(2));
+        dgt4 = String.valueOf(number.charAt(3));
+
+        et1.setText(dgt1);
+        et2.setText(dgt2);
+        et3.setText(dgt3);
+        et4.setText(dgt4);
+
+        Log.e("TAG", "otpReceived: " + dgt1 );
+
+        /*et1.setText(number.charAt(0));
+        et2.setText(number.charAt(1));
+        et3.setText(number.charAt(2));
+        et4.setText(number.charAt(3));*/
+
+    }
 }

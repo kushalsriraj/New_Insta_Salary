@@ -1,8 +1,5 @@
 package rutherfordit.com.instasalary.activities;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -52,18 +52,18 @@ public class DriverProfessionalInfo extends AppCompatActivity {
     RelativeLayout ownerprofsubmit;
     boolean click = false;
     Spinner vendorspinner;
-    private ArrayList<VendorModel> vendorModelArrayList;
-    private ArrayList<String> names,ids;
     ProgressDialog progressBar;
     Button upload_driving_licence;
-    private int GoToDocUpload = 1000;
     boolean gotdocuments = false;
     TextView text_upload_driver;
     ImageView uploadsuccess_driver;
     SharedPreferences sharedPreferences;
-    String UserAccessToken,Vendor;
+    String UserAccessToken, Vendor;
     String message = "";
     TextView error_veh_no;
+    private ArrayList<VendorModel> vendorModelArrayList;
+    private ArrayList<String> names, ids;
+    private int GoToDocUpload = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,37 +78,30 @@ public class DriverProfessionalInfo extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GoToDocUpload)
-        {
+        if (requestCode == GoToDocUpload) {
 
             assert data != null;
-            message=data.getStringExtra("MESSAGE");
+            message = data.getStringExtra("MESSAGE");
 
             assert message != null;
-            if (message.equals("Success"))
-            {
+            if (message.equals("Success")) {
                 gotdocuments = true;
                 click = true;
 
-                if (error_veh_no.getVisibility()==View.VISIBLE)
-                {
+                if (error_veh_no.getVisibility() == View.VISIBLE) {
                     ownerprofsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                     uploadsuccess_driver.setVisibility(View.VISIBLE);
                     text_upload_driver.setText("Documents Uploaded");
                     upload_driving_licence.setVisibility(View.GONE);
                     click = false;
-                }
-                else if (error_veh_no.getVisibility()==View.GONE && entervendor.getText().toString().length() > 0 &&
-                        enteravgincome.getText().toString().length() > 0 && !Vendor.equals("-- Select Vendor --"))
-                {
+                } else if (error_veh_no.getVisibility() == View.GONE && entervendor.getText().toString().length() > 0 &&
+                        enteravgincome.getText().toString().length() > 0 && !Vendor.equals("-- Select Vendor --")) {
                     ownerprofsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     uploadsuccess_driver.setVisibility(View.VISIBLE);
                     text_upload_driver.setText("Documents Uploaded");
                     upload_driving_licence.setVisibility(View.GONE);
                     click = true;
-                }
-                else
-                {
+                } else {
                     uploadsuccess_driver.setVisibility(View.VISIBLE);
                     text_upload_driver.setText("Documents Uploaded");
                     upload_driving_licence.setVisibility(View.GONE);
@@ -116,21 +109,20 @@ public class DriverProfessionalInfo extends AppCompatActivity {
                 }
             }
 
-            Log.e("driverprof", "onActivityResult:  " + message );
+            Log.e("driverprof", "onActivityResult:  " + message);
 
         }
     }
 
 
-    private void initowner()
-    {
+    private void initowner() {
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
 
         progressBar = new ProgressDialog(this);
         entervehicleno = findViewById(R.id.entervehicleno);
-        entervehicleno.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10),new InputFilter.AllCaps()});
+        entervehicleno.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10), new InputFilter.AllCaps()});
         entervendor = findViewById(R.id.entervendor);
         enteravgincome = findViewById(R.id.enteravgincome);
         ownerprofsubmit = findViewById(R.id.ownerprofsubmit);
@@ -159,12 +151,10 @@ public class DriverProfessionalInfo extends AppCompatActivity {
 
                 Vendor = parent.getItemAtPosition(pos).toString();
 
-                if (!Vendor.equals("-- Select Vendor --"))
-                {
+                if (!Vendor.equals("-- Select Vendor --")) {
 
                     if (entervehicleno.getText().toString().length() > 0 && entervendor.getText().toString().length() > 0 &&
-                            enteravgincome.getText().toString().length() > 4 && !Vendor.equals("-- Select Vendor --") && gotdocuments)
-                    {
+                            enteravgincome.getText().toString().length() > 4 && !Vendor.equals("-- Select Vendor --") && gotdocuments) {
                         ownerprofsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                         click = true;
                     } else {
@@ -172,10 +162,8 @@ public class DriverProfessionalInfo extends AppCompatActivity {
                         click = false;
                     }
 
-                    Id = vendorModelArrayList.get(pos-1).getId();
-                }
-                else
-                {
+                    Id = vendorModelArrayList.get(pos - 1).getId();
+                } else {
 
                     ownerprofsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                     click = false;
@@ -198,29 +186,23 @@ public class DriverProfessionalInfo extends AppCompatActivity {
 
                 Matcher matcher = pattern.matcher(s);
 
-                if (error_veh_no.getVisibility()==View.GONE && entervendor.getText().toString().length() > 0 &&
+                if (error_veh_no.getVisibility() == View.GONE && entervendor.getText().toString().length() > 0 &&
                         enteravgincome.getText().toString().length() > 4 && !Vendor.equals("-- Select Vendor --") && matcher.matches() && gotdocuments) {
                     ownerprofsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                     click = true;
-                }
-                else if (entervehicleno.getText().toString().length() == 10 )
-                {
-                    if( !matcher.matches())
-                    {
+                } else if (entervehicleno.getText().toString().length() == 10) {
+                    if (!matcher.matches()) {
                         error_veh_no.setVisibility(View.VISIBLE);
                         error_veh_no.setText("Enter Correct Vehicle Number");
-                        Toast.makeText(getApplicationContext(),"Enter Correct Vehicle Number..",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Enter Correct Vehicle Number..", Toast.LENGTH_SHORT).show();
                         ownerprofsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         click = false;
-                    }
-                    else
-                    {
+                    } else {
                         error_veh_no.setVisibility(View.GONE);
                         ownerprofsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                         click = true;
                     }
-                }
-                else {
+                } else {
                     ownerprofsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                     click = false;
                 }
@@ -258,8 +240,7 @@ public class DriverProfessionalInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (click)
-                {
+                if (click) {
                     progressBar.setCancelable(false);
                     progressBar.setMessage("Please Wait..");
                     progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -267,10 +248,8 @@ public class DriverProfessionalInfo extends AppCompatActivity {
                     progressBar.setMax(100);
                     progressBar.show();
                     ownerrequest();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please Check All The fields..",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Check All The fields..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -278,27 +257,24 @@ public class DriverProfessionalInfo extends AppCompatActivity {
         upload_driving_licence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), DocUpload_Driver.class);
+                Intent intent = new Intent(getApplicationContext(), DocUpload_Driver.class);
                 startActivityForResult(intent, GoToDocUpload);
             }
         });
 
     }
 
-    private void requestvendordata()
-    {
+    private void requestvendordata() {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Urls.VENDORS_LIST, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response)
-            {
+            public void onResponse(JSONObject response) {
 
                 try {
 
                     JSONArray data = response.getJSONArray("data");
 
-                    for (int i = 0 ; i < data.length() ; i++ )
-                    {
+                    for (int i = 0; i < data.length(); i++) {
 
                         JSONObject dataobj = data.getJSONObject(i);
 
@@ -314,7 +290,7 @@ public class DriverProfessionalInfo extends AppCompatActivity {
 
                         names.add(dataobj.getString("name"));
 
-                        ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, names);
+                        ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, names);
 
                         vendorspinner.setAdapter(aa);
 
@@ -330,13 +306,13 @@ public class DriverProfessionalInfo extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
+                params.put("Authorization", UserAccessToken);
                 return params;
             }
         };
@@ -345,13 +321,12 @@ public class DriverProfessionalInfo extends AppCompatActivity {
 
     }
 
-    private void ownerrequest()
-    {
+    private void ownerrequest() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("vehicle_number",entervehicleno.getText().toString());
-            jsonObject.put("vendor_id",Id);
-            jsonObject.put("avg_income",enteravgincome.getText().toString());
+            jsonObject.put("vehicle_number", entervehicleno.getText().toString());
+            jsonObject.put("vendor_id", Id);
+            jsonObject.put("avg_income", enteravgincome.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -362,10 +337,9 @@ public class DriverProfessionalInfo extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e("owner_response", "onResponse: " + response );
+                Log.e("owner_response", "onResponse: " + response);
 
-                if(response!=null)
-                {
+                if (response != null) {
                     progressBar.cancel();
                     Intent i = new Intent(getApplicationContext(), AddBankDetails.class);
                     startActivity(i);
@@ -375,17 +349,17 @@ public class DriverProfessionalInfo extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.e("eeeeeee", "onErrorResponse: " + error.toString() );
+                Log.e("eeeeeee", "onErrorResponse: " + error.toString());
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
                 params.put("Accept", "application/json");
-                params.put("Authorization",UserAccessToken);
-                Log.e(":parama", "getHeaders: " + params );
+                params.put("Authorization", UserAccessToken);
+                Log.e(":parama", "getHeaders: " + params);
                 return params;
             }
         };
