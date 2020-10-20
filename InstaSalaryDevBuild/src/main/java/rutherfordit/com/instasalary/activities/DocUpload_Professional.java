@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -256,13 +257,13 @@ public class DocUpload_Professional extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (bankstatement1 && payslip1 && idfront) {
-                    Toast.makeText(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", "Success");
                     setResult(1000, intent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -401,7 +402,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                             prof_payslip1_text.setText(Pdf_name);
                             prof_payslip1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip1.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Payslip 1 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Payslip 1 Uploaded", Toast.LENGTH_SHORT).show();
 
                             if (payslip1 && bankstatement1 && idfront) {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -419,7 +420,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                             prof_payslip2_text.setText(Pdf_name);
                             prof_payslip2.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip2.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Payslip 2 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Payslip 2 Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else if (status.equals("pay3")) {
@@ -431,7 +432,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                             prof_payslip3_text.setText(Pdf_name);
                             prof_payslip3.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_payslip3.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Payslip 3 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Payslip 3 Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else if (status.equals("bank1")) {
@@ -443,7 +444,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                             prof_bankstatement1_text.setText(Pdf_name);
                             prof_bankstatement1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement1.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Bank Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Bank Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
 
                             if (payslip1 && bankstatement1 && idfront) {
                                 Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -453,7 +454,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                         }
                     });
                 } else if (status.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -550,7 +551,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                                 prof_id_front.setImageURI(imguri);
                                 prof_id_front_text.setText(filename + ".png");
                                 loader_idcard_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Id Front Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.info(getApplicationContext(), "Id Front Uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (payslip1 && bankstatement1 && idfront) {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -570,7 +571,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                                 prof_id_back.setImageURI(imguri);
                                 prof_id_back_text.setText(filename + ".png");
                                 loader_idcard_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Id Back Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.info(getApplicationContext(), "Id Back Uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -586,7 +587,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                                 prof_payslip1.setImageURI(imguri);
                                 prof_payslip1_text.setText(filename + ".png");
                                 loader_payslip1.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Payslip 1 uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Payslip 1 uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (payslip1 && bankstatement1 && idfront) {
                                     Submit_professional_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -606,7 +607,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                                 prof_payslip2.setImageURI(imguri);
                                 prof_payslip2_text.setText(filename + ".png");
                                 loader_payslip2.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Payslip 2 uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Payslip 2 uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else if (status.equals("pay3")) {
@@ -620,7 +621,7 @@ public class DocUpload_Professional extends AppCompatActivity {
                                 prof_payslip3.setImageURI(imguri);
                                 prof_payslip3_text.setText(filename + ".png");
                                 loader_payslip3.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Payslip 3 uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Payslip 3 uploaded", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -638,7 +639,7 @@ public class DocUpload_Professional extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toasty.warning(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(DocUpload_Professional.this);
             }
         }
@@ -647,7 +648,7 @@ public class DocUpload_Professional extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
-        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
+        Toasty.error(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 
 }

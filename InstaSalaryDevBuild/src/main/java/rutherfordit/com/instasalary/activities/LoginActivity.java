@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
             public void onSmsCatch(String message) {
                 String code = parseCode(message);//Parse verification code
                 Log.d("Agilanbu OTP", code);
-                Toast.makeText(getApplicationContext(), "Agilanbu OTP: " + code, Toast.LENGTH_LONG).show();
+                Toasty.info(getApplicationContext(), "Agilanbu OTP: " + code, Toast.LENGTH_LONG).show();
                // et_otp.setText(code);//set code in edit text
             }
         });
@@ -288,7 +289,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
 
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Entered OTP is Wrong", Toast.LENGTH_LONG).show();
+                            Toasty.warning(getApplicationContext(), "Entered OTP is Wrong", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         SignupRequest();
@@ -360,7 +361,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                     requestlogin();
                     et1.requestFocus();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please enter a valid phone number", Toast.LENGTH_LONG).show();
+                    Toasty.warning(getApplicationContext(), "Please enter a valid phone number", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -419,7 +420,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                     Status = response.getString("isuserExits");
                     loginotp = response.getString("otp");
 
-                    Toast.makeText(getApplicationContext(), loginotp, Toast.LENGTH_LONG).show();
+                    Toasty.success(getApplicationContext(), loginotp, Toast.LENGTH_LONG).show();
 
                     mynumbertext.setText(enterphoneno_login.getText().toString());
 
@@ -500,7 +501,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                         sendlocation(accesstoken, "login");
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Access Token Not Generated", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Access Token Not Generated", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -555,7 +556,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                     try {
 
                         if (from.equals("login")) {
-                            Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
@@ -588,7 +589,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "422 error code", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "422 error code", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -648,7 +649,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
 
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Access Token Is Not Generated!!", Toast.LENGTH_LONG).show();
+                        Toasty.warning(getApplicationContext(), "Access Token Is Not Generated!!", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
@@ -681,7 +682,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
 
         String number  = messageText.replaceAll("[^0-9]", "");
 
-        Toast.makeText(getApplicationContext(),"" + number.charAt(0),Toast.LENGTH_SHORT).show();
+        Toasty.success(getApplicationContext(),"" + number.charAt(0),Toast.LENGTH_SHORT).show();
 
         dgt1 = String.valueOf(number.charAt(0));
         dgt2 = String.valueOf(number.charAt(1));

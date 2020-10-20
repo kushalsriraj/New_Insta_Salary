@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -227,13 +228,13 @@ public class DocUpload_Driver extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (statement1 && rcback && rcfront && licenceback && licencefront) {
-                    Toast.makeText(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Documents Uploaded..", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", "Success");
                     setResult(1000, intent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Upload All Mandatory Documents to Proceed..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -257,7 +258,7 @@ public class DocUpload_Driver extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toasty.warning(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(DocUpload_Driver.this);
             }
         }
@@ -340,7 +341,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                                 driver_licence_front.setImageURI(imguri);
                                 driver_licence_front_text.setText(filename + ".png");
                                 loader_licence_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Licence Front Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Licence Front Uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -360,7 +361,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                                 driver_licence_back.setImageURI(imguri);
                                 driver_licence_back_text.setText(filename + ".png");
                                 loader_licence_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Licence Back Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Licence Back Uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -380,7 +381,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                                 driver_rc_front.setImageURI(imguri);
                                 driver_rc_front_text.setText(filename + ".png");
                                 loader_rc_front.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Rc Front Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Rc Front Uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -400,7 +401,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                                 driver_rc_back.setImageURI(imguri);
                                 driver_rc_back_text.setText(filename + ".png");
                                 loader_rc_back.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Rc Back Uploaded", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "Rc Back Uploaded", Toast.LENGTH_SHORT).show();
 
                                 if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                     Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -469,7 +470,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                 uploadpdf(status);
 
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), "Cancelled..", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Cancelled..", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -539,7 +540,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                             driver_bankstatement1_text.setText(Pdf_name);
                             driver_bankstatement1.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement1_driver.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Statement 1 Uploaded", Toast.LENGTH_SHORT).show();
 
                             if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -557,7 +558,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                             driver_bankstatement2_text.setText(Pdf_name);
                             driver_bankstatement2.setImageDrawable(getResources().getDrawable(R.drawable.pdfseticon));
                             loader_bankstatement2_driver.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Statement 2 Uploaded", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getApplicationContext(), "Statement 2 Uploaded", Toast.LENGTH_SHORT).show();
 
                             if (statement1 && rcback && rcfront && licenceback && licencefront) {
                                 Submit_driver_proofs.setBackgroundColor(Color.parseColor("#D81B60"));
@@ -567,7 +568,7 @@ public class DocUpload_Driver extends AppCompatActivity {
                         }
                     });
                 } else if (status.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Status is empty in pdf", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -587,6 +588,6 @@ public class DocUpload_Driver extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
-        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
+        Toasty.error(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 }

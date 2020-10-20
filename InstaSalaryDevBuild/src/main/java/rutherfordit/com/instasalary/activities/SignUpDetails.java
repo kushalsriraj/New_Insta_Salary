@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -60,7 +61,7 @@ public class SignUpDetails extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //  super.onBackPressed();
-        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
+        Toasty.warning(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -221,9 +222,9 @@ public class SignUpDetails extends AppCompatActivity {
 
 
                 } else if (click) {
-                    Toast.makeText(getApplicationContext(), "Please Upload PAN image", Toast.LENGTH_LONG).show();
+                    Toasty.info(getApplicationContext(), "Please Upload PAN image", Toast.LENGTH_LONG).show();
                 } else if (gotpan) {
-                    Toast.makeText(getApplicationContext(), "Please Enter PAN Number", Toast.LENGTH_LONG).show();
+                    Toasty.info(getApplicationContext(), "Please Enter PAN Number", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -251,7 +252,7 @@ public class SignUpDetails extends AppCompatActivity {
                 try {
                     sendpandata();
                     EnterPersonalDetails();
-                    Toast.makeText(getApplicationContext(), response.getString("success"), Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), response.getString("success"), Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -264,9 +265,9 @@ public class SignUpDetails extends AppCompatActivity {
                 loader_pannumber.setVisibility(View.GONE);
                 int code = error.networkResponse.statusCode;
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Enter correct pan number", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Enter correct pan number", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Api Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Api Error..", Toast.LENGTH_SHORT).show();
                 }
             }
         }) {
@@ -343,7 +344,7 @@ public class SignUpDetails extends AppCompatActivity {
                     Log.e("data", "obj: " + dataobj);
 
                     if (dataobj.length() == 0) {
-                        Toast.makeText(getApplicationContext(), "Data Is Not Saved", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Data Is Not Saved", Toast.LENGTH_SHORT).show();
                         loader_pannumber.setVisibility(View.GONE);
                     }
 
@@ -399,10 +400,10 @@ public class SignUpDetails extends AppCompatActivity {
                     Log.e("data", "obj: " + dataobj);
 
                     if (dataobj.length() == 0) {
-                        Toast.makeText(getApplicationContext(), "Data Is Not Saved", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Data Is Not Saved", Toast.LENGTH_SHORT).show();
                         loader_pannumber.setVisibility(View.GONE);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), SegmentActivity.class);
                         startActivity(intent);
                         loader_pannumber.setVisibility(View.GONE);
@@ -420,9 +421,9 @@ public class SignUpDetails extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Error code 422.", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Error code 422.", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
                 loader_pannumber.setVisibility(View.GONE);

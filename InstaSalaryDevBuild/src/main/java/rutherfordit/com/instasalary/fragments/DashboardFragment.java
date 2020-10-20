@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.activities.MainActivity;
 import rutherfordit.com.instasalary.adapters.DashBoardAdapter;
@@ -161,11 +162,11 @@ public class DashboardFragment extends Fragment {
                 Log.e("bank_response", "onResponse: " + response);
 
                 if (response.has("data")) {
-                    Toast.makeText(getContext(), "Loan Applied..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getContext(), "Loan Applied..", Toast.LENGTH_SHORT).show();
                     application_success.setVisibility(View.VISIBLE);
                     application_failure.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(getContext(), "Not Saved", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getContext(), "Not Saved", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -177,9 +178,9 @@ public class DashboardFragment extends Fragment {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
             }

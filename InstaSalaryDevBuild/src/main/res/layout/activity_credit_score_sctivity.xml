@@ -3,97 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F7F7F7"
     tools:context=".activities.CreditScoreSctivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#81FFC9DB"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-
-            android:layout_height="350dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="58dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/instalogo" />
-
-
-            <!--<com.github.lzyzsd.circleprogress.ArcProgress
-                android:layout_centerInParent="true"
-                android:layout_marginTop="50dp"
-                android:layout_gravity="center"
-                android:id="@+id/arc_progress1"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:arc_stroke_width="22dp"
-                app:arc_bottom_text="Credit Score"
-                app:arc_text_size="50dp"
-                app:arc_text_color="#000000"
-                app:arc_finished_color="#D45D85"
-                app:arc_unfinished_color="#80707070"
-                app:arc_max="1000" />-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="55dp"
-                android:layout_marginRight="60dp"
-                android:gravity="center"
-                android:text="Your Application is Under Process. \n\n Please Wait for the approval"
-                android:textColor="#000000"
-                android:textSize="18dp"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="55dp"
-            android:text="Disburse Amount"
-            android:textColor="#AAAAAA"
-            android:textSize="12dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="5dp"
-            android:text=""
-            android:textColor="#000"
-            android:textSize="25dp" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/lg"
+        android:layout_centerHorizontal="true"
+        android:layout_width="58dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/instalogo" />
 
     <RelativeLayout
         android:id="@+id/addbankdetails"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="40dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/instapink"
         android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
             android:gravity="center"
             android:text="Go To Home"
             android:textColor="#fff"
@@ -104,46 +42,31 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:padding="10dp"
             android:src="@drawable/next" />
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/lg"
+        android:layout_centerHorizontal="true"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:id="@+id/giffyy"/>
 
-    <RelativeLayout
-        android:id="@+id/loginbottombutton"
+    <TextView
+        android:layout_below="@+id/giffyy"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/instapink"
-        android:onClick="gotomain"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:gravity="center"
-            android:text="Proceed"
-            android:textColor="#fff"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:padding="10dp"
-            android:src="@drawable/next" />
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"
+        android:text="Your Application is Under Process. \n\n Please Wait for the approval"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:visibility="visible" />
 
 </RelativeLayout>

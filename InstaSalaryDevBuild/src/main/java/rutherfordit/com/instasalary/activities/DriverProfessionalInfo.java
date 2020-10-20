@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -194,7 +195,7 @@ public class DriverProfessionalInfo extends AppCompatActivity {
                     if (!matcher.matches()) {
                         error_veh_no.setVisibility(View.VISIBLE);
                         error_veh_no.setText("Enter Correct Vehicle Number");
-                        Toast.makeText(getApplicationContext(), "Enter Correct Vehicle Number..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Enter Correct Vehicle Number..", Toast.LENGTH_SHORT).show();
                         ownerprofsubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         click = false;
                     } else {
@@ -249,7 +250,7 @@ public class DriverProfessionalInfo extends AppCompatActivity {
                     progressBar.show();
                     ownerrequest();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please Check All The fields..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Please Check All The fields..", Toast.LENGTH_SHORT).show();
                 }
             }
         });

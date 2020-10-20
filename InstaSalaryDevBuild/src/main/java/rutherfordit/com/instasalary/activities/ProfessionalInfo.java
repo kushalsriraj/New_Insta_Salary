@@ -49,6 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.Urls;
 
@@ -439,7 +440,7 @@ public class ProfessionalInfo extends AppCompatActivity {
                     salariedrequest();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "please fill the details properly", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "please fill the details properly", Toast.LENGTH_SHORT).show();
                 }
 
             }

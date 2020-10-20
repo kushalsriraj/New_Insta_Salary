@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -181,7 +182,7 @@ public class AddBankDetails extends AppCompatActivity {
                     if (!matcher.matches()) {
                         error_ifsc.setVisibility(View.VISIBLE);
                         error_ifsc.setText("Enter Correct IFSC code");
-                        Toast.makeText(getApplicationContext(), "Enter Correct IFSC code..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Enter Correct IFSC code..", Toast.LENGTH_SHORT).show();
                         bankdetailssubmit.setBackgroundColor(Color.parseColor("#36000000"));
                         click = false;
                     } else {
@@ -216,7 +217,7 @@ public class AddBankDetails extends AppCompatActivity {
                     bankdetailsrequest();
                     loandetailsrequest();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Fill All Details", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Fill All Details", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loader_bankdetails.setVisibility(View.GONE);
                 }
@@ -245,10 +246,10 @@ public class AddBankDetails extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), CreditScoreSctivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-                    Toast.makeText(getApplicationContext(), "Loan Created Successfully..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Loan Created Successfully..", Toast.LENGTH_SHORT).show();
                 } else {
                     loader_bankdetails.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Not Saved", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Not Saved", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
@@ -261,10 +262,10 @@ public class AddBankDetails extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
@@ -306,9 +307,9 @@ public class AddBankDetails extends AppCompatActivity {
                 //   loader_bankdetails.setVisibility(View.GONE);
 
                 if (response.has("data")) {
-                    Toast.makeText(getApplicationContext(), "Saved Bank Details Succesfully..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Saved Bank Details Succesfully..", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Data Doesnot Exist..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Data Doesnot Exist..", Toast.LENGTH_SHORT).show();
                     loader_bankdetails.setVisibility(View.GONE);
                 }
             }
@@ -321,10 +322,10 @@ public class AddBankDetails extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Please Check the Details You Entered..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Internal Server Error..", Toast.LENGTH_SHORT).show();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 }

@@ -52,6 +52,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -365,7 +366,7 @@ public class TakeSelfieActivity extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toasty.info(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
                 // openPermissionSettings(TakeSelfieActivity.this);
             }

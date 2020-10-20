@@ -52,6 +52,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -95,7 +96,7 @@ public class PanImageUpload extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toasty.warning(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(PanImageUpload.this);
             }
         }
@@ -113,7 +114,7 @@ public class PanImageUpload extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
+        Toasty.warning(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -172,7 +173,7 @@ public class PanImageUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Panupload) {
-                    Toast.makeText(getApplicationContext(), "Document Uploaded..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Document Uploaded..", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", "Success");
                     setResult(1, intent);

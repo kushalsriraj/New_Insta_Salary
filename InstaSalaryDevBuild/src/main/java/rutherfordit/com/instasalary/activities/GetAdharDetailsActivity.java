@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -129,7 +130,7 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                     // otp_layout.setVisibility(View.GONE);
                     getadhardetails();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please Enter 6 Digit OTP", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Please Enter 6 Digit OTP", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -155,14 +156,14 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
 
                     if (response.getString("success").equals("true")) {
                         sendotpadhar();
-                        Toast.makeText(getApplicationContext(), "Validation Successfull", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Validation Successfull", Toast.LENGTH_SHORT).show();
                         bottomSheetDialog.show();
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("aadhar_number", enteradhar.getText().toString());
                         editor.apply();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Adhar Number Doesnot exist... Please Enter Correct Adhar Number", Toast.LENGTH_SHORT).show();
+                        Toasty.error(getApplicationContext(), "Adhar Number Doesnot exist... Please Enter Correct Adhar Number", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -181,11 +182,11 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Please Enter Correct Adhar Number..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Please Enter Correct Adhar Number..", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal Server Error", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Internal Server Error", Toast.LENGTH_SHORT).show();
                 } else if (code == 504) {
-                    Toast.makeText(getApplicationContext(), "Server Timeout..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Server Timeout..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -299,12 +300,12 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                         Adharsubmit.setBackgroundColor(Color.parseColor("#D81B60"));
                         Adharsubmit.setEnabled(true);
                         click = true;
-                        Toast.makeText(getApplicationContext(), "DATA RETREIVED", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "DATA RETREIVED", Toast.LENGTH_SHORT).show();
                         sendadhardata();
 
                     } else {
                         loader_adharnumberOTP.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        Toasty.error(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -322,11 +323,11 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Enter Correct Adhar OTP..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Enter Correct Adhar OTP..", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Api Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Api Error..", Toast.LENGTH_SHORT).show();
                 } else if (code == 461) {
-                    Toast.makeText(getApplicationContext(), "Enter Correct OTP..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Enter Correct OTP..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -404,9 +405,9 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "Adhar Sending 422 error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Adhar Sending 422 error..", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "Adhar Sending 500 error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "Adhar Sending 500 error..", Toast.LENGTH_SHORT).show();
                 }
 
                 loader_adharnumberOTP.setVisibility(View.GONE);
@@ -454,7 +455,7 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
 
                         Client_id = obj.getString("generateOTPReferenceId");
 
-                        Toast.makeText(getApplicationContext(), "OTP Sent..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "OTP Sent..", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -550,7 +551,7 @@ public class GetAdharDetailsActivity extends AppCompatActivity {
         if (loader_adharnumber.getVisibility() == View.VISIBLE) {
             loader_adharnumber.setVisibility(View.GONE);
         } else {
-            Toast.makeText(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
+            Toasty.warning(getApplicationContext(), "Action Denied..", Toast.LENGTH_SHORT).show();
         }
         //  super.onBackPressed();
 

@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -338,7 +339,7 @@ public class PersonalInfo extends AppCompatActivity {
                 if (!state_entered) {
                     statespinner.performClick();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -415,7 +416,7 @@ public class PersonalInfo extends AppCompatActivity {
                 if (!city_entered) {
                     cityspinner.performClick();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Denied..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -932,7 +933,7 @@ public class PersonalInfo extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Toast.makeText(getApplicationContext(), "CIBIL REPORT GENERATED..", Toast.LENGTH_LONG).show();
+                Toasty.success(getApplicationContext(), "CIBIL REPORT GENERATED..", Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {
@@ -1007,7 +1008,7 @@ public class PersonalInfo extends AppCompatActivity {
                     }
                 } else {
                     loader_personal.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Response is null..", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Response is null..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -1019,7 +1020,7 @@ public class PersonalInfo extends AppCompatActivity {
 
                 if (code == 422) {
 
-                    Toast.makeText(getApplicationContext(), "Please fill the fields properly..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Please fill the fields properly..", Toast.LENGTH_SHORT).show();
                 }
 
             }

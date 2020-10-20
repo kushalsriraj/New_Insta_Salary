@@ -31,6 +31,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.GpsTracker;
 import rutherfordit.com.instasalary.extras.IntroSliderActivity;
@@ -68,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if (isNetworkAvailable()) {
                         init();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -125,7 +126,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if (isNetworkAvailable()) {
                         init();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -190,7 +191,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (isNetworkAvailable()) {
                     init();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 // permission was not granted

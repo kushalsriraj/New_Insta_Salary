@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -112,7 +113,7 @@ public class ReadSMS extends AppCompatActivity {
             }
         } else {
             loader_sms.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "Empty Inbox", Toast.LENGTH_SHORT).show();
+            Toasty.info(getApplicationContext(), "Empty Inbox", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), GetAdharDetailsActivity.class);
             startActivity(i);
         }
@@ -216,7 +217,7 @@ public class ReadSMS extends AppCompatActivity {
                     ActivityCompat.requestPermissions(ReadSMS.this, new String[]{Manifest.permission.READ_SMS}, MY_PERMISSIONS_REQUEST_READ_SMS);
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Permission IS Denied", Toast.LENGTH_LONG).show();
+                Toasty.warning(getApplicationContext(), "Permission IS Denied", Toast.LENGTH_LONG).show();
             }
         }
     }

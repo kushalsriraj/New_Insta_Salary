@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -143,7 +144,7 @@ public class SegmentActivity extends AppCompatActivity {
 
 
                 try {
-                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), PersonalInfo.class);
                     // i.putExtra("sendfromsignup",type);
                     loader_segment.setVisibility(View.GONE);

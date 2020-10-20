@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.IntroSliderActivity;
 import rutherfordit.com.instasalary.extras.MySingleton;
@@ -118,7 +119,7 @@ public class ReadContacts extends AppCompatActivity {
 
                 //
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
+             Toasty.warning(getApplicationContext(), "Please Connect To Internet..", Toast.LENGTH_SHORT).show();
                 }
 
     }
@@ -173,7 +174,7 @@ public class ReadContacts extends AppCompatActivity {
             }
         } else {
             loader_contacts.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "..", Toast.LENGTH_SHORT).show();
+            Toasty.info(getApplicationContext(), "..", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), TakeSelfieActivity.class);
             startActivity(i);
         }
@@ -277,7 +278,7 @@ public class ReadContacts extends AppCompatActivity {
                 Log.e(TAG, "onResponse: " + response);
 
                 if (response != null) {
-                    Toast.makeText(getApplicationContext(), "Success..", Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(), "Success..", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), TakeSelfieActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);

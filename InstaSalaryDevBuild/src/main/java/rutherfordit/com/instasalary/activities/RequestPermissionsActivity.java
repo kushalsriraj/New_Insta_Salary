@@ -25,6 +25,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.suke.widget.SwitchButton;
 
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 
 public class RequestPermissionsActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Camera Permissions Granted..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Camera Permissions Granted..", Toast.LENGTH_SHORT).show();
                         cameraSwitch.setEnabled(false);
                         camera_granted = true;
                         if (location_granted && sms_granted && contact_granted && storage_granted) {
@@ -55,7 +56,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Camera Permissions Denied..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Camera Permissions Denied..", Toast.LENGTH_SHORT).show();
                         settings_camera.setVisibility(View.VISIBLE);
                         cameraSwitch.setVisibility(View.GONE);
                         camera_granted = false;
@@ -74,7 +75,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Contact Permissions Granted..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Contact Permissions Granted..", Toast.LENGTH_SHORT).show();
                         contactsSwitch.setEnabled(false);
                         contact_granted = true;
                         if (camera_granted && location_granted && sms_granted && storage_granted) {
@@ -84,7 +85,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Contact Permissions Denied..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Contact Permissions Denied..", Toast.LENGTH_SHORT).show();
                         settings_contact.setVisibility(View.VISIBLE);
                         contactsSwitch.setVisibility(View.GONE);
                         contact_granted = false;
@@ -104,7 +105,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(getApplicationContext(), "SMS Permissions Granted..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "SMS Permissions Granted..", Toast.LENGTH_SHORT).show();
                         smsSwitch.setEnabled(false);
                         sms_granted = true;
                         if (camera_granted && location_granted && contact_granted && storage_granted) {
@@ -114,7 +115,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(), "SMS Permissions Denied..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "SMS Permissions Denied..", Toast.LENGTH_SHORT).show();
                         settings_sms.setVisibility(View.VISIBLE);
                         smsSwitch.setVisibility(View.GONE);
                         sms_granted = false;
@@ -133,7 +134,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Storage Permissions Granted..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Storage Permissions Granted..", Toast.LENGTH_SHORT).show();
                         storageSwitch.setEnabled(false);
                         storage_granted = true;
                         if (camera_granted && location_granted && sms_granted && contact_granted) {
@@ -143,7 +144,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Storage Permissions Denied..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Storage Permissions Denied..", Toast.LENGTH_SHORT).show();
                         settings_storage.setVisibility(View.VISIBLE);
                         storageSwitch.setVisibility(View.GONE);
                         storage_granted = false;
@@ -162,7 +163,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Location Permissions Granted..", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), "Location Permissions Granted..", Toast.LENGTH_SHORT).show();
                         locationSwitch.setEnabled(false);
                         location_granted = true;
                         if (camera_granted && sms_granted && contact_granted && storage_granted) {
@@ -172,7 +173,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(), "Location Permissions Denied..", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getApplicationContext(), "Location Permissions Denied..", Toast.LENGTH_SHORT).show();
                         settings_location.setVisibility(View.VISIBLE);
                         locationSwitch.setVisibility(View.GONE);
                         location_granted = false;
@@ -222,35 +223,35 @@ public class RequestPermissionsActivity extends AppCompatActivity {
         settings_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Please Grant Permission for Camera in Settings", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Please Grant Permission for Camera in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Please Grant Permission for Contact in Settings", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Please Grant Permission for Contact in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Please Grant Permission for SMS in Settings", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Please Grant Permission for SMS in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_storage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Please Grant Permission for Storage in Settings", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Please Grant Permission for Storage in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
         settings_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Please Grant Permission for Location in Settings", Toast.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "Please Grant Permission for Location in Settings", Toast.LENGTH_SHORT).show();
                 openPermissions();
             }
         });
@@ -313,7 +314,7 @@ public class RequestPermissionsActivity extends AppCompatActivity {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
                 else {
-                  Toast.makeText(getApplicationContext(),"Please Grant All Permissions..",Toast.LENGTH_SHORT).show();
+                    Toasty.info(getApplicationContext(), "Please Grant All Permissions..", Toast.LENGTH_SHORT).show();
                     loader_perms.setVisibility(View.GONE);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }

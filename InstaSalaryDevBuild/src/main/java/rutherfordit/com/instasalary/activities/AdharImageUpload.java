@@ -55,6 +55,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -130,7 +131,7 @@ public class AdharImageUpload extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toasty.warning(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
                 openPermissionSettings(AdharImageUpload.this);
             }
         }

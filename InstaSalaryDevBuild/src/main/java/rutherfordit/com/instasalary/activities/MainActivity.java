@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 import rutherfordit.com.instasalary.R;
 import rutherfordit.com.instasalary.extras.MySingleton;
 import rutherfordit.com.instasalary.extras.Urls;
@@ -337,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
                     if (response != null) {
                         data = response.getJSONObject("data");
                     } else {
-                        Toast.makeText(getApplicationContext(), "getuserData is Empty", Toast.LENGTH_SHORT).show();
+                        Toasty.info(getApplicationContext(), "getuserData is Empty", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -374,9 +375,9 @@ public class MainActivity extends AppCompatActivity implements LoadDetailedData 
                 int code = error.networkResponse.statusCode;
 
                 if (code == 422) {
-                    Toast.makeText(getApplicationContext(), "getUserData 422 Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "getUserData 422 Error..", Toast.LENGTH_SHORT).show();
                 } else if (code == 500) {
-                    Toast.makeText(getApplicationContext(), "getUserData Internal Server Error..", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "getUserData Internal Server Error..", Toast.LENGTH_SHORT).show();
                 }
 
             }

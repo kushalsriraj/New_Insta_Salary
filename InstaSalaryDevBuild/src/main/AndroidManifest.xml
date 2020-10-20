@@ -120,7 +120,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CreditScoreSctivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".activities.ProfessionalInfo"
             android:screenOrientation="portrait" >
