@@ -47,6 +47,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:id="@+id/tip_search"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:hint="Select Place">
@@ -64,6 +65,23 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rec_googleplaces"/>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/re_search"
+                android:text="Change Place?"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/instapink"
+                android:textSize="14dp"/>
+
             <LinearLayout
                 android:id="@+id/company_Data_Layout"
                 android:layout_width="match_parent"
@@ -73,7 +91,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:hint="Company Name">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,22 +34,32 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
@@ -56,6 +69,10 @@ import rutherfordit.com.instasalary.extras.Urls;
 
 public class ProfessionalInfo extends AppCompatActivity {
 
+    List<Address> addresses;
+    Geocoder geocoder;
+    PlacesClient placesClient;
+    RecyclerView rec_googleplaces;
     LinearLayout company_Data_Layout;
     private static final String TAG = "Personalinfo";
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -70,9 +87,10 @@ public class ProfessionalInfo extends AppCompatActivity {
     Button bankstatement_professional;
     boolean status = false;
     boolean gotdocuments = false;
-    TextView text_upload_professional;
+    TextView text_upload_professional,re_search;
     ImageView uploadsuccess_professional;
     private int GoToDocUpload = 1000;
+    TextInputLayout tip_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +142,47 @@ public class ProfessionalInfo extends AppCompatActivity {
                     place = Autocomplete.getPlaceFromIntent(data);
                 }
                // Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + place.getLatLng() + place.getAddress());
-                Select_Place.setText("Name : " + place.getName() + "\n" + "LatLng" + place.getLatLng() +"\n" + "Address" + place.getAddress()
-                        + "Phone" + place.getPhoneNumber());
+                Select_Place.setVisibility(View.GONE);
+                tip_search.setVisibility(View.GONE);
+                re_search.setVisibility(View.VISIBLE);
+               // Select_Place.setText("Name : " + place.getName() + "\n" + "LatLng" + place.getLatLng() +"\n" + "Address" + place.getAddress()+ "Phone" + place.getPhoneNumber());
 
                 entercompanyname.setText(place.getName());
                 entercompanystreet.setText(place.getAddress());
+
+                String latlng = String.valueOf(place.getLatLng());
+
+                latlng = latlng.replace("(", "");
+                latlng = latlng.replace(")", "");
+                latlng = latlng.replace("lat/lng: ", "");
+
+                String[] namesList = latlng.split(",");
+
+                String lat = namesList[0];
+                String longi = namesList[1];
+
+                Log.e(TAG, "lat " + lat + " long " + longi);
+
+
+                double la=Double.parseDouble(lat.toString());
+                double lo=Double.parseDouble(longi.toString());
+
+                geocoder = new Geocoder(this, Locale.getDefault());
+                try {
+                    addresses = geocoder.getFromLocation(la, lo, 1);
+
+                    String postalCode = addresses.get(0).getPostalCode();
+                    String city = addresses.get(0).getLocality();
+                    String state = addresses.get(0).getAdminArea();
+
+                    entercompanypincode.setText(postalCode);
+                    entercompanystate.setText(state);
+                    entercompanycity.setText(city);
+
+                    Log.e(TAG, "onActivityResult: " + postalCode + " " + city+ " " + state );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 company_Data_Layout.setVisibility(View.VISIBLE);
 
@@ -158,13 +212,12 @@ public class ProfessionalInfo extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         UserAccessToken = "Bearer " + sharedPreferences.getString("AccessToken", "");
-
         progressBar = new ProgressDialog(this);
         Select_Place = findViewById(R.id.Search_Place);
         entercompanyname = findViewById(R.id.entercompanyname);
         enterjobrole = findViewById(R.id.enterjobrole);
         enterexp = findViewById(R.id.enterexp);
-
+        rec_googleplaces = findViewById(R.id.rec_googleplaces);
         entercompanyemail = findViewById(R.id.entercompanyemail);
         entercompanydoorno = findViewById(R.id.entercompanydoorno);
         entercompanystreet = findViewById(R.id.entercompanystreet);
@@ -177,9 +230,12 @@ public class ProfessionalInfo extends AppCompatActivity {
         salariedprofsubmit = findViewById(R.id.salariedprofsubmit);
         text_upload_professional = findViewById(R.id.text_upload_professional);
         uploadsuccess_professional = findViewById(R.id.uploadsuccess_professional);
+        tip_search = findViewById(R.id.tip_search);
+        re_search = findViewById(R.id.re_search);
+        re_search.setVisibility(View.GONE);
 
         Places.initialize(getApplicationContext(), apiKey);
-        PlacesClient placesClient = Places.createClient(this);
+        placesClient = Places.createClient(this);
 
         Select_Place.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +243,17 @@ public class ProfessionalInfo extends AppCompatActivity {
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG,Place.Field.PHONE_NUMBER,Place.Field.ADDRESS);
                 Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).build(getApplicationContext());
                 startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
+
+        re_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tip_search.setVisibility(View.VISIBLE);
+                Select_Place.setText("");
+                Select_Place.setVisibility(View.VISIBLE);
+                company_Data_Layout.setVisibility(View.GONE);
+                re_search.setVisibility(View.GONE);
             }
         });
 
@@ -489,6 +556,38 @@ public class ProfessionalInfo extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getlocations(String searching) {
+
+        Toast.makeText(ProfessionalInfo.this, searching, Toast.LENGTH_SHORT).show();
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        RectangularBounds bounds = RectangularBounds.newInstance(new LatLng(23.63936, 68.14712), new LatLng(28.20453, 97.34466));
+        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
+                .setLocationBias(bounds)
+              //  .setLocationRestriction(bounds)
+                .setCountry("in")
+                .setTypeFilter(TypeFilter.ADDRESS)
+                .setSessionToken(token)
+                .setQuery(searching)
+                .build();
+
+
+        placesClient.findAutocompletePredictions(request).addOnSuccessListener(response -> {
+            StringBuilder mResult = new StringBuilder();
+            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+                mResult.append(" ").append(prediction.getFullText(null) + "\n");
+                Log.i(TAG, prediction.getPlaceId());
+                Log.i(TAG, prediction.getPrimaryText(null).toString());
+                Toast.makeText(ProfessionalInfo.this, prediction.getPrimaryText(null) + "-" + prediction.getSecondaryText(null), Toast.LENGTH_SHORT).show();
+            }
+            Log.e(TAG, "getlocations: " + mResult );
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+            }
+        });
     }
 
     private void salariedrequest() {

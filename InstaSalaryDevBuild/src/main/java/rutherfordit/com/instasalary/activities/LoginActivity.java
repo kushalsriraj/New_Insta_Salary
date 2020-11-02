@@ -85,9 +85,6 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
         progressBar.setVisibility(View.GONE);
         loginmainlayout = findViewById(R.id.loginmainlayout);
 
-
-        // progressBar = new ProgressDialog(this);
-
         et1 = findViewById(R.id.et1);
         et2 = findViewById(R.id.et2);
         et3 = findViewById(R.id.et3);
@@ -98,15 +95,12 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
         et3.setText("");
         et4.setText("");
 
-
         changenumberlogin = findViewById(R.id.changenumberlogin);
         enterphoneno_login = findViewById(R.id.enterphoneno_login);
         loginbottombutton = findViewById(R.id.loginbottombutton);
         llfirst = findViewById(R.id.llfirst);
         llsecond = findViewById(R.id.llsecond);
-
         mynumbertext = findViewById(R.id.mynumbertext);
-
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         llfirst.setVisibility(View.VISIBLE);
@@ -428,11 +422,19 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
                         llfirst.setVisibility(View.GONE);
                         llsecond.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
+                        et1.setText("");
+                        et2.setText("");
+                        et3.setText("");
+                        et4.setText("");
                         //Toast.makeText(getApplicationContext(),"Hi Looks Like You Are A New User. Please Enter OTP and Fill Your Details !!",Toast.LENGTH_LONG).show();
                     } else {
                         llfirst.setVisibility(View.GONE);
                         llsecond.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
+                        et1.setText("");
+                        et2.setText("");
+                        et3.setText("");
+                        et4.setText("");
                     }
 
                 } catch (JSONException e) {
@@ -462,6 +464,7 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
     }
 
     private void generateToken() {
+
         JSONObject jsonObject = new JSONObject();
 
         String number = enterphoneno_login.getText().toString();
@@ -679,6 +682,11 @@ public class LoginActivity extends AppCompatActivity implements OTPListener {
 
     @Override
     public void otpReceived(String messageText) {
+
+        et1.setText("");
+        et2.setText("");
+        et3.setText("");
+        et4.setText("");
 
         String number  = messageText.replaceAll("[^0-9]", "");
 
